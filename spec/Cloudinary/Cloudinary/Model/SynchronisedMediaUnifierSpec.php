@@ -7,7 +7,7 @@ use CloudinaryExtension\Migration\SynchronizedMediaRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class Cloudinary_Cloudinary_Model_SynchronisedMediaUnifierSpec extends ObjectBehavior
+class Made_Cloudinary_Model_SynchronisedMediaUnifierSpec extends ObjectBehavior
 {
 
     function let(

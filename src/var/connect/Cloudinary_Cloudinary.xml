@@ -1,6 +1,6 @@
 <_>
    <form_key>h0sFDwJxZlePvoE8</form_key>
-   <name>Cloudinary_Cloudinary</name>
+   <name>Made_Cloudinary</name>
    <channel>community</channel>
    <version_ids>
       <version_ids>2</version_ids>
@@ -73,7 +73,7 @@ Release Highlights:
       <path>
          <path/>
          <path>Cloudinary/Cloudinary</path>
-         <path>modules/Cloudinary_Cloudinary.xml</path>
+         <path>modules/Made_Cloudinary.xml</path>
          <path>CloudinaryExtension</path>
          <path>Cloudinary</path>
          <path>adminhtml/default/default/layout/cloudinary</path>
