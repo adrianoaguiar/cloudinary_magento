@@ -3,7 +3,7 @@
 namespace spec\CloudinaryExtension\Migration;
 
 use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Synchronizable;
+use CloudinaryExtension\Image\Syncable;
 use CloudinaryExtension\ImageProvider;
 use CloudinaryExtension\Migration\BatchUploader;
 use CloudinaryExtension\Migration\Logger;
@@ -18,21 +18,21 @@ class BatchUploaderSpec extends ObjectBehavior
         ImageProvider $imageProvider,
         Task $migrationTask,
         Logger $logger,
-        Synchronizable $image1,
-        Synchronizable $image2)
+        Syncable $image1,
+        Syncable $image2)
     {
         $this->beConstructedWith($imageProvider, $migrationTask, $logger, '/catalog/media');
 
-        $image1->tagAsSynchronized()->willReturn();
-        $image2->tagAsSynchronized()->willReturn();
+        $image1->tagAsSynced()->willReturn();
+        $image2->tagAsSynced()->willReturn();
         $migrationTask->hasBeenStopped()->willReturn(false, false);
     }
 
     function it_uploads_and_synchronizes_a_collection_of_images(
         ImageProvider $imageProvider,
         Logger $logger,
-        Synchronizable $image1,
-        Synchronizable $image2
+        Syncable $image1,
+        Syncable $image2
     ) {
         $image1->getFilename()->willReturn('/z/b/image1.jpg');
         $image2->getFilename()->willReturn('/r/b/image2.jpg');
@@ -44,8 +44,8 @@ class BatchUploaderSpec extends ObjectBehavior
         $imageProvider->upload(Image::fromPath('/catalog/media/z/b/image1.jpg'))->shouldHaveBeenCalled();
         $imageProvider->upload(Image::fromPath('/catalog/media/r/b/image2.jpg'))->shouldHaveBeenCalled();
 
-        $image1->tagAsSynchronized()->shouldHaveBeenCalled();
-        $image2->tagAsSynchronized()->shouldHaveBeenCalled();
+        $image1->tagAsSynced()->shouldHaveBeenCalled();
+        $image2->tagAsSynced()->shouldHaveBeenCalled();
 
         $logger->notice(sprintf(BatchUploader::MESSAGE_UPLOADED, '/z/b/image1.jpg'))->shouldHaveBeenCalled();
         $logger->notice(sprintf(BatchUploader::MESSAGE_UPLOADED, '/r/b/image2.jpg'))->shouldHaveBeenCalled();
@@ -56,8 +56,8 @@ class BatchUploaderSpec extends ObjectBehavior
     function it_logs_an_error_if_any_of_the_image_uploads_fails(
         ImageProvider $imageProvider,
         Logger $logger,
-        Synchronizable $image1,
-        Synchronizable $image2
+        Syncable $image1,
+        Syncable $image2
     ) {
         $image1->getFilename()->willReturn('/z/b/image1.jpg');
         $image2->getFilename()->willReturn('/invalid');
@@ -71,8 +71,8 @@ class BatchUploaderSpec extends ObjectBehavior
 
         $this->uploadImages($images);
 
-        $image1->tagAsSynchronized()->shouldHaveBeenCalled();
-        $image2->tagAsSynchronized()->shouldNotHaveBeenCalled();
+        $image1->tagAsSynced()->shouldHaveBeenCalled();
+        $image2->tagAsSynced()->shouldNotHaveBeenCalled();
 
         $logger->error(
             sprintf(BatchUploader::MESSAGE_UPLOAD_ERROR, $exception->getMessage(), '/invalid')
@@ -86,8 +86,8 @@ class BatchUploaderSpec extends ObjectBehavior
         ImageProvider $imageProvider,
         Task $migrationTask,
         Logger $logger,
-        Synchronizable $image1,
-        Synchronizable $image2
+        Syncable $image1,
+        Syncable $image2
     ) {
         $image1->getFilename()->willReturn('/z/b/image1.jpg');
         $image2->getFilename()->willReturn('/invalid');
@@ -99,10 +99,10 @@ class BatchUploaderSpec extends ObjectBehavior
         $this->uploadImages($images);
 
         $imageProvider->upload('/catalog/media/z/b/image1.jpg')->shouldHaveBeenCalled();
-        $image1->tagAsSynchronized()->shouldHaveBeenCalled();
+        $image1->tagAsSynced()->shouldHaveBeenCalled();
 
         $imageProvider->upload('/catalog/media/r/b/image2.jpg')->shouldNotHaveBeenCalled();
-        $image2->tagAsSynchronized()->shouldNotHaveBeenCalled();
+        $image2->tagAsSynced()->shouldNotHaveBeenCalled();
 
         $logger->notice(sprintf(BatchUploader::MESSAGE_STATUS, 1))->shouldHaveBeenCalled();
     }

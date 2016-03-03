@@ -18,7 +18,7 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
         $this->_migrationTask = Mage::getModel('made_cloudinary/migration')
             ->load(Made_Cloudinary_Model_Migration::CLOUDINARY_MIGRATION_ID);
 
-        $this->_cloudinaryConfig = Mage::helper('made_cloudinary/configuration');
+        $this->_cloudinaryConfig = Mage::helper('made_cloudinary/config');
 
         parent::__construct();
     }
@@ -27,16 +27,16 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
     {
         try {
             if ($this->getTotalImageCount() != 0) {
-                return $this->getSynchronizedImageCount() * 100 / $this->getTotalImageCount();
+                return $this->getSyncedImageCount() * 100 / $this->getTotalImageCount();
             }
         } catch (Exception $e) {
             return 'Unknown';
         }
     }
 
-    public function getSynchronizedImageCount()
+    public function getSyncedImageCount()
     {
-        return Mage::getResourceModel('made_cloudinary/synchronisation_collection')->getSize();
+        return Mage::getResourceModel('made_cloudinary/sync_collection')->getSize();
     }
 
     public function getTotalImageCount()
@@ -44,7 +44,7 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
         try {
             $collectionCounter = Mage::getModel('made_cloudinary/collectionCounter')
                 ->addCollection(Mage::getResourceModel('made_cloudinary/media_collection'))
-                ->addCollection(Mage::getResourceModel('made_cloudinary/cms_synchronisation_collection'));
+                ->addCollection(Mage::getResourceModel('made_cloudinary/cms_sync_collection'));
 
             return $collectionCounter->count();
         } catch (Exception $e) {
@@ -60,7 +60,7 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
     public function allImagesSynced()
     {
         try {
-            return $this->getSynchronizedImageCount() === $this->getTotalImageCount();
+            return $this->getSyncedImageCount() === $this->getTotalImageCount();
         } catch (Exception $e) {
             return false;
         }

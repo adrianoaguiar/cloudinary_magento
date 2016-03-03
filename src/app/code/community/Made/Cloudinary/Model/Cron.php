@@ -16,22 +16,22 @@ class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
             ->load(Made_Cloudinary_Model_Migration::CLOUDINARY_MIGRATION_ID);
 
         $batchUploader = new BatchUploader(
-            CloudinaryImageProvider::fromConfiguration(Mage::helper('made_cloudinary/configuration')->buildConfiguration()),
+            CloudinaryImageProvider::fromConfig(Mage::helper('made_cloudinary/config')->buildConfig()),
             $migrationTask,
             Mage::getModel('made_cloudinary/logger'),
             null
         );
 
-        $combinedMediaRepository = new Made_Cloudinary_Model_SynchronisedMediaUnifier(
+        $combinedMediaRepo = new Made_Cloudinary_Model_SyncedMediaUnifier(
             array(
-                Mage::getResourceModel('made_cloudinary/synchronisation_collection'),
-                Mage::getResourceModel('made_cloudinary/cms_synchronisation_collection')
+                Mage::getResourceModel('made_cloudinary/sync_collection'),
+                Mage::getResourceModel('made_cloudinary/cms_sync_collection')
             )
         );
 
         $migrationQueue = new \CloudinaryExtension\Migration\Queue(
             $migrationTask,
-            $combinedMediaRepository,
+            $combinedMediaRepo,
             $batchUploader,
             Mage::getModel('made_cloudinary/logger')
         );

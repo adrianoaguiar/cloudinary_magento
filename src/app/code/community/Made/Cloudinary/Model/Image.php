@@ -13,10 +13,10 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
         $imageManager = $this->_getImageProvider();
         $imageManager->upload(Image::fromPath($this->_imageFullPathFromImageDetails($imageDetails)));
 
-        Mage::getModel('made_cloudinary/synchronisation')
+        Mage::getModel('made_cloudinary/sync')
             ->setValueId($imageDetails['value_id'])
             ->setValue($imageDetails['file'])
-            ->tagAsSynchronized();
+            ->tagAsSynced();
     }
 
     protected function _imageFullPathFromImageDetails($imageDetails)
@@ -50,6 +50,6 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
 
     protected function _getImageProvider()
     {
-        return CloudinaryImageProvider::fromConfiguration($this->_getConfigHelper()->buildConfiguration());
+        return CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
     }
 }

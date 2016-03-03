@@ -3,16 +3,16 @@
 namespace spec\CloudinaryExtension;
 
 use Cloudinary;
-use CloudinaryExtension\Configuration;
+use CloudinaryExtension\Config;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class CloudinaryImageProviderSpec extends ObjectBehavior
 {
-    function let(Configuration $configuration)
+    function let(Config $config)
     {
-        $configuration->build()->shouldBeCalled();
-        $this->beConstructedThrough('fromConfiguration', [$configuration]);
+        $config->build()->shouldBeCalled();
+        $this->beConstructedThrough('fromConfig', [$config]);
     }
 
     function it_is_an_image_provider()
@@ -20,9 +20,9 @@ class CloudinaryImageProviderSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf('CloudinaryExtension\ImageProvider');
     }
 
-    function it_sets_user_agent_string(Configuration $configuration)
+    function it_sets_user_agent_string(Config $config)
     {
-        $configuration->getUserPlatform()->willReturn('Test User Agent String');
+        $config->getUserPlatform()->willReturn('Test User Agent String');
 
         $this->getWrappedObject();
         expect(Cloudinary::$USER_PLATFORM)->toBe('Test User Agent String');

@@ -1,4 +1,4 @@
-src/app/code/community/Cloudinary/Cloudinary app/code/community/Cloudinary/Cloudinary
+src/app/code/community/Made/Cloudinary app/code/community/Made/Cloudinary
 src/app/etc/modules/Made_Cloudinary.xml app/etc/modules/Made_Cloudinary.xml
 src/lib/CloudinaryExtension lib/CloudinaryExtension
 ../../cloudinary/cloudinary_php/src/ lib/Cloudinary

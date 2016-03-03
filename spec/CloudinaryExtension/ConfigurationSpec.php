@@ -3,7 +3,7 @@
 namespace spec\CloudinaryExtension;
 
 use CloudinaryExtension\Cloud;
-use CloudinaryExtension\Configuration;
+use CloudinaryExtension\Config;
 use CloudinaryExtension\Credentials;
 use CloudinaryExtension\Image\Gravity;
 use CloudinaryExtension\Image\Transformation;
@@ -11,9 +11,9 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
- * @mixin Configuration
+ * @mixin Config
  */
-class ConfigurationSpec extends ObjectBehavior
+class ConfigSpec extends ObjectBehavior
 {
     function let(Cloud $cloud, Credentials $credentials)
     {

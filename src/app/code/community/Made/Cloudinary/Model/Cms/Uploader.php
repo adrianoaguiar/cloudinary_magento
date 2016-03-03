@@ -12,20 +12,20 @@ class Made_Cloudinary_Model_Cms_Uploader extends Mage_Core_Model_File_Uploader
         parent::_afterSave($result);
 
         if (!empty($result['path']) && !empty($result['file'])) {
-            $imageProvider = CloudinaryImageProvider::fromConfiguration($this->_getConfigHelper()->buildConfiguration());
+            $imageProvider = CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
 
             $imageProvider->upload(Image::fromPath($result['path'] . DIRECTORY_SEPARATOR . $result['file']));
 
-            $this->_trackSynchronisation($result['file']);
+            $this->_trackSync($result['file']);
         }
 
         return $this;
     }
 
-    protected function _trackSynchronisation($fileName)
+    protected function _trackSync($fileName)
     {
-        Mage::getModel('made_cloudinary/cms_synchronisation')
+        Mage::getModel('made_cloudinary/cms_sync')
             ->setValue($fileName)
-            ->tagAsSynchronized();
+            ->tagAsSynced();
     }
 }

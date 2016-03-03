@@ -14,7 +14,7 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
         if ($this->_imageShouldComeFromCloudinary($filePath)) {
             $imageProvider = $this->_buildImageProvider();
             $imageDimensions = $this->_buildImageDimensions();
-            $defaultTransformation = $this->_getConfigHelper()->buildConfiguration()->getDefaultTransformation();
+            $defaultTransformation = $this->_getConfigHelper()->buildConfig()->getDefaultTransformation();
 
             return (string)$imageProvider->transformImage(
                 Image::fromPath($filePath),
@@ -26,7 +26,7 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
 
     protected function _buildImageProvider()
     {
-        return CloudinaryImageProvider::fromConfiguration($this->_getConfigHelper()->buildConfiguration());
+        return CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
     }
 
     protected function _buildImageDimensions()

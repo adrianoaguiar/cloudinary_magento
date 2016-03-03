@@ -14,7 +14,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
 
     public function uploadImagesToCloudinary(Varien_Event_Observer $event)
     {
-        if (Mage::helper('made_cloudinary/configuration')->isEnabled()) {
+        if (Mage::helper('made_cloudinary/config')->isEnabled()) {
             $cloudinaryImage = Mage::getModel('made_cloudinary/image');
 
             foreach ($this->_getImagesToUpload($event->getProduct()) as $image) {
@@ -26,12 +26,12 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
     public function validateCloudinaryCredentials(Varien_Event_Observer $observer)
     {
         $configObject = $observer->getEvent()->getObject();
-        if ($this->_isNotCloudinaryConfigurationSection($configObject)) {
+        if ($this->_isNotCloudinaryConfigSection($configObject)) {
             return;
         }
 
         try {
-            $this->_validateEnvironmentVariableFromConfigObject($configObject);
+            $this->_validateEnvVarFromConfigObject($configObject);
         } catch (Exception $e) {
             $this->_addErrorMessageToAdminSession($e);
             $this->_logException($e);
@@ -74,17 +74,17 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         return $configData;
     }
 
-    protected function _isNotCloudinaryConfigurationSection(Mage_Adminhtml_Model_Config_Data $configObject)
+    protected function _isNotCloudinaryConfigSection(Mage_Adminhtml_Model_Config_Data $configObject)
     {
         return $configObject->getSection() != self::CLOUDINARY_CONFIG_SECTION;
     }
 
-    protected function _validateEnvironmentVariableFromConfigObject(Mage_Adminhtml_Model_Config_Data $configObject)
+    protected function _validateEnvVarFromConfigObject(Mage_Adminhtml_Model_Config_Data $configObject)
     {
         $configData = $this->_flattenConfigData($configObject);
-        $cloudinaryConfiguration = Mage::helper('made_cloudinary/configuration_validation');
+        $cloudinaryConfig = Mage::helper('made_cloudinary/config_validation');
 
-        $cloudinaryConfiguration->validateEnvironmentVariable(
+        $cloudinaryConfig->validateEnvVar(
             $configData['cloudinary_environment_variable']
         );
     }

@@ -8,7 +8,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use CloudinaryExtension\Cloud;
-use CloudinaryExtension\Configuration;
+use CloudinaryExtension\Config;
 use CloudinaryExtension\Credentials;
 use CloudinaryExtension\Image;
 use CloudinaryExtension\Image\Transformation;
@@ -21,29 +21,29 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
 /**
  * Defines application features from the specific context.
  */
-class ConfigurationContext implements Context
+class ConfigContext implements Context
 {
-    protected $configuration;
+    protected $config;
     protected $imageProvider;
 
     /**
      * @Given I have a configuration to use multiple sub-domains
      */
-    public function iHaveAConfigurationToUseMultipleSubDomains()
+    public function iHaveAConfigToUseMultipleSubDomains()
     {
         $cloud = Cloud::fromName('aCloud');
         $credentials = new Credentials(Key::fromString("aKey"), Secret::fromString("aSecret"));
 
-        $this->configuration = Configuration::fromCloudAndCredentials($cloud, $credentials);
-        $this->configuration->enableCdnSubdomain();
+        $this->config = Config::fromCloudAndCredentials($cloud, $credentials);
+        $this->config->enableCdnSubdomain();
     }
 
     /**
      * @When I apply the configuration to the image provider
      */
-    public function iApplyTheConfigurationToTheImageProvider()
+    public function iApplyTheConfigToTheImageProvider()
     {
-        $this->imageProvider = new ConfigImageProvider($this->configuration);
+        $this->imageProvider = new ConfigImageProvider($this->config);
     }
 
     /**

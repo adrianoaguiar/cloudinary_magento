@@ -5,7 +5,7 @@ namespace Domain;
 use Behat\Behat\Context\Context;
 use CloudinaryExtension\Image;
 use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Security\CloudinaryEnvironmentVariable;
+use CloudinaryExtension\Security\CloudinaryEnvVar;
 use ImageProviders\FakeImageProvider;
 
 require_once 'PHPUnit/Framework/Assert/Functions.php';
@@ -32,8 +32,9 @@ class DeleteImageDomainContext implements Context
      */
     public function theImageProviderHasAnImage($anImage)
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString(self::IMAGE_PROVIDER_ENVIRONMENT_VARIABLE);
-        $this->imageProvider = new FakeImageProvider($environmentVariable);
+
+        envVar = CloudinaryEnvVar::fromString(self::IMAGE_PROVIDER_ENVIRONMENT_VARIABLE);
+        $this->imageProvider = new FakeImageProvider($envVar);
 
         $this->imageProvider->upload($anImage);
     }

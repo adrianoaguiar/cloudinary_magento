@@ -1,13 +1,13 @@
 <?php
 
-use CloudinaryExtension\Image\Synchronizable;
+use CloudinaryExtension\Image\Syncable;
 
-class Made_Cloudinary_Model_Cms_Synchronisation extends Mage_Core_Model_Abstract implements Synchronizable
+class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements Syncable
 {
 
     protected function _construct()
     {
-        $this->_init('made_cloudinary/synchronisation');
+        $this->_init('made_cloudinary/sync');
     }
 
     public function getFilename()
@@ -22,11 +22,11 @@ class Made_Cloudinary_Model_Cms_Synchronisation extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function tagAsSynchronized()
+    public function tagAsSynced()
     {
         $this->setData('image_name', $this->getData('basename'));
         $this->setData('media_gallery_id', null);
-        $this->setData('cloudinary_synchronisation_id', null);
+        $this->setData('cloudinary_sync_id', null);
 
         $this->save();
     }

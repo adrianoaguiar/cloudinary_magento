@@ -9,7 +9,7 @@ class Made_Cloudinary_Adminhtml_CloudinaryController extends Mage_Adminhtml_Cont
     public function preDispatch()
     {
         $this->_migrationTask = Mage::getModel('made_cloudinary/migration')->load(Made_Cloudinary_Model_Migration::CLOUDINARY_MIGRATION_ID);
-        $this->_cloudinaryConfig = Mage::helper('made_cloudinary/configuration');
+        $this->_cloudinaryConfig = Mage::helper('made_cloudinary/config');
 
         parent::preDispatch();
     }

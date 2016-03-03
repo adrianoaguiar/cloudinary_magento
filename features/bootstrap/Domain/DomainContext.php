@@ -7,7 +7,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use CloudinaryExtension\Credentials;
 use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Security\CloudinaryEnvironmentVariable;
+use CloudinaryExtension\Security\CloudinaryEnvVar;
 use CloudinaryExtension\Security\Key;
 use CloudinaryExtension\Security\Secret;
 use CloudinaryExtension\Image;
@@ -47,8 +47,8 @@ class DomainContext implements Context, SnippetAcceptingContext
      */
     public function iUploadTheImage(Image $anImage)
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
-        $this->provider = new FakeImageProvider($environmentVariable);
+        $envVar = CloudinaryEnvVar::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
+        $this->provider = new FakeImageProvider($envVar);
 
         $cloud = Cloud::fromName('session-digital');
         $key = Key::fromString('ABC123');
@@ -76,19 +76,19 @@ class DomainContext implements Context, SnippetAcceptingContext
     /**
      * @Given I have used a valid environment variable in the configuration
      */
-    public function iHaveUsedAValidEnvironmentVariableInTheConfiguration()
+    public function iHaveUsedAValidEnvVarInTheConfig()
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
-        $this->provider = new FakeImageProvider($environmentVariable);
+        $envVar = CloudinaryEnvVar::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
+        $this->provider = new FakeImageProvider($envVar);
     }
 
     /**
      * @Given I have used an invalid environment variable in the configuration
      */
-    public function iHaveUsedAnInvalidEnvironmentVariableInTheConfiguration()
+    public function iHaveUsedAnInvalidEnvVarInTheConfig()
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString('CLOUDINARY_URL=cloudinary://UVW789:XYZ123@session-digital');
-        $this->provider = new FakeImageProvider($environmentVariable);
+        $envVar = CloudinaryEnvVar::fromString('CLOUDINARY_URL=cloudinary://UVW789:XYZ123@session-digital');
+        $this->provider = new FakeImageProvider($envVar);
     }
 
     /**

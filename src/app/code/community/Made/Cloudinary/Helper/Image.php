@@ -12,19 +12,19 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     protected $_imageProvider;
     protected $_dimensions;
     protected $_attributeName;
-    protected $_configuration;
+    protected $_config;
 
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
         if ($this->_isEnabled()) {
 
-            $this->_configuration = $this->_getConfigHelper()->buildConfiguration();
+            $this->_config = $this->_getConfigHelper()->buildConfig();
 
             $this->_dimensions = Dimensions::null();
             $this->_attributeName = $attributeName;
 
-            $this->_imageProvider = CloudinaryImageProvider::fromConfiguration(
-                $this->_configuration
+            $this->_imageProvider = CloudinaryImageProvider::fromConfig(
+                $this->_config
             );
         }
 
@@ -53,7 +53,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
         if ($this->_imageShouldComeFromCloudinary($imageFile)) {
             $image = Image::fromPath($imageFile);
 
-            $transformation = $this->_configuration->getDefaultTransformation()
+            $transformation = $this->_config->getDefaultTransformation()
                 ->withDimensions($this->_dimensions);
 
             return (string)$this->_imageProvider->transformImage($image, $transformation);

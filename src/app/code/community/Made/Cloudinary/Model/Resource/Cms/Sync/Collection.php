@@ -1,10 +1,10 @@
 <?php
 
-use CloudinaryExtension\Migration\SynchronizedMediaRepository;
+use CloudinaryExtension\Migration\SyncedMediaRepo;
 
-class Made_Cloudinary_Model_Resource_Cms_Synchronisation_Collection
+class Made_Cloudinary_Model_Resource_Cms_Sync_Collection
     extends Mage_Cms_Model_Wysiwyg_Images_Storage_Collection
-    implements SynchronizedMediaRepository
+    implements SyncedMediaRepo
 {
     /**
      * @var string[]
@@ -16,7 +16,7 @@ class Made_Cloudinary_Model_Resource_Cms_Synchronisation_Collection
     public function __construct()
     {
         $this->addTargetDir(Mage::helper('cms/wysiwyg_images')->getStorageRoot());
-        $this->setItemObjectClass('made_cloudinary/cms_synchronisation');
+        $this->setItemObjectClass('made_cloudinary/cms_sync');
         $this->setFilesFilter(
             sprintf('#^[a-z0-9\.\-\_]+\.(?:%s)$#i', implode('|', $this->allowedImgExtensions))
         );
@@ -36,26 +36,26 @@ class Made_Cloudinary_Model_Resource_Cms_Synchronisation_Collection
         }
     }
 
-    public function findUnsynchronisedImages()
+    public function findUnsyncedImages()
     {
-        $this->addFieldToFilter('basename', array('nin' => $this->_getSynchronisedImageNames()));
+        $this->addFieldToFilter('basename', array('nin' => $this->_getSyncedImageNames()));
 
         return $this->getItems();
     }
 
-    protected function _getSynchronisedImageNames()
+    protected function _getSyncedImageNames()
     {
         return array_map(
             function ($itemData) {
                 return $itemData['image_name'];
             },
-            $this->_getSynchronisedImageData()
+            $this->_getSyncedImageData()
         );
     }
 
-    protected function _getSynchronisedImageData()
+    protected function _getSyncedImageData()
     {
-        return Mage::getResourceModel('made_cloudinary/synchronisation_collection')
+        return Mage::getResourceModel('made_cloudinary/sync_collection')
             ->addFieldToSelect('image_name')
             ->addFieldToFilter('media_gallery_id', array('null' => true))
             ->distinct(true)

@@ -2,9 +2,9 @@
 
 namespace CloudinaryExtension\Image;
 
-interface Synchronizable
+interface Syncable
 {
     public function getFilename();
 
-    public function tagAsSynchronized();
+    public function tagAsSynced();
 } 

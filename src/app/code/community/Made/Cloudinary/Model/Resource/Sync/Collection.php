@@ -1,15 +1,15 @@
 <?php
 
-use CloudinaryExtension\Migration\SynchronizedMediaRepository;
+use CloudinaryExtension\Migration\SyncedMediaRepo;
 
-class Made_Cloudinary_Model_Resource_Synchronisation_Collection
+class Made_Cloudinary_Model_Resource_Sync_Collection
     extends Mage_Core_Model_Resource_Db_Collection_Abstract
-    implements SynchronizedMediaRepository
+    implements SyncedMediaRepo
 {
 
     protected function _construct()
     {
-        $this->_init('made_cloudinary/synchronisation');
+        $this->_init('made_cloudinary/sync');
     }
 
     protected function _getResource()
@@ -31,13 +31,13 @@ class Made_Cloudinary_Model_Resource_Synchronisation_Collection
         return $resource->getMainTable();
     }
 
-    public function findUnsynchronisedImages($limit=200)
+    public function findUnsyncedImages($limit=200)
     {
         $tableName = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/catalog_media_gallery');
 
         $this->getSelect()
              ->joinRight($tableName, 'value_id=media_gallery_id', '*')
-             ->where('cloudinary_synchronisation_id is null')
+             ->where('cloudinary_sync_id is null')
              ->limit($limit)
         ;
 

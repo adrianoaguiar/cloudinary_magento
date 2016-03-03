@@ -6,20 +6,20 @@ use Cloudinary;
 use CloudinaryExtension\Cloud;
 use CloudinaryExtension\Credentials;
 
-class CloudinaryEnvironmentVariable implements EnvironmentVariable
+class CloudinaryEnvVar implements EnvVar
 {
 
-    protected $environmentVariable;
+    protected $environmentVariabe;
 
-    protected function __construct($environmentVariable)
+    protected function __construct($envVar)
     {
-        $this->environmentVariable = (string)$environmentVariable;
-        Cloudinary::config_from_url(str_replace('CLOUDINARY_URL=', '', $environmentVariable));
+        $this->envVar = (string)$envVar;
+        Cloudinary::config_from_url(str_replace('CLOUDINARY_URL=', '', $envVar));
     }
 
-    public static function fromString($environmentVariable)
+    public static function fromString($envVar)
     {
-        return new CloudinaryEnvironmentVariable($environmentVariable);
+        return new CloudinaryEnvVar($envVar);
     }
 
     public function getCloud()
@@ -37,7 +37,7 @@ class CloudinaryEnvironmentVariable implements EnvironmentVariable
 
     public function __toString()
     {
-        return $this->environmentVariable;
+        return $this->envVar;
     }
 
 }

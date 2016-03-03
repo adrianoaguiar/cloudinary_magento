@@ -11,7 +11,7 @@ class Made_Cloudinary_Model_Catalog_Product_Image extends Mage_Catalog_Model_Pro
     {
         if ($this->_imageShouldComeFromCloudinary($this->_newFile)) {
 
-            $imageProvider = CloudinaryImageProvider::fromConfiguration($this->_getConfigHelper()->buildConfiguration());
+            $imageProvider = CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
 
             return (string)$imageProvider->transformImage(Image::fromPath($this->_newFile));
         }

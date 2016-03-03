@@ -9,7 +9,7 @@ use CloudinaryExtension\Security\Secret;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class CloudinaryEnvironmentVariableSpec extends ObjectBehavior
+class CloudinaryEnvVarSpec extends ObjectBehavior
 {
 
     function let()

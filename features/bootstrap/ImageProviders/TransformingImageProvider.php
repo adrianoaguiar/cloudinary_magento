@@ -2,7 +2,7 @@
 
 namespace ImageProviders;
 
-use CloudinaryExtension\Configuration;
+use CloudinaryExtension\Config;
 use CloudinaryExtension\Credentials;
 use CloudinaryExtension\Image;
 use CloudinaryExtension\Image\Transformation;
@@ -13,11 +13,11 @@ class TransformingImageProvider implements ImageProvider
 
     protected $images = array();
 
-    protected $configuration;
+    protected $config;
 
-    public function __construct(Configuration $configuration)
+    public function __construct(Config $config)
     {
-        $this->configuration = $configuration;
+        $this->config = $config;
     }
 
     public function upload(Image $image)

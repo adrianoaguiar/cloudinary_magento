@@ -8,7 +8,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use CloudinaryExtension\Cloud;
-use CloudinaryExtension\Configuration;
+use CloudinaryExtension\Config;
 use CloudinaryExtension\Credentials;
 use CloudinaryExtension\Image;
 use CloudinaryExtension\Image\Transformation;
@@ -33,21 +33,21 @@ class TransformationContext implements Context
 
     protected $imageUrl;
 
-    protected $configuration;
+    protected $config;
 
     public function __construct()
     {
-        $this->configuration = Configuration::fromCloudAndCredentials(
+        $this->config = Config::fromCloudAndCredentials(
             Cloud::fromName('aCloudName'),
             new Credentials(Key::fromString('aKey'), Secret::fromString('aSecret'))
         );
 
-        $this->configuration->getDefaultTransformation()
+        $this->config->getDefaultTransformation()
             ->withQuality(Quality::fromString('80'))
             ->withDpr(Dpr::fromString('1.0'))
         ;
 
-        $this->imageProvider = new TransformingImageProvider($this->configuration);
+        $this->imageProvider = new TransformingImageProvider($this->config);
     }
 
     /**
@@ -92,7 +92,7 @@ class TransformationContext implements Context
     {
         $this->imageUrl = $this->imageProvider->transformImage(
             $this->image,
-            $this->configuration->getDefaultTransformation()
+            $this->config->getDefaultTransformation()
         );
     }
 
@@ -109,7 +109,7 @@ class TransformationContext implements Context
      */
     public function imageOptimisationIsDisabled()
     {
-        $this->configuration->getDefaultTransformation()->withOptimisationDisabled();
+        $this->config->getDefaultTransformation()->withOptimisationDisabled();
     }
 
     /**
@@ -133,7 +133,7 @@ class TransformationContext implements Context
      */
     public function iTransformTheImageToHavePercentQuality(Quality $aQuality)
     {
-        $this->configuration->getDefaultTransformation()->withQuality($aQuality);
+        $this->config->getDefaultTransformation()->withQuality($aQuality);
     }
 
     /**
@@ -167,9 +167,9 @@ class TransformationContext implements Context
     /**
      * @Given my DPR is set to :aDpr in the configuration
      */
-    public function myDprIsSetToInTheConfiguration(Dpr $aDpr)
+    public function myDprIsSetToInTheConfig(Dpr $aDpr)
     {
-        $this->configuration->getDefaultTransformation()->withDpr($aDpr);
+        $this->config->getDefaultTransformation()->withDpr($aDpr);
     }
 
     /**

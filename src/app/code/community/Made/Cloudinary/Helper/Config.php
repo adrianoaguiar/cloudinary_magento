@@ -1,14 +1,14 @@
 <?php
 
-use CloudinaryExtension\Configuration;
+use CloudinaryExtension\Config;
 use CloudinaryExtension\Image\Transformation;
 use CloudinaryExtension\Image\Transformation\Dpr;
 use CloudinaryExtension\Image\Transformation\FetchFormat;
 use CloudinaryExtension\Image\Transformation\Gravity;
 use CloudinaryExtension\Image\Transformation\Quality;
-use CloudinaryExtension\Security\CloudinaryEnvironmentVariable;
+use CloudinaryExtension\Security\CloudinaryEnvVar;
 
-class Made_Cloudinary_Helper_Configuration extends Mage_Core_Helper_Abstract
+class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
 {
     const CONFIG_PATH_ENABLED = 'cloudinary/cloud/cloudinary_enabled';
 
@@ -22,7 +22,7 @@ class Made_Cloudinary_Helper_Configuration extends Mage_Core_Helper_Abstract
 
     const CONFIG_DEFAULT_FETCH_FORMAT = 'cloudinary/transformations/cloudinary_fetch_format';
 
-    const CONFIG_CDN_SUBDOMAIN = 'cloudinary/configuration/cloudinary_cdn_subdomain';
+    const CONFIG_CDN_SUBDOMAIN = 'cloudinary/config/cloudinary_cdn_subdomain';
 
     const STATUS_ENABLED = 1;
 
@@ -32,11 +32,11 @@ class Made_Cloudinary_Helper_Configuration extends Mage_Core_Helper_Abstract
 
     public function buildCredentials()
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString($this->getEnvironmentVariable());
-        return $environmentVariable->getCredentials();
+        $envVar = CloudinaryEnvVar::fromString($this->getEnvVar());
+        return $envVar->getCredentials();
     }
 
-    public function getEnvironmentVariable()
+    public function getEnvVar()
     {
         return Mage::helper('core')->decrypt(Mage::getStoreConfig(self::CONFIG_PATH_ENVIRONMENT_VARIABLE));
     }
@@ -90,10 +90,10 @@ class Made_Cloudinary_Helper_Configuration extends Mage_Core_Helper_Abstract
         );
     }
 
-    public function buildConfiguration()
+    public function buildConfig()
     {
-        $config = Configuration::fromEnvironmentVariable(
-            CloudinaryEnvironmentVariable::fromString($this->getEnvironmentVariable())
+        $config = Config::fromEnvVar(
+            CloudinaryEnvVar::fromString($this->getEnvVar())
         );
 
         $config->setUserPlatform($this->getUserPlatform());

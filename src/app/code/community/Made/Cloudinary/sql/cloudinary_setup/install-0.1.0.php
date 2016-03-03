@@ -5,13 +5,13 @@ $installer = $this;
 $installer->startSetup();
 
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('made_cloudinary/synchronisation'))
-    ->addColumn('cloudinary_synchronisation_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->newTable($installer->getTable('made_cloudinary/sync'))
+    ->addColumn('cloudinary_sync_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-    ), 'Cloudinary Synchronisation ID')
+    ), 'Cloudinary Sync ID')
     ->addColumn('media_gallery_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'nullable'  => true,

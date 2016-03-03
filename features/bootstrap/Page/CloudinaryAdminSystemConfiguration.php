@@ -4,7 +4,7 @@ namespace Page;
 
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
-class CloudinaryAdminSystemConfiguration extends Page
+class CloudinaryAdminSystemConfig extends Page
 {
     protected $path = '/index.php/admin/system_config/edit/section/cloudinary/';
 
@@ -17,13 +17,13 @@ class CloudinaryAdminSystemConfiguration extends Page
         'Sign Up Prompt' => array('xpath' => '//*[@id="config_edit_form"]//h3[@id="cloudinary-signup-prompt"]'),
     );
 
-    public function enterEnvironmentVariable($anEnvironmentVariable)
+    public function enterEnvVar($anEnvVar)
     {
         $this->getElement('Setup Header')->click();
-        $this->getElement('Environment Variable')->setValue($anEnvironmentVariable);
+        $this->getElement('Environment Variable')->setValue($anEnvVar);
     }
 
-    public function saveCloudinaryConfiguration()
+    public function saveCloudinaryConfig()
     {
         $this->getElement('Save Config')->click();
     }

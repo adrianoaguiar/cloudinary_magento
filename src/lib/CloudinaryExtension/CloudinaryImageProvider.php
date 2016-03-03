@@ -10,17 +10,17 @@ use CloudinaryExtension\Security;
 
 class CloudinaryImageProvider implements ImageProvider
 {
-    protected $configuration;
+    protected $config;
 
-    protected function __construct(Configuration $configuration)
+    protected function __construct(Config $config)
     {
-        $this->configuration = $configuration;
+        $this->config = $config;
         $this->authorise();
     }
 
-    public static function fromConfiguration(Configuration $configuration)
+    public static function fromConfig(Config $config)
     {
-        return new CloudinaryImageProvider($configuration);
+        return new CloudinaryImageProvider($config);
     }
 
     public function upload(Image $image)
@@ -31,7 +31,7 @@ class CloudinaryImageProvider implements ImageProvider
     public function transformImage(Image $image, Transformation $transformation = null)
     {
         if ($transformation === null) {
-            $transformation = $this->configuration->getDefaultTransformation();
+            $transformation = $this->config->getDefaultTransformation();
         }
         return Image::fromPath(\cloudinary_url($image->getId(), $transformation->build()));
     }
@@ -49,8 +49,8 @@ class CloudinaryImageProvider implements ImageProvider
 
     protected function authorise()
     {
-        Cloudinary::config($this->configuration->build());
-        Cloudinary::$USER_PLATFORM = $this->configuration->getUserPlatform();
+        Cloudinary::config($this->config->build());
+        Cloudinary::$USER_PLATFORM = $this->config->getUserPlatform();
     }
 
     protected function getSignedValidationUrl()
@@ -58,7 +58,7 @@ class CloudinaryImageProvider implements ImageProvider
         $consoleUrl = Security\ConsoleUrl::fromPath("media_library/cms");
         return (string)Security\SignedConsoleUrl::fromConsoleUrlAndCredentials(
             $consoleUrl,
-            $this->configuration->getCredentials()
+            $this->config->getCredentials()
         );
     }
 

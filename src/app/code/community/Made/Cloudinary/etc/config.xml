@@ -35,9 +35,9 @@
             <cloudinary_resource>
                 <class>Made_Cloudinary_Model_Resource</class>
                 <entities>
-                    <synchronisation>
-                        <table>cloudinary_synchronisation</table>
-                    </synchronisation>
+                    <sync>
+                        <table>cloudinary_sync</table>
+                    </sync>
                     <migration>
                         <table>cloudinary_migration</table>
                     </migration>
@@ -143,9 +143,9 @@
                 <cloudinary_image_quality>80</cloudinary_image_quality>
                 <cloudinary_image_dpr>1.0</cloudinary_image_dpr>
             </transformations>
-            <configuration>
+            <config>
                 <cloudinary_cdn_subdomain>1</cloudinary_cdn_subdomain>
-            </configuration>
+            </config>
         </cloudinary>
     </default>
     <crontab>

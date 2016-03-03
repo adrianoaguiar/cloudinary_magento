@@ -35,13 +35,13 @@ class ModuleEnableContext extends RawMagentoContext implements Context, SnippetA
      */
     public function theCloudinaryModuleIsDisabled()
     {
-        \Mage::helper('made_cloudinary/configuration')->disable();
+        \Mage::helper('made_cloudinary/config')->disable();
     }
 
     /**
-     * @When I access the Cloudinary configuration
+     * @When I access the Cloudinary config
      */
-    public function iAccessTheCloudinaryConfiguration()
+    public function iAccessTheCloudinaryConfig()
     {
         $this->cloudinaryManagement->open();
     }
@@ -61,7 +61,7 @@ class ModuleEnableContext extends RawMagentoContext implements Context, SnippetA
      */
     public function theCloudinaryModuleIsEnabled()
     {
-        \Mage::helper('made_cloudinary/configuration')->enable();
+        \Mage::helper('made_cloudinary/config')->enable();
     }
 
     /**

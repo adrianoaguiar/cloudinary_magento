@@ -5,7 +5,7 @@ namespace Ui;
 use Behat\Behat\Context\Context;
 use CloudinaryExtension\Cloud;
 use CloudinaryExtension\Credentials;
-use CloudinaryExtension\Security\CloudinaryEnvironmentVariable;
+use CloudinaryExtension\Security\CloudinaryEnvVar;
 use CloudinaryExtension\Security\Key;
 use CloudinaryExtension\Security\Secret;
 use CloudinaryExtension\Image;
@@ -14,7 +14,7 @@ use MageTest\MagentoExtension\Context\RawMagentoContext;
 use MageTest\Manager\FixtureManager;
 use MageTest\Manager\Attributes\Provider\YamlProvider;
 use Page\AdminLogin;
-use Page\CloudinaryAdminSystemConfiguration;
+use Page\CloudinaryAdminSystemConfig;
 
 class AdminCredentialsContext extends RawMagentoContext implements Context
 {
@@ -26,9 +26,9 @@ class AdminCredentialsContext extends RawMagentoContext implements Context
     protected $adminConfigPage;
     protected $adminLoginPage;
 
-    public function __construct(CloudinaryAdminSystemConfiguration $adminSystemConfiguration, AdminLogin $adminLoginPage)
+    public function __construct(CloudinaryAdminSystemConfig $adminSystemConfig, AdminLogin $adminLoginPage)
     {
-        $this->adminConfigPage = $adminSystemConfiguration;
+        $this->adminConfigPage = $adminSystemConfig;
         $this->adminLoginPage = $adminLoginPage;
     }
 
@@ -70,10 +70,10 @@ class AdminCredentialsContext extends RawMagentoContext implements Context
      */
     public function iUploadTheImage(Image $anImage)
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
-        $this->saveEnvironmentVariableToMagentoConfiguration($environmentVariable);
+        $envVar = CloudinaryEnvVar::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
+        $this->saveEnvVarToMagentoConfig($envVar);
 
-        $this->imageProvider = new FakeImageProvider($environmentVariable);
+        $this->imageProvider = new FakeImageProvider($envVar);
 
         $this->imageProvider->setMockCloud(Cloud::fromName('session-digital'));
         $this->imageProvider->setMockCredentials(Key::fromString('ABC123'), Secret::fromString('DEF456'));
@@ -90,37 +90,37 @@ class AdminCredentialsContext extends RawMagentoContext implements Context
     }
 
     /**
-     * @Given I have used a valid environment variable in the configuration
+     * @Given I have used a valid environment variable in the config
      */
-    public function iHaveUsedAValidEnvironmentVariableInTheConfiguration()
+    public function iHaveUsedAValidEnvVarInTheConfig()
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
-        $this->imageProvider = new FakeImageProvider($environmentVariable);
+        $envVar = CloudinaryEnvVar::fromString('CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital');
+        $this->imageProvider = new FakeImageProvider($envVar);
     }
 
     /**
-     * @Given I have used an invalid environment variable in the configuration
+     * @Given I have used an invalid environment variable in the config
      */
-    public function iHaveUsedAnInvalidEnvironmentVariableInTheConfiguration()
+    public function iHaveUsedAnInvalidEnvVarInTheConfig()
     {
-        $environmentVariable = CloudinaryEnvironmentVariable::fromString('CLOUDINARY_URL=cloudinary://UVW789:XYZ123@session-digital');
-        $this->imageProvider = new FakeImageProvider($environmentVariable);
+        $envVar = CloudinaryEnvVar::fromString('CLOUDINARY_URL=cloudinary://UVW789:XYZ123@session-digital');
+        $this->imageProvider = new FakeImageProvider($envVar);
     }
 
     /**
      * @Given I have not configured my environment variable
      */
-    public function iHaveNotConfiguredMyEnvironmentVariable()
+    public function iHaveNotConfiguredMyEnvVar()
     {
-        $this->saveEnvironmentVariableToMagentoConfiguration('');
+        $this->saveEnvVarToMagentoConfig('');
     }
 
     /**
      * @Given I have configured my environment variable
      */
-    public function iHaveConfiguredMyEnvironmentVariable()
+    public function iHaveConfiguredMyEnvVar()
     {
-        $this->saveEnvironmentVariableToMagentoConfiguration('anEnvironmentVariable');
+        $this->saveEnvVarToMagentoConfig('anEnvVar');
     }
 
     /**
@@ -155,13 +155,13 @@ class AdminCredentialsContext extends RawMagentoContext implements Context
      */
     public function iHaveNotConfiguredMyCloudAndCredentials()
     {
-        $this->saveCredentialsAndCloudToMagentoConfiguration('', '', '');
+        $this->saveCredentialsAndCloudToMagentoConfig('', '', '');
     }
 
     /**
-     * @When I go to the Cloudinary configuration
+     * @When I go to the Cloudinary config
      */
-    public function iGoToTheCloudinaryConfiguration()
+    public function iGoToTheCloudinaryConfig()
     {
         $this->adminConfigPage->open();
     }
@@ -182,14 +182,14 @@ class AdminCredentialsContext extends RawMagentoContext implements Context
         expect($this->adminConfigPage->containsSignUpPrompt())->toBe(false);
     }
 
-    protected function saveEnvironmentVariableToMagentoConfiguration($environmentVariable)
+    protected function saveEnvVarToMagentoConfig($envVar)
     {
         $this->adminLoginPage->sessionLogin('testadmin', 'testadmin123', $this->getSessionService());
 
         $this->adminConfigPage->open();
 
-        $this->adminConfigPage->enterEnvironmentVariable($environmentVariable);
-        $this->adminConfigPage->saveCloudinaryConfiguration();
+        $this->adminConfigPage->enterEnvVar($envVar);
+        $this->adminConfigPage->saveCloudinaryConfig();
 
     }
 

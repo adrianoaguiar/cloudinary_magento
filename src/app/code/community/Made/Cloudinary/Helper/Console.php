@@ -11,7 +11,7 @@ class Made_Cloudinary_Helper_Console extends Mage_Core_Helper_Abstract
         $consoleUrl = ConsoleUrl::fromPath("media_library/cms");
         return (string)SignedConsoleUrl::fromConsoleUrlAndCredentials(
             $consoleUrl,
-            Mage::helper('made_cloudinary/configuration')->buildCredentials()
+            Mage::helper('made_cloudinary/config')->buildCredentials()
         );
 
     }

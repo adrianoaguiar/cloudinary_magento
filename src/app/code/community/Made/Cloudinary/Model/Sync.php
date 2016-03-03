@@ -1,16 +1,16 @@
 <?php
 
-use CloudinaryExtension\Image\Synchronizable;
+use CloudinaryExtension\Image\Syncable;
 
-class Made_Cloudinary_Model_Synchronisation extends Mage_Core_Model_Abstract implements Synchronizable
+class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syncable
 {
 
     protected function _construct()
     {
-        $this->_init('made_cloudinary/synchronisation');
+        $this->_init('made_cloudinary/sync');
     }
 
-    public function tagAsSynchronized()
+    public function tagAsSynced()
     {
         $this->setData('image_name', basename($this['value']));
         $this->setData('media_gallery_id', $this['value_id']);

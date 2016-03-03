@@ -12,15 +12,15 @@ class Made_Cloudinary_Block_Adminhtml_System_Config_Signup extends Mage_Adminhtm
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        if (!$this->_environmentVariableIsPresentInConfig()) {
+        if (!$this->_envVarIsPresentInConfig()) {
             return $this->toHtml();
         }
     }
 
-    protected function _environmentVariableIsPresentInConfig()
+    protected function _envVarIsPresentInConfig()
     {
-        $configuration = Mage::helper('made_cloudinary/configuration');
-        return $configuration->getEnvironmentVariable();
+        $config = Mage::helper('made_cloudinary/config');
+        return $config->getEnvVar();
     }
 
 }

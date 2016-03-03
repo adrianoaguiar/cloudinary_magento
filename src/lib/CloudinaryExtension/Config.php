@@ -3,9 +3,9 @@
 namespace CloudinaryExtension;
 
 use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Security\EnvironmentVariable;
+use CloudinaryExtension\Security\EnvVar;
 
-class Configuration
+class Config
 {
     protected $credentials;
 
@@ -27,12 +27,12 @@ class Configuration
 
     public static function fromCloudAndCredentials(Cloud $cloud, Credentials $credentials)
     {
-        return new Configuration($cloud, $credentials);
+        return new Config($cloud, $credentials);
     }
 
-    public static function fromEnvironmentVariable(EnvironmentVariable $environmentVariable)
+    public static function fromEnvVar(EnvVar $envVar)
     {
-        return new Configuration($environmentVariable->getCloud(), $environmentVariable->getCredentials());
+        return new Config($envVar->getCloud(), $envVar->getCredentials());
     }
 
     public function getCloud()
@@ -52,12 +52,12 @@ class Configuration
 
     public function build()
     {
-        $configuration = $this->getMandatoryConfiguration();
+        $config = $this->getMandatoryConfig();
         if($this->cdnSubdomain) {
-            $configuration['cdn_subdomain'] = true;
+            $config['cdn_subdomain'] = true;
         }
 
-        return $configuration;
+        return $config;
     }
 
     public function enableCdnSubdomain()
@@ -70,7 +70,7 @@ class Configuration
         return $this->cdnSubdomain;
     }
 
-    protected function getMandatoryConfiguration()
+    protected function getMandatoryConfig()
     {
         return array(
             "cloud_name" => (string)$this->cloud,

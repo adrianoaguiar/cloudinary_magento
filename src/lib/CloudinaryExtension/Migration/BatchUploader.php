@@ -3,7 +3,7 @@
 namespace CloudinaryExtension\Migration;
 
 use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Synchronizable;
+use CloudinaryExtension\Image\Syncable;
 use CloudinaryExtension\ImageProvider;
 
 class BatchUploader
@@ -47,16 +47,16 @@ class BatchUploader
         $this->logger->notice(sprintf(self::MESSAGE_STATUS, $this->countMigrated));
     }
 
-    protected function getAbsolutePath(Synchronizable $image)
+    protected function getAbsolutePath(Syncable $image)
     {
         return sprintf('%s%s', $this->baseMediaPath, $image->getFilename());
     }
 
-    protected function uploadImage(Synchronizable $image)
+    protected function uploadImage(Syncable $image)
     {
         try {
             $this->imageProvider->upload(Image::fromPath($this->getAbsolutePath($image)));
-            $image->tagAsSynchronized();
+            $image->tagAsSynced();
             $this->countMigrated++;
             $this->logger->notice(sprintf(self::MESSAGE_UPLOADED, $image->getFilename()));
         } catch (\Exception $e) {

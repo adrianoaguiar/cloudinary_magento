@@ -2,7 +2,7 @@
 
 namespace CloudinaryExtension\Security;
 
-interface EnvironmentVariable
+interface EnvVar
 {
     public function getCloud();
     public function getCredentials();

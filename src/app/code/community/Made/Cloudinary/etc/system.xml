@@ -37,7 +37,7 @@
                         </cloudinary_environment_variable>
                     </fields>
                 </setup>
-                <configuration translate="label">
+                <config translate="label">
                     <label>Cloudinary Configuration</label>
                     <show_in_default>1</show_in_default>
                     <sort_order>2</sort_order>
@@ -55,7 +55,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </cloudinary_cdn_subdomain>
                     </fields>
-                </configuration>
+                </config>
                 <transformations translate="label">
                     <label>Default Image Transformations</label>
                     <show_in_default>1</show_in_default>

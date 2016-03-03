@@ -10,7 +10,7 @@ class Queue
 
     protected $migrationTask;
 
-    protected $synchronizedMediaRepository;
+    protected $syncedMediaRepo;
 
     protected $logger;
 
@@ -18,12 +18,12 @@ class Queue
 
     public function __construct(
         Task $migrationTask,
-        SynchronizedMediaRepository $synchronizedMediaRepository,
+        SyncedMediaRepo $syncedMediaRepo,
         BatchUploader $batchUploader,
         Logger $logger
     ) {
         $this->migrationTask = $migrationTask;
-        $this->synchronizedMediaRepository = $synchronizedMediaRepository;
+        $this->syncedMediaRepo = $syncedMediaRepo;
         $this->logger = $logger;
         $this->batchUploader = $batchUploader;
     }
@@ -34,7 +34,7 @@ class Queue
             return;
         }
 
-        $images = $this->synchronizedMediaRepository->findUnsynchronisedImages();
+        $images = $this->syncedMediaRepo->findUnsyncedImages();
 
         if (!$images) {
             $this->logger->notice(self::MESSAGE_COMPLETE);

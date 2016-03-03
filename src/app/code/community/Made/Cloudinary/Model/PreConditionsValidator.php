@@ -8,12 +8,12 @@ trait  Made_Cloudinary_Model_PreConditionsValidator
 
     protected function _isImageInCloudinary($imageName)
     {
-        return Mage::getModel('made_cloudinary/synchronisation')->isImageInCloudinary($imageName);
+        return Mage::getModel('made_cloudinary/sync')->isImageInCloudinary($imageName);
     }
 
     protected function _getConfigHelper()
     {
-        return Mage::helper('made_cloudinary/configuration');
+        return Mage::helper('made_cloudinary/config');
     }
 
     protected function _imageShouldComeFromCloudinary($file)
