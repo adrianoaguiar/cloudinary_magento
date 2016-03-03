@@ -38,7 +38,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         }
     }
 
-    private function _getImagesToUpload(Mage_Catalog_Model_Product $product)
+    protected function _getImagesToUpload(Mage_Catalog_Model_Product $product)
     {
         return Mage::getModel('made_cloudinary/catalog_product_media')->newImagesForProduct($product);
     }
@@ -52,13 +52,13 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         }
     }
 
-    private function _getImagesToDelete(Mage_Catalog_Model_Product $product)
+    protected function _getImagesToDelete(Mage_Catalog_Model_Product $product)
     {
         $productMedia = Mage::getModel('made_cloudinary/catalog_product_media');
         return $productMedia->removedImagesForProduct($product);
     }
 
-    private function _flattenConfigData(Mage_Adminhtml_Model_Config_Data $configObject)
+    protected function _flattenConfigData(Mage_Adminhtml_Model_Config_Data $configObject)
     {
         $configData = array();
         $groups = $configObject->getGroups();
@@ -74,12 +74,12 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         return $configData;
     }
 
-    private function _isNotCloudinaryConfigurationSection(Mage_Adminhtml_Model_Config_Data $configObject)
+    protected function _isNotCloudinaryConfigurationSection(Mage_Adminhtml_Model_Config_Data $configObject)
     {
         return $configObject->getSection() != self::CLOUDINARY_CONFIG_SECTION;
     }
 
-    private function _validateEnvironmentVariableFromConfigObject(Mage_Adminhtml_Model_Config_Data $configObject)
+    protected function _validateEnvironmentVariableFromConfigObject(Mage_Adminhtml_Model_Config_Data $configObject)
     {
         $configData = $this->_flattenConfigData($configObject);
         $cloudinaryConfiguration = Mage::helper('made_cloudinary/configuration_validation');
@@ -89,17 +89,17 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         );
     }
 
-    private function _addErrorMessageToAdminSession($e)
+    protected function _addErrorMessageToAdminSession($e)
     {
         Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
     }
 
-    private function _logException($e)
+    protected function _logException($e)
     {
         Mage::logException($e);
     }
 
-    private function _containsSetup($groups)
+    protected function _containsSetup($groups)
     {
         return array_key_exists('setup', $groups);
     }

@@ -7,7 +7,7 @@ class Made_Cloudinary_Helper_Autoloader
     const CLOUDINARY_LIB_PATH = 'Cloudinary';
     const CONVERT_CLASS_TO_PATH_REGEX = '#\\\|_(?!.*\\\)#';
 
-    private $_originalAutoloaders;
+    protected $_originalAutoloaders;
 
     protected $_registerHasRun;
 
@@ -26,7 +26,7 @@ class Made_Cloudinary_Helper_Autoloader
         $this->_registerHasRun = true;
     }
 
-    private function _registerCloudinaryExtensionAutoloader()
+    protected function _registerCloudinaryExtensionAutoloader()
     {
         spl_autoload_register(
             function ($className) {
@@ -42,7 +42,7 @@ class Made_Cloudinary_Helper_Autoloader
         return $this;
     }
 
-    private function _registerCloudinaryAutoloader()
+    protected function _registerCloudinaryAutoloader()
     {
         $libFolder = Mage::getBaseDir('lib');
 
@@ -59,7 +59,7 @@ class Made_Cloudinary_Helper_Autoloader
         return $this;
     }
 
-    private function _deregisterVarienAutoloaders()
+    protected function _deregisterVarienAutoloaders()
     {
         $this->_originalAutoloaders = array();
 
@@ -71,7 +71,7 @@ class Made_Cloudinary_Helper_Autoloader
         }
     }
 
-    private function _reregisterVarienAutoloaders()
+    protected function _reregisterVarienAutoloaders()
     {
         foreach ($this->_originalAutoloaders as $autoloader) {
             spl_autoload_register($autoloader);

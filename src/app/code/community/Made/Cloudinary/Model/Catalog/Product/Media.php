@@ -3,7 +3,7 @@
 class Made_Cloudinary_Model_Catalog_Product_Media extends Mage_Core_Model_Abstract
 {
 
-    private $_newImages;
+    protected $_newImages;
 
     public function newImagesForProduct(Mage_Catalog_Model_Product $product)
     {
@@ -11,7 +11,7 @@ class Made_Cloudinary_Model_Catalog_Product_Media extends Mage_Core_Model_Abstra
         return $this->_getNewImages($product);
     }
 
-    private function _setNewImages(array $mediaGallery)
+    protected function _setNewImages(array $mediaGallery)
     {
         $this->_newImages = array();
 
@@ -22,14 +22,14 @@ class Made_Cloudinary_Model_Catalog_Product_Media extends Mage_Core_Model_Abstra
         }
     }
 
-    private function _getNewImages(Mage_Catalog_Model_Product $product)
+    protected function _getNewImages(Mage_Catalog_Model_Product $product)
     {
         $product->load('media_gallery');
         $gallery = $product->getData('media_gallery');
         return array_filter($gallery['images'], array($this, '_isImageInArray'));
     }
 
-    private function _isImageInArray($toFilter)
+    protected function _isImageInArray($toFilter)
     {
         return is_array($toFilter) && array_key_exists('file', $toFilter) && in_array($toFilter['file'], $this->_newImages);
     }
@@ -39,7 +39,7 @@ class Made_Cloudinary_Model_Catalog_Product_Media extends Mage_Core_Model_Abstra
         return $this->_getRemovedImages($product->getMediaGallery());
     }
 
-    private function _getRemovedImages(array $mediaGallery)
+    protected function _getRemovedImages(array $mediaGallery)
     {
         if (!is_array($mediaGallery['images'])) {
             $mediaGallery['images'] = json_decode($mediaGallery['images'], true);
@@ -48,7 +48,7 @@ class Made_Cloudinary_Model_Catalog_Product_Media extends Mage_Core_Model_Abstra
         return array_filter($mediaGallery['images'], array($this, '_isImageRemoved'));
     }
 
-    private function _isImageRemoved($toFilter)
+    protected function _isImageRemoved($toFilter)
     {
         return is_array($toFilter) && array_key_exists('removed', $toFilter) && $toFilter['removed'] === 1;
     }

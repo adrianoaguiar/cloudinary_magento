@@ -4,9 +4,9 @@ namespace CloudinaryExtension\Image\Transformation;
 
 class Dpr
 {
-    private $value;
+    protected $value;
 
-    private function __construct($value)
+    protected function __construct($value)
     {
         $this->value = $value;
     }

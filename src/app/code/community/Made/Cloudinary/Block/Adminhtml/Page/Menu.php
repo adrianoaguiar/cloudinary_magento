@@ -9,7 +9,7 @@ class Made_Cloudinary_Block_Adminhtml_Page_Menu extends Mage_Adminhtml_Block_Pag
         return $this->_addCloudinaryMediaLibraryUrlToMenu($menuArray);
     }
 
-    private function _addCloudinaryMediaLibraryUrlToMenu($menuArray)
+    protected function _addCloudinaryMediaLibraryUrlToMenu($menuArray)
     {
         $menuArray['made_cloudinary']['children']['console']['click'] =  sprintf(
             "window.open('%s')",

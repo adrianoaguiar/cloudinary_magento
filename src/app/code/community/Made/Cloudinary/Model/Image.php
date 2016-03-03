@@ -19,12 +19,12 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
             ->tagAsSynchronized();
     }
 
-    private function _imageFullPathFromImageDetails($imageDetails)
+    protected function _imageFullPathFromImageDetails($imageDetails)
     {
         return  $this->_getMediaBasePath() . $this->_getImageDetailFromKey($imageDetails, 'file');
     }
 
-    private function _getImageDetailFromKey(array $imageDetails, $key)
+    protected function _getImageDetailFromKey(array $imageDetails, $key)
     {
         if (!array_key_exists($key, $imageDetails)) {
             throw new Made_Cloudinary_Model_Exception_BadFilePathException("Invalid image data structure. Missing " . $key);
@@ -32,7 +32,7 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
         return $imageDetails[$key];
     }
 
-    private function _getMediaBasePath()
+    protected function _getMediaBasePath()
     {
         return Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
     }
@@ -48,7 +48,7 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
         return (string)$imageProvider->transformImage(Image::fromPath($imagePath));
     }
 
-    private function _getImageProvider()
+    protected function _getImageProvider()
     {
         return CloudinaryImageProvider::fromConfiguration($this->_getConfigHelper()->buildConfiguration());
     }

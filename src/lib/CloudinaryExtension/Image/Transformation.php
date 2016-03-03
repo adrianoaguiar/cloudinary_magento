@@ -11,19 +11,19 @@ use CloudinaryExtension\Image\Transformation\Quality;
 
 class Transformation
 {
-    private $gravity;
+    protected $gravity;
 
-    private $dimensions;
+    protected $dimensions;
 
-    private $crop;
+    protected $crop;
 
-    private $fetchFormat;
+    protected $fetchFormat;
 
-    private $quality;
+    protected $quality;
 
-    private $format;
+    protected $format;
 
-    private $dpr;
+    protected $dpr;
 
     public function __construct()
     {

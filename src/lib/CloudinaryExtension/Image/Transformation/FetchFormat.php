@@ -6,9 +6,9 @@ class FetchFormat
 {
     const FETCH_FORMAT_AUTO = 'auto';
 
-    private $value;
+    protected $value;
 
-    private function __construct($value)
+    protected function __construct($value)
     {
         $this->value = $value;
     }

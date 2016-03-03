@@ -14,15 +14,15 @@ class BatchUploader
 
     const MESSAGE_UPLOAD_ERROR = 'Cloudinary migration: %s trying to upload %s';
 
-    private $imageProvider;
+    protected $imageProvider;
 
-    private $baseMediaPath;
+    protected $baseMediaPath;
 
-    private $logger;
+    protected $logger;
 
-    private $migrationTask;
+    protected $migrationTask;
 
-    private $countMigrated = 0;
+    protected $countMigrated = 0;
 
     public function __construct(ImageProvider $imageProvider, Task $migrationTask, Logger $logger, $baseMediaPath)
     {
@@ -47,12 +47,12 @@ class BatchUploader
         $this->logger->notice(sprintf(self::MESSAGE_STATUS, $this->countMigrated));
     }
 
-    private function getAbsolutePath(Synchronizable $image)
+    protected function getAbsolutePath(Synchronizable $image)
     {
         return sprintf('%s%s', $this->baseMediaPath, $image->getFilename());
     }
 
-    private function uploadImage(Synchronizable $image)
+    protected function uploadImage(Synchronizable $image)
     {
         try {
             $this->imageProvider->upload(Image::fromPath($this->getAbsolutePath($image)));

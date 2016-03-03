@@ -5,8 +5,8 @@ use CloudinaryExtension\Migration\SynchronizedMediaRepository;
 class Made_Cloudinary_Model_SynchronisedMediaUnifier implements SynchronizedMediaRepository
 {
 
-    private $_synchronisedMediaRepositories;
-    private $_unsychronisedImages = array();
+    protected $_synchronisedMediaRepositories;
+    protected $_unsychronisedImages = array();
 
     public function __construct(array $synchronisedMediaRepositories)
     {

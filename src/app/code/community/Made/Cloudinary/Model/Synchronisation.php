@@ -33,7 +33,7 @@ class Made_Cloudinary_Model_Synchronisation extends Mage_Core_Model_Abstract imp
         return $this->_baseMediaPath() . $this->getValue();
     }
 
-    private function _baseMediaPath()
+    protected function _baseMediaPath()
     {
         return Mage::getModel('catalog/product_media_config')->getBaseMediaPath();
     }

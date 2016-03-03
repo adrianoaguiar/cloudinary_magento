@@ -23,8 +23,8 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
  */
 class ConfigurationContext implements Context
 {
-    private $configuration;
-    private $imageProvider;
+    protected $configuration;
+    protected $imageProvider;
 
     /**
      * @Given I have a configuration to use multiple sub-domains
@@ -57,7 +57,7 @@ class ConfigurationContext implements Context
         expect($this->requestPrefixIsTheSame($request1, $request2))->toBe(false);
     }
 
-    private function requestPrefixIsTheSame($request1, $request2)
+    protected function requestPrefixIsTheSame($request1, $request2)
     {
         return substr($request1, 0, 4) === substr($request2, 0, 4);
     }

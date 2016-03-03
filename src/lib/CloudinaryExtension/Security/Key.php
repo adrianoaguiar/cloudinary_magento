@@ -5,9 +5,9 @@ namespace CloudinaryExtension\Security;
 class Key
 {
 
-    private $key;
+    protected $key;
 
-    private function __construct($key)
+    protected function __construct($key)
     {
         $this->key = (string)$key;
     }

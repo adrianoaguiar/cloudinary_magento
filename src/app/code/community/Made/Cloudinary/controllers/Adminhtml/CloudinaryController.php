@@ -2,9 +2,9 @@
 
 class Made_Cloudinary_Adminhtml_CloudinaryController extends Mage_Adminhtml_Controller_Action
 {
-    private $_migrationTask;
+    protected $_migrationTask;
 
-    private $_cloudinaryConfig;
+    protected $_cloudinaryConfig;
 
     public function preDispatch()
     {
@@ -53,12 +53,12 @@ class Made_Cloudinary_Adminhtml_CloudinaryController extends Mage_Adminhtml_Cont
         $this->_redirectToManageCloudinary();
     }
 
-    private function _redirectToManageCloudinary()
+    protected function _redirectToManageCloudinary()
     {
         return $this->_redirect('*/cloudinary');
     }
 
-    private function _buildMetaRefreshBlock()
+    protected function _buildMetaRefreshBlock()
     {
         return $this->getLayout()->createBlock('core/text')->setText('<meta http-equiv="refresh" content="5">');
     }

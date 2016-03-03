@@ -11,7 +11,7 @@ class Made_Cloudinary_Model_Resource_Cms_Synchronisation_Collection
      * @link http://cloudinary.com/documentation/image_transformations#format_conversion
      * @link http://cloudinary.com/documentation/upload_images
      */
-    private $allowedImgExtensions = ['JPG', 'PNG', 'GIF', 'BMP', 'TIFF', 'EPS', 'PSD', 'SVG', 'WebP'];
+    protected $allowedImgExtensions = ['JPG', 'PNG', 'GIF', 'BMP', 'TIFF', 'EPS', 'PSD', 'SVG', 'WebP'];
 
     public function __construct()
     {
@@ -43,7 +43,7 @@ class Made_Cloudinary_Model_Resource_Cms_Synchronisation_Collection
         return $this->getItems();
     }
 
-    private function _getSynchronisedImageNames()
+    protected function _getSynchronisedImageNames()
     {
         return array_map(
             function ($itemData) {
@@ -53,7 +53,7 @@ class Made_Cloudinary_Model_Resource_Cms_Synchronisation_Collection
         );
     }
 
-    private function _getSynchronisedImageData()
+    protected function _getSynchronisedImageData()
     {
         return Mage::getResourceModel('made_cloudinary/synchronisation_collection')
             ->addFieldToSelect('image_name')

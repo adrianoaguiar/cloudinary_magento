@@ -21,9 +21,9 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
  */
 class DomainContext implements Context, SnippetAcceptingContext
 {
-    private $provider;
-    private $image;
-    private $areCredentialsValid;
+    protected $provider;
+    protected $image;
+    protected $areCredentialsValid;
 
 
     /**
@@ -67,7 +67,7 @@ class DomainContext implements Context, SnippetAcceptingContext
         expect($this->provider->getImageUrlByName($this->getImageName()))->notToBe('');
     }
 
-    private function getImageName()
+    protected function getImageName()
     {
         $imagePath = explode(DS, $this->image);
         return $imagePath[count($imagePath) - 1];

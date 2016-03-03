@@ -8,13 +8,13 @@ class Queue
 
     const MESSAGE_COMPLETE = 'Cloudinary migration: complete';
 
-    private $migrationTask;
+    protected $migrationTask;
 
-    private $synchronizedMediaRepository;
+    protected $synchronizedMediaRepository;
 
-    private $logger;
+    protected $logger;
 
-    private $batchUploader;
+    protected $batchUploader;
 
     public function __construct(
         Task $migrationTask,

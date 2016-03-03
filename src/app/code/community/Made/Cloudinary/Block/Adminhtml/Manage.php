@@ -2,9 +2,9 @@
 
 class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-    private $_migrationTask;
+    protected $_migrationTask;
 
-    private $_cloudinaryConfig;
+    protected $_cloudinaryConfig;
 
     public function __construct()
     {
@@ -92,7 +92,7 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
         return $this->_makeButton($startLabel, $startAction, $this->allImagesSynced());
     }
 
-    private function _makeButton($label, $action, $disabled = false)
+    protected function _makeButton($label, $action, $disabled = false)
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(

@@ -18,7 +18,7 @@ class Made_Cloudinary_Helper_Configuration_Validation extends Mage_Core_Helper_A
         }
     }
 
-    private function _getConfiguration($environmentVariable)
+    protected function _getConfiguration($environmentVariable)
     {
         return Configuration::fromEnvironmentVariable(
             CloudinaryEnvironmentVariable::fromString($environmentVariable)

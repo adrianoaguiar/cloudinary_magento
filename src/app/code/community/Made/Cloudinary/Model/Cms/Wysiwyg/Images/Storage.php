@@ -24,12 +24,12 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
         return parent::getThumbnailUrl($filePath, $checkFile);
     }
 
-    private function _buildImageProvider()
+    protected function _buildImageProvider()
     {
         return CloudinaryImageProvider::fromConfiguration($this->_getConfigHelper()->buildConfiguration());
     }
 
-    private function _buildImageDimensions()
+    protected function _buildImageDimensions()
     {
         return Dimensions::fromWidthAndHeight(
             $this->getConfigData('resize_width'),

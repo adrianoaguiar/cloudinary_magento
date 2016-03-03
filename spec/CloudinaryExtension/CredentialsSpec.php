@@ -9,8 +9,8 @@ use Prophecy\Argument;
 
 class CredentialsSpec extends ObjectBehavior
 {
-    private $key = 'aKey';
-    private $secret = 'aSecret';
+    protected $key = 'aKey';
+    protected $secret = 'aSecret';
 
     function let()
     {

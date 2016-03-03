@@ -7,9 +7,9 @@ use Cloudinary;
 class ApiSignature
 {
 
-    private $apiSignature;
+    protected $apiSignature;
 
-    private function __construct(Secret $secret, array $params)
+    protected function __construct(Secret $secret, array $params)
     {
         $this->apiSignature = Cloudinary::api_sign_request($params, (string) $secret);
     }

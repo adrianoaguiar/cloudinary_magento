@@ -18,7 +18,7 @@ class Made_Cloudinary_Model_Cms_Template_Filter extends Mage_Widget_Model_Templa
         return parent::mediaDirective($construction);
     }
 
-    private function _getImagePath($directiveParams)
+    protected function _getImagePath($directiveParams)
     {
         $params = $this->_getIncludeParameters($directiveParams);
         return $params['url'];

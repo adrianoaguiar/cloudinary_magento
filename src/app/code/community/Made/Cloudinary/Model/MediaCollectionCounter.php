@@ -3,7 +3,7 @@
 class Made_Cloudinary_Model_MediaCollectionCounter implements Countable
 {
 
-    private $_collections = array();
+    protected $_collections = array();
 
     public function addCollection(Made_Cloudinary_Model_Resource_Media_Collection_Interface $collection)
     {

@@ -19,12 +19,12 @@ use Page\CloudinaryAdminSystemConfiguration;
 class AdminCredentialsContext extends RawMagentoContext implements Context
 {
 
-    private $imageProvider;
-    private $_fixtureManager;
-    private $image;
-    private $areCredentialsValid;
-    private $adminConfigPage;
-    private $adminLoginPage;
+    protected $imageProvider;
+    protected $_fixtureManager;
+    protected $image;
+    protected $areCredentialsValid;
+    protected $adminConfigPage;
+    protected $adminLoginPage;
 
     public function __construct(CloudinaryAdminSystemConfiguration $adminSystemConfiguration, AdminLogin $adminLoginPage)
     {
@@ -182,7 +182,7 @@ class AdminCredentialsContext extends RawMagentoContext implements Context
         expect($this->adminConfigPage->containsSignUpPrompt())->toBe(false);
     }
 
-    private function saveEnvironmentVariableToMagentoConfiguration($environmentVariable)
+    protected function saveEnvironmentVariableToMagentoConfiguration($environmentVariable)
     {
         $this->adminLoginPage->sessionLogin('testadmin', 'testadmin123', $this->getSessionService());
 

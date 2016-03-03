@@ -9,8 +9,8 @@ use CloudinaryExtension\Security\Secret;
 class Credentials
 {
 
-    private $key;
-    private $secret;
+    protected $key;
+    protected $secret;
 
     public function __construct(Key $key,Secret $secret)
     {

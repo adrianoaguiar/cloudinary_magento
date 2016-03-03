@@ -4,11 +4,11 @@ namespace CloudinaryExtension;
 
 class Image
 {
-    private $imagePath;
+    protected $imagePath;
 
-    private $pathParts;
+    protected $pathParts;
 
-    private function __construct($imagePath)
+    protected function __construct($imagePath)
     {
         $this->imagePath = $imagePath;
         $this->pathParts = pathinfo(basename($this->imagePath));

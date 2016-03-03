@@ -5,9 +5,9 @@ namespace CloudinaryExtension\Security;
 class Secret
 {
 
-    private $secret;
+    protected $secret;
 
-    private function __construct($secret)
+    protected function __construct($secret)
     {
         $this->secret = (string)$secret;
     }

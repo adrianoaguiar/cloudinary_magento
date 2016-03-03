@@ -7,17 +7,17 @@ use CloudinaryExtension\Security\EnvironmentVariable;
 
 class Configuration
 {
-    private $credentials;
+    protected $credentials;
 
-    private $cloud;
+    protected $cloud;
 
-    private $defaultTransformation;
+    protected $defaultTransformation;
 
-    private $cdnSubdomain = true;
+    protected $cdnSubdomain = true;
 
-    private $userPlatform = '';
+    protected $userPlatform = '';
 
-    private function __construct(Cloud $cloud,Credentials $credentials)
+    protected function __construct(Cloud $cloud,Credentials $credentials)
     {
         $this->cdnSubdomain = false;
         $this->credentials = $credentials;
@@ -70,7 +70,7 @@ class Configuration
         return $this->cdnSubdomain;
     }
 
-    private function getMandatoryConfiguration()
+    protected function getMandatoryConfiguration()
     {
         return array(
             "cloud_name" => (string)$this->cloud,

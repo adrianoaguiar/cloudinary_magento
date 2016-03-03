@@ -9,9 +9,9 @@ use CloudinaryExtension\Credentials;
 class CloudinaryEnvironmentVariable implements EnvironmentVariable
 {
 
-    private $environmentVariable;
+    protected $environmentVariable;
 
-    private function __construct($environmentVariable)
+    protected function __construct($environmentVariable)
     {
         $this->environmentVariable = (string)$environmentVariable;
         Cloudinary::config_from_url(str_replace('CLOUDINARY_URL=', '', $environmentVariable));

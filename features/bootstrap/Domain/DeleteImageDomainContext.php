@@ -17,7 +17,7 @@ class DeleteImageDomainContext implements Context
 {
     const IMAGE_PROVIDER_ENVIRONMENT_VARIABLE = 'CLOUDINARY_URL=cloudinary://ABC123:DEF456@session-digital';
 
-    private $imageProvider;
+    protected $imageProvider;
 
     /**
      * @Transform :anImage

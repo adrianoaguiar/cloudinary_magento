@@ -112,7 +112,7 @@ class Made_Cloudinary_Helper_Configuration extends Mage_Core_Helper_Abstract
         return $config;
     }
 
-    private function _setStoreConfig($configPath, $value)
+    protected function _setStoreConfig($configPath, $value)
     {
         $config = new Mage_Core_Model_Config();
         $config->saveConfig($configPath, $value)->reinit();

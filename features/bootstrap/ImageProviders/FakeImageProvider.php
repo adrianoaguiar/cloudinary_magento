@@ -12,12 +12,12 @@ use CloudinaryExtension\ImageProvider;
 class FakeImageProvider implements ImageProvider {
 
 
-    private $key;
-    private $secret;
-    private $uploadedImageUrl = array();
-    private $credentials;
-    private $mockCloud;
-    private $cloud;
+    protected $key;
+    protected $secret;
+    protected $uploadedImageUrl = array();
+    protected $credentials;
+    protected $mockCloud;
+    protected $cloud;
 
     public function __construct(EnvironmentVariable $environmentVariable)
     {
@@ -55,12 +55,12 @@ class FakeImageProvider implements ImageProvider {
         return $this->areCredentialsCorrect();
     }
 
-    private function areCredentialsCorrect()
+    protected function areCredentialsCorrect()
     {
         return (string)$this->credentials->getKey() === (string)$this->key && (string)$this->credentials->getSecret() === (string)$this->secret;
     }
 
-    private function isCloudCorrect()
+    protected function isCloudCorrect()
     {
         return (string)$this->mockCloud == (string)$this->cloud;
     }

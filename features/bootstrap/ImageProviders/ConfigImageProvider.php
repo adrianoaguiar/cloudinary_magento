@@ -10,9 +10,9 @@ use CloudinaryExtension\ImageProvider;
 class ConfigImageProvider implements ImageProvider
 {
 
-    private $configuration;
-    private $subdomains = ['cdn1', 'cdn2'];
-    private $prefixCount = 0;
+    protected $configuration;
+    protected $subdomains = ['cdn1', 'cdn2'];
+    protected $prefixCount = 0;
 
     public function __construct(Configuration $configuration)
     {

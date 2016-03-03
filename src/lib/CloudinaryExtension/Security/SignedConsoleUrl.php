@@ -7,9 +7,9 @@ use CloudinaryExtension\Credentials;
 class SignedConsoleUrl
 {
 
-    private $signedConsoleUrl;
+    protected $signedConsoleUrl;
 
-    private function __construct(ConsoleUrl $url, Credentials $credentials)
+    protected function __construct(ConsoleUrl $url, Credentials $credentials)
     {
         $params = array("timestamp" => time(), "mode" => "check");
         $params["signature"] = (string)ApiSignature::fromSecretAndParams($credentials->getSecret(), $params);

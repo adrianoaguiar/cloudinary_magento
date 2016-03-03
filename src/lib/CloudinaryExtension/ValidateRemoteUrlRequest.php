@@ -5,7 +5,7 @@ namespace CloudinaryExtension;
 class ValidateRemoteUrlRequest
 {
 
-    private $curlHandler;
+    protected $curlHandler;
 
     public function __construct($url)
     {
@@ -23,7 +23,7 @@ class ValidateRemoteUrlRequest
         return false;
     }
 
-    private function execute()
+    protected function execute()
     {
         curl_exec($this->curlHandler);
 
@@ -36,17 +36,17 @@ class ValidateRemoteUrlRequest
         return $result;
     }
 
-    private function getResponseCode()
+    protected function getResponseCode()
     {
         return curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE);
     }
 
-    private function getErrorMessage()
+    protected function getErrorMessage()
     {
         return curl_errno($this->curlHandler) ? curl_error($this->curlHandler) : null;
     }
 
-    private function setCurlOptions()
+    protected function setCurlOptions()
     {
         curl_setopt($this->curlHandler, CURLOPT_HEADER, 1);
         curl_setopt($this->curlHandler, CURLOPT_FAILONERROR, 1);

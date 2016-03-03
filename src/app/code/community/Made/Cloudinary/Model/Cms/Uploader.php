@@ -22,7 +22,7 @@ class Made_Cloudinary_Model_Cms_Uploader extends Mage_Core_Model_File_Uploader
         return $this;
     }
 
-    private function _trackSynchronisation($fileName)
+    protected function _trackSynchronisation($fileName)
     {
         Mage::getModel('made_cloudinary/cms_synchronisation')
             ->setValue($fileName)

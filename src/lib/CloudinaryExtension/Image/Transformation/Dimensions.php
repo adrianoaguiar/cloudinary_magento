@@ -4,11 +4,11 @@ namespace CloudinaryExtension\Image\Transformation;
 
 class Dimensions
 {
-    private $width;
+    protected $width;
 
-    private $height;
+    protected $height;
 
-    private function __construct($width, $height)
+    protected function __construct($width, $height)
     {
         $this->width = is_null($width) ? null : (int) round($width);
         $this->height = is_null($height) ? null : (int) round($height);

@@ -17,7 +17,7 @@ class Made_Cloudinary_Block_Adminhtml_System_Config_Signup extends Mage_Adminhtm
         }
     }
 
-    private function _environmentVariableIsPresentInConfig()
+    protected function _environmentVariableIsPresentInConfig()
     {
         $configuration = Mage::helper('made_cloudinary/configuration');
         return $configuration->getEnvironmentVariable();

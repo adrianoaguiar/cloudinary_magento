@@ -27,13 +27,13 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
 class TransformationContext implements Context
 {
 
-    private $imageProvider;
+    protected $imageProvider;
 
-    private $image;
+    protected $image;
 
-    private $imageUrl;
+    protected $imageUrl;
 
-    private $configuration;
+    protected $configuration;
 
     public function __construct()
     {
@@ -180,29 +180,29 @@ class TransformationContext implements Context
         expect($this->hasDpr($aDpr))->toBe(true);
     }
 
-    private function urlIsOptimised()
+    protected function urlIsOptimised()
     {
         return strpos($this->imageUrl, 'fetch_format=auto') !== false;
     }
 
-    private function isPercentageQuality($percentage)
+    protected function isPercentageQuality($percentage)
     {
         return strpos($this->imageUrl, "quality=$percentage") !== false;
     }
 
-    private function hasDimensions(Dimensions $dimension)
+    protected function hasDimensions(Dimensions $dimension)
     {
         $hasWidth = strpos($this->imageUrl, "width={$dimension->getWidth()}") !== false;
         $hasHeight = strpos($this->imageUrl, "height={$dimension->getHeight()}") !== false;
         return $hasWidth && $hasHeight;
     }
 
-    private function hasDefaultDpr()
+    protected function hasDefaultDpr()
     {
         return $this->hasDpr('1.0');
     }
 
-    private function hasDpr($dpr)
+    protected function hasDpr($dpr)
     {
         return strpos($this->imageUrl, "dpr=$dpr") !== false;
     }

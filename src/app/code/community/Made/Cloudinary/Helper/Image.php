@@ -9,10 +9,10 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 {
     use Made_Cloudinary_Model_PreConditionsValidator;
 
-    private $_imageProvider;
-    private $_dimensions;
-    private $_attributeName;
-    private $_configuration;
+    protected $_imageProvider;
+    protected $_dimensions;
+    protected $_attributeName;
+    protected $_configuration;
 
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
@@ -41,7 +41,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
         return parent::resize($width, $height);
     }
 
-    private function _getRequestedImageFile()
+    protected function _getRequestedImageFile()
     {
         return $this->getImageFile() ?: $this->getProduct()->getData($this->_attributeName);
     }

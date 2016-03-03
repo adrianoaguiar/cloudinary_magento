@@ -11,9 +11,9 @@ use CloudinaryExtension\ImageProvider;
 class TransformingImageProvider implements ImageProvider
 {
 
-    private $images = array();
+    protected $images = array();
 
-    private $configuration;
+    protected $configuration;
 
     public function __construct(Configuration $configuration)
     {

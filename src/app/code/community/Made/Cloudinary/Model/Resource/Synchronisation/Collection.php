@@ -12,7 +12,7 @@ class Made_Cloudinary_Model_Resource_Synchronisation_Collection
         $this->_init('made_cloudinary/synchronisation');
     }
 
-    private function _getResource()
+    protected function _getResource()
     {
         return parent::getResource();
     }

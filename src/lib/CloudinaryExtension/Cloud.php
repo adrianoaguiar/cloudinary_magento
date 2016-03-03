@@ -5,10 +5,10 @@ namespace CloudinaryExtension;
 class Cloud
 {
 
-    private $cloudName;
+    protected $cloudName;
 
 
-    private function __construct($cloudName)
+    protected function __construct($cloudName)
     {
         $this->cloudName = (string)$cloudName;
     }

@@ -10,9 +10,9 @@ use CloudinaryExtension\Security;
 
 class CloudinaryImageProvider implements ImageProvider
 {
-    private $configuration;
+    protected $configuration;
 
-    private function __construct(Configuration $configuration)
+    protected function __construct(Configuration $configuration)
     {
         $this->configuration = $configuration;
         $this->authorise();
@@ -47,13 +47,13 @@ class CloudinaryImageProvider implements ImageProvider
         Uploader::destroy($image->getId());
     }
 
-    private function authorise()
+    protected function authorise()
     {
         Cloudinary::config($this->configuration->build());
         Cloudinary::$USER_PLATFORM = $this->configuration->getUserPlatform();
     }
 
-    private function getSignedValidationUrl()
+    protected function getSignedValidationUrl()
     {
         $consoleUrl = Security\ConsoleUrl::fromPath("media_library/cms");
         return (string)Security\SignedConsoleUrl::fromConsoleUrlAndCredentials(
@@ -62,7 +62,7 @@ class CloudinaryImageProvider implements ImageProvider
         );
     }
 
-    private function validationResult($signedValidationUrl)
+    protected function validationResult($signedValidationUrl)
     {
         $request = new ValidateRemoteUrlRequest($signedValidationUrl);
         return $request->validate();
