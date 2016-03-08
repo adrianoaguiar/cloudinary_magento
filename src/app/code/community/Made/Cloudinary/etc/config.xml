@@ -32,7 +32,7 @@
                     <file_uploader>Made_Cloudinary_Model_Cms_Uploader</file_uploader>
                 </rewrite>
             </core>
-            <cloudinary_resource>
+            <made_cloudinary_resource>
                 <class>Made_Cloudinary_Model_Resource</class>
                 <entities>
                     <sync>
@@ -45,7 +45,7 @@
                         <table>catalog_product_entity_media_gallery</table>
                     </catalog_media_gallery>
                 </entities>
-            </cloudinary_resource>
+            </made_cloudinary_resource>
         </models>
         <blocks>
             <adminhtml>

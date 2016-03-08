@@ -2,9 +2,7 @@
 
 use CloudinaryExtension\Export\SyncedMediaRepo;
 
-class Made_Cloudinary_Model_Resource_Cms_Sync_Collection
-    extends Mage_Cms_Model_Wysiwyg_Images_Storage_Collection
-    implements SyncedMediaRepo
+class Made_Cloudinary_Model_Resource_Cms_Sync_Collection extends Mage_Cms_Model_Wysiwyg_Images_Storage_Collection implements SyncedMediaRepo
 {
     /**
      * @var string[]
