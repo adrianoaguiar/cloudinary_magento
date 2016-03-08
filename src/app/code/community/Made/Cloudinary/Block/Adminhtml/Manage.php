@@ -2,7 +2,7 @@
 
 class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-    protected $_migrationTask;
+    protected $_exportTask;
 
     protected $_cloudinaryConfig;
 
@@ -15,8 +15,8 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
         $this->_headerText = Mage::helper('made_cloudinary')
             ->__('Manage Cloudinary');
 
-        $this->_migrationTask = Mage::getModel('made_cloudinary/migration')
-            ->load(Made_Cloudinary_Model_Migration::CLOUDINARY_MIGRATION_ID);
+        $this->_exportTask = Mage::getModel('made_cloudinary/export')
+            ->load(Made_Cloudinary_Model_Export::CLOUDINARY_MIGRATION_ID);
 
         $this->_cloudinaryConfig = Mage::helper('made_cloudinary/config');
 
@@ -81,12 +81,12 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 
     public function getMigrateButton()
     {
-        if ($this->_migrationTask->hasStarted()) {
-            $startLabel = 'Stop Migration';
-            $startAction = 'stopMigration';
+        if ($this->_exportTask->hasStarted()) {
+            $startLabel = 'Stop Export';
+            $startAction = 'stopExport';
         } else {
-            $startLabel = 'Start Migration';
-            $startAction = 'startMigration';
+            $startLabel = 'Start Export';
+            $startAction = 'startExport';
         }
 
         return $this->_makeButton($startLabel, $startAction, $this->allImagesSynced());
@@ -96,7 +96,7 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
-                'id' => 'cloudinary_migration_start',
+                'id' => 'cloudinary_export_start',
                 'label' => $this->helper('adminhtml')->__($label),
                 'disabled' => $disabled,
                 'onclick' => "setLocation('{$this->getUrl(sprintf('*/cloudinary/%s', $action))}')"

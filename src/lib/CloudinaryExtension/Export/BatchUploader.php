@@ -1,6 +1,6 @@
 <?php
 
-namespace CloudinaryExtension\Migration;
+namespace CloudinaryExtension\Export;
 
 use CloudinaryExtension\Image;
 use CloudinaryExtension\Image\Syncable;
@@ -8,11 +8,11 @@ use CloudinaryExtension\ImageProvider;
 
 class BatchUploader
 {
-    const MESSAGE_STATUS = 'Cloudinary migration: %s images migrated';
+    const MESSAGE_STATUS = 'Cloudinary export: %s images exported';
 
-    const MESSAGE_UPLOADED = 'Cloudinary migration: uploaded %s';
+    const MESSAGE_UPLOADED = 'Cloudinary export: uploaded %s';
 
-    const MESSAGE_UPLOAD_ERROR = 'Cloudinary migration: %s trying to upload %s';
+    const MESSAGE_UPLOAD_ERROR = 'Cloudinary export: %s trying to upload %s';
 
     protected $imageProvider;
 
@@ -20,31 +20,31 @@ class BatchUploader
 
     protected $logger;
 
-    protected $migrationTask;
+    protected $exportTask;
 
-    protected $countMigrated = 0;
+    protected $countExported = 0;
 
-    public function __construct(ImageProvider $imageProvider, Task $migrationTask, Logger $logger, $baseMediaPath)
+    public function __construct(ImageProvider $imageProvider, Task $exportTask, Logger $logger, $baseMediaPath)
     {
         $this->imageProvider = $imageProvider;
-        $this->migrationTask = $migrationTask;
+        $this->exportTask = $exportTask;
         $this->baseMediaPath = $baseMediaPath;
         $this->logger = $logger;
     }
 
     public function uploadImages(array $images)
     {
-        $this->countMigrated = 0;
+        $this->countExported = 0;
 
         foreach ($images as $image) {
 
-            if ($this->migrationTask->hasBeenStopped()) {
+            if ($this->exportTask->hasBeenStopped()) {
                 break;
             }
             $this->uploadImage($image);
         }
 
-        $this->logger->notice(sprintf(self::MESSAGE_STATUS, $this->countMigrated));
+        $this->logger->notice(sprintf(self::MESSAGE_STATUS, $this->countExported));
     }
 
     protected function getAbsolutePath(Syncable $image)
@@ -57,7 +57,7 @@ class BatchUploader
         try {
             $this->imageProvider->upload(Image::fromPath($this->getAbsolutePath($image)));
             $image->tagAsSynced();
-            $this->countMigrated++;
+            $this->countExported++;
             $this->logger->notice(sprintf(self::MESSAGE_UPLOADED, $image->getFilename()));
         } catch (\Exception $e) {
             $this->logger->error(sprintf(self::MESSAGE_UPLOAD_ERROR, $e->getMessage(), $image->getFilename()));

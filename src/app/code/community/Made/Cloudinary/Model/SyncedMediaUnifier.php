@@ -1,6 +1,6 @@
 <?php
 
-use CloudinaryExtension\Migration\SyncedMediaRepo;
+use CloudinaryExtension\Export\SyncedMediaRepo;
 
 class Made_Cloudinary_Model_SyncedMediaUnifier implements SyncedMediaRepo
 {

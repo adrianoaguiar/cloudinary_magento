@@ -1,14 +1,14 @@
 <?php
 
-use CloudinaryExtension\Migration\Task;
+use CloudinaryExtension\Export\Task;
 
-class Made_Cloudinary_Model_Migration extends Mage_Core_Model_Abstract implements Task
+class Made_Cloudinary_Model_Export extends Mage_Core_Model_Abstract implements Task
 {
     const CLOUDINARY_MIGRATION_ID = 1;
 
     protected function _construct()
     {
-        $this->_init('made_cloudinary/migration');
+        $this->_init('made_cloudinary/export');
     }
 
     public function hasStarted()

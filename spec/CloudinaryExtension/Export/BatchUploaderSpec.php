@@ -1,14 +1,14 @@
 <?php
 
-namespace spec\CloudinaryExtension\Migration;
+namespace spec\CloudinaryExtension\Export;
 
 use CloudinaryExtension\Image;
 use CloudinaryExtension\Image\Syncable;
 use CloudinaryExtension\ImageProvider;
-use CloudinaryExtension\Migration\BatchUploader;
-use CloudinaryExtension\Migration\Logger;
-use CloudinaryExtension\Migration\MediaResolver;
-use CloudinaryExtension\Migration\Task;
+use CloudinaryExtension\Export\BatchUploader;
+use CloudinaryExtension\Export\Logger;
+use CloudinaryExtension\Export\MediaResolver;
+use CloudinaryExtension\Export\Task;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -16,16 +16,16 @@ class BatchUploaderSpec extends ObjectBehavior
 {
     function let(
         ImageProvider $imageProvider,
-        Task $migrationTask,
+        Task $exportTask,
         Logger $logger,
         Syncable $image1,
         Syncable $image2)
     {
-        $this->beConstructedWith($imageProvider, $migrationTask, $logger, '/catalog/media');
+        $this->beConstructedWith($imageProvider, $exportTask, $logger, '/catalog/media');
 
         $image1->tagAsSynced()->willReturn();
         $image2->tagAsSynced()->willReturn();
-        $migrationTask->hasBeenStopped()->willReturn(false, false);
+        $exportTask->hasBeenStopped()->willReturn(false, false);
     }
 
     function it_uploads_and_synchronizes_a_collection_of_images(
@@ -84,7 +84,7 @@ class BatchUploaderSpec extends ObjectBehavior
 
     function it_stops_the_upload_process_if_task_is_stopped(
         ImageProvider $imageProvider,
-        Task $migrationTask,
+        Task $exportTask,
         Logger $logger,
         Syncable $image1,
         Syncable $image2
@@ -92,7 +92,7 @@ class BatchUploaderSpec extends ObjectBehavior
         $image1->getFilename()->willReturn('/z/b/image1.jpg');
         $image2->getFilename()->willReturn('/invalid');
 
-        $migrationTask->hasBeenStopped()->willReturn(false, true);
+        $exportTask->hasBeenStopped()->willReturn(false, true);
 
         $images = array($image1, $image2);
 

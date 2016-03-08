@@ -1,6 +1,6 @@
 <?php
 
-namespace CloudinaryExtension\Migration;
+namespace CloudinaryExtension\Export;
 
 interface Logger
 {

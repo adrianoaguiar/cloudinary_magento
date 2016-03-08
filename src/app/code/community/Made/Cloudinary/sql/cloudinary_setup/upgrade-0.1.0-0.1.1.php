@@ -5,18 +5,18 @@ $installer = $this;
 $installer->startSetup();
 
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('made_cloudinary/migration'))
-    ->addColumn('cloudinary_migration_id', Varien_Db_Ddl_Table::TYPE_TINYINT, null, array(
+    ->newTable($installer->getTable('made_cloudinary/export'))
+    ->addColumn('cloudinary_export_id', Varien_Db_Ddl_Table::TYPE_TINYINT, null, array(
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
         'default'   => 1
-    ), 'Cloudinary Migration ID')
+    ), 'Cloudinary Export ID')
     ->addColumn('started', Varien_Db_Ddl_Table::TYPE_TINYINT, null, array(
         'unsigned'  => true,
         'nullable'  => false,
         'default' => 0,
-    ), 'Migration Started');
+    ), 'Export Started');
 
 $installer->getConnection()->createTable($table);
 

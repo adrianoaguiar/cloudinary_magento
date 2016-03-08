@@ -1,14 +1,14 @@
 <?php
 
-namespace CloudinaryExtension\Migration;
+namespace CloudinaryExtension\Export;
 
 class Queue
 {
-    const MESSAGE_PROCESSING = 'Cloudinary migration: processing';
+    const MESSAGE_PROCESSING = 'Cloudinary export: processing';
 
-    const MESSAGE_COMPLETE = 'Cloudinary migration: complete';
+    const MESSAGE_COMPLETE = 'Cloudinary export: complete';
 
-    protected $migrationTask;
+    protected $exportTask;
 
     protected $syncedMediaRepo;
 
@@ -17,12 +17,12 @@ class Queue
     protected $batchUploader;
 
     public function __construct(
-        Task $migrationTask,
+        Task $exportTask,
         SyncedMediaRepo $syncedMediaRepo,
         BatchUploader $batchUploader,
         Logger $logger
     ) {
-        $this->migrationTask = $migrationTask;
+        $this->exportTask = $exportTask;
         $this->syncedMediaRepo = $syncedMediaRepo;
         $this->logger = $logger;
         $this->batchUploader = $batchUploader;
@@ -30,7 +30,7 @@ class Queue
 
     public function process()
     {
-        if ($this->migrationTask->hasBeenStopped()) {
+        if ($this->exportTask->hasBeenStopped()) {
             return;
         }
 
@@ -38,7 +38,7 @@ class Queue
 
         if (!$images) {
             $this->logger->notice(self::MESSAGE_COMPLETE);
-            $this->migrationTask->stop();
+            $this->exportTask->stop();
         } else {
             $this->logger->notice(self::MESSAGE_PROCESSING);
             $this->batchUploader->uploadImages($images);

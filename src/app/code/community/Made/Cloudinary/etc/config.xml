@@ -38,9 +38,9 @@
                     <sync>
                         <table>cloudinary_sync</table>
                     </sync>
-                    <migration>
-                        <table>cloudinary_migration</table>
-                    </migration>
+                    <export>
+                        <table>cloudinary_export</table>
+                    </export>
                     <catalog_media_gallery>
                         <table>catalog_product_entity_media_gallery</table>
                     </catalog_media_gallery>

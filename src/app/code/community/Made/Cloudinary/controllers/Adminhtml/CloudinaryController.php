@@ -2,13 +2,13 @@
 
 class Made_Cloudinary_Adminhtml_CloudinaryController extends Mage_Adminhtml_Controller_Action
 {
-    protected $_migrationTask;
+    protected $_exportTask;
 
     protected $_cloudinaryConfig;
 
     public function preDispatch()
     {
-        $this->_migrationTask = Mage::getModel('made_cloudinary/migration')->load(Made_Cloudinary_Model_Migration::CLOUDINARY_MIGRATION_ID);
+        $this->_exportTask = Mage::getModel('made_cloudinary/export')->load(Made_Cloudinary_Model_Export::CLOUDINARY_MIGRATION_ID);
         $this->_cloudinaryConfig = Mage::helper('made_cloudinary/config');
 
         parent::preDispatch();
@@ -18,23 +18,23 @@ class Made_Cloudinary_Adminhtml_CloudinaryController extends Mage_Adminhtml_Cont
     {
         $layout = $this->loadLayout();
 
-        if ($this->_migrationTask->hasStarted()) {
+        if ($this->_exportTask->hasStarted()) {
             $layout->_addContent($this->_buildMetaRefreshBlock());
         }
 
         $this->renderLayout();
     }
 
-    public function startMigrationAction()
+    public function startExportAction()
     {
-        $this->_migrationTask->start();
+        $this->_exportTask->start();
 
         $this->_redirectToManageCloudinary();
     }
 
-    public function stopMigrationAction()
+    public function stopExportAction()
     {
-        $this->_migrationTask->stop();
+        $this->_exportTask->stop();
 
         $this->_redirectToManageCloudinary();
     }

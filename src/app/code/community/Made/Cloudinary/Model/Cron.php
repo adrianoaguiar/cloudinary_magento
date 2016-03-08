@@ -1,7 +1,7 @@
 <?php
 
 use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Migration\BatchUploader;
+use CloudinaryExtension\Export\BatchUploader;
 
 class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
 {
@@ -12,12 +12,12 @@ class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
 
     public function migrateImages()
     {
-        $migrationTask = Mage::getModel('made_cloudinary/migration')
-            ->load(Made_Cloudinary_Model_Migration::CLOUDINARY_MIGRATION_ID);
+        $exportTask = Mage::getModel('made_cloudinary/export')
+            ->load(Made_Cloudinary_Model_Export::CLOUDINARY_MIGRATION_ID);
 
         $batchUploader = new BatchUploader(
             CloudinaryImageProvider::fromConfig(Mage::helper('made_cloudinary/config')->buildConfig()),
-            $migrationTask,
+            $exportTask,
             Mage::getModel('made_cloudinary/logger'),
             null
         );
@@ -29,14 +29,14 @@ class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
             )
         );
 
-        $migrationQueue = new \CloudinaryExtension\Migration\Queue(
-            $migrationTask,
+        $exportQueue = new \CloudinaryExtension\Export\Queue(
+            $exportTask,
             $combinedMediaRepo,
             $batchUploader,
             Mage::getModel('made_cloudinary/logger')
         );
 
-        $migrationQueue->process();
+        $exportQueue->process();
 
         return $this;
     }

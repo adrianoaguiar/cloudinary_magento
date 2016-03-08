@@ -1,32 +1,32 @@
 <?php
 
-namespace spec\CloudinaryExtension\Migration;
+namespace spec\CloudinaryExtension\Export;
 
-use CloudinaryExtension\Migration\BatchUploader;
-use CloudinaryExtension\Migration\Logger;
-use CloudinaryExtension\Migration\Queue;
-use CloudinaryExtension\Migration\SyncedMediaRepo;
-use CloudinaryExtension\Migration\Task;
+use CloudinaryExtension\Export\BatchUploader;
+use CloudinaryExtension\Export\Logger;
+use CloudinaryExtension\Export\Queue;
+use CloudinaryExtension\Export\SyncedMediaRepo;
+use CloudinaryExtension\Export\Task;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class QueueSpec extends ObjectBehavior
 {
     function let(
-        Task $migrationTask,
+        Task $exportTask,
         SyncedMediaRepo $syncedMediaRepo,
         BatchUploader $batchUploader,
         Logger $logger
     ) {
-        $this->beConstructedWith($migrationTask, $syncedMediaRepo, $batchUploader, $logger);
+        $this->beConstructedWith($exportTask, $syncedMediaRepo, $batchUploader, $logger);
     }
 
-    function it_does_not_process_the_migration_queue_if_task_has_been_stopped(
-        Task $migrationTask,
+    function it_does_not_process_the_export_queue_if_task_has_been_stopped(
+        Task $exportTask,
         SyncedMediaRepo $syncedMediaRepo,
         Logger $logger
     ) {
-        $migrationTask->hasBeenStopped()->willReturn(true);
+        $exportTask->hasBeenStopped()->willReturn(true);
 
         $syncedMediaRepo->findUnsyncedImages()->shouldNotBeCalled();
         $logger->notice(Argument::any())->shouldNotBeCalled();
@@ -35,14 +35,14 @@ class QueueSpec extends ObjectBehavior
     }
 
 
-    function it_processes_the_migration_queue_if_task_has_been_started(
-        Task $migrationTask,
+    function it_processes_the_export_queue_if_task_has_been_started(
+        Task $exportTask,
         SyncedMediaRepo $syncedMediaRepo,
         Logger $logger,
         BatchUploader $batchUploader
     ) {
-        $migrationTask->hasBeenStopped()->willReturn(false);
-        $migrationTask->stop()->willReturn();
+        $exportTask->hasBeenStopped()->willReturn(false);
+        $exportTask->stop()->willReturn();
 
         $logger->notice(Queue::MESSAGE_PROCESSING)->shouldBeCalled();
         $syncedMediaRepo->findUnsyncedImages()->willReturn(array('image1', 'image2'));
@@ -52,17 +52,17 @@ class QueueSpec extends ObjectBehavior
         $this->process();
     }
 
-    function it_stops_the_migration_task_if_there_is_nothing_left_to_process(
-        Task $migrationTask,
+    function it_stops_the_export_task_if_there_is_nothing_left_to_process(
+        Task $exportTask,
         SyncedMediaRepo $syncedMediaRepo,
         Logger $logger,
         BatchUploader $batchUploader
     ) {
-        $migrationTask->hasBeenStopped()->willReturn(false);
+        $exportTask->hasBeenStopped()->willReturn(false);
         $syncedMediaRepo->findUnsyncedImages()->willReturn(array());
 
         $logger->notice(Queue::MESSAGE_COMPLETE)->shouldBeCalled();
-        $migrationTask->stop()->shouldBeCalled();
+        $exportTask->stop()->shouldBeCalled();
 
         $batchUploader->uploadImages(Argument::any())->shouldNotBeCalled();
 
