@@ -5,20 +5,20 @@ use CloudinaryExtension\Export\SyncedMediaRepo;
 class Made_Cloudinary_Model_SyncedMediaUnifier implements SyncedMediaRepo
 {
 
-    protected $_syncedMediaRepositories;
+    protected $_syncedMediaRepos;
     protected $_unsyncedImages = array();
 
-    public function __construct(array $syncedMediaRepositories)
+    public function __construct(array $repos)
     {
-        $this->_syncedMediaRepositories = $syncedMediaRepositories;
+        $this->_syncedMediaRepos = $repos;
     }
 
     public function findUnsyncedImages($limit = 200)
     {
-        foreach ($this->_syncedMediaRepositories as $syncedMediaRepo) {
-            $this->_unsynsedImages = array_merge(
-                $this->_unsyncsedImages,
-                $syncedMediaRepo->findUnsyncedImages()
+        foreach ($this->_syncedMediaRepos as $repo) {
+            $this->_unsyncedImages = array_merge(
+                $this->_unsyncedImages,
+                $repo->findUnsyncedImages()
             );
         }
         return array_slice($this->_unsyncedImages, 0, $limit);
