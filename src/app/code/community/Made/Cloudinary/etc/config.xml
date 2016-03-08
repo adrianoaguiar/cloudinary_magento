@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Made_Cloudinary>
-            <version>1.1.2</version>
+            <version>0.1.1</version>
         </Made_Cloudinary>
     </modules>
     <global>
@@ -32,7 +32,7 @@
                     <file_uploader>Made_Cloudinary_Model_Cms_Uploader</file_uploader>
                 </rewrite>
             </core>
-            <made_cloudinary_resource>
+            <cloudinary_resource>
                 <class>Made_Cloudinary_Model_Resource</class>
                 <entities>
                     <sync>
@@ -45,7 +45,7 @@
                         <table>catalog_product_entity_media_gallery</table>
                     </catalog_media_gallery>
                 </entities>
-            </made_cloudinary_resource>
+            </cloudinary_resource>
         </models>
         <blocks>
             <adminhtml>

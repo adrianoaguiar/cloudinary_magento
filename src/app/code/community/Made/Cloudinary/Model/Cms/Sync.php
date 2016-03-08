@@ -26,7 +26,7 @@ class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements
     {
         $this->setData('image_name', $this->getData('basename'));
         $this->setData('media_gallery_id', null);
-        $this->setData('cloudinary_sync_id', null);
+        $this->setData('id', null);
 
         $this->save();
     }

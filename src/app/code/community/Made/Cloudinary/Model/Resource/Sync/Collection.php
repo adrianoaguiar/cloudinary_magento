@@ -35,7 +35,7 @@ class Made_Cloudinary_Model_Resource_Sync_Collection extends Mage_Core_Model_Res
 
         $this->getSelect()
              ->joinRight($tableName, 'value_id=media_gallery_id', '*')
-             ->where('cloudinary_sync_id is null')
+             ->where('id is null')
              ->limit($limit)
         ;
 

@@ -82,7 +82,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
         $select->from(['a' => $syncTable], 'image_name')
             ->join(['b' => $galleryTable], 'b.value_id = a.media_gallery_id', 'entity_id')
-            ->where('a.cloudinary_sync_id is not null')
+            ->where('a.id is not null')
             ->where('b.entity_id IN (?)', $collection->getAllIds());
 
         $this->_syncCollection = $read->fetchPairs($select);
@@ -114,7 +114,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     protected function _findImageInSyncTable($imageName)
     {
         return (bool) $this->_readHandle->fetchOne(
-            'SELECT cloudinary_sync_id from ' . $this->_syncTable . ' WHERE image_name = ?', [$imageName]
+            'SELECT id from ' . $this->_syncTable . ' WHERE image_name = ?', [$imageName]
         );
     }
 

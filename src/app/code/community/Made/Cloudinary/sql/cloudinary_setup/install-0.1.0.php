@@ -6,7 +6,7 @@ $installer->startSetup();
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('made_cloudinary/sync'))
-    ->addColumn('cloudinary_sync_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
@@ -19,7 +19,7 @@ $table = $installer->getConnection()
     ), 'Media Gallery ID')
     ->addColumn('image_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255)
     ->addForeignKey(
-        'FK_MEDIA_GALLERY_ID_VALUE_ID',
+        'FK_MEDIA_GALLERY_ID_CLOUDINARY_VALUE_ID',
         'media_gallery_id',
         $installer->getTable('catalog_product_entity_media_gallery'),
         'value_id',

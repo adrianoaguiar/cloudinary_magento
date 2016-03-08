@@ -6,7 +6,7 @@ $installer->startSetup();
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('made_cloudinary/export'))
-    ->addColumn('cloudinary_export_id', Varien_Db_Ddl_Table::TYPE_TINYINT, null, array(
+    ->addColumn('id', Varien_Db_Ddl_Table::TYPE_TINYINT, null, array(
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
