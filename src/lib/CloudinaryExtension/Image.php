@@ -13,7 +13,7 @@ class Image
         $this->imagePath = $imagePath;
         //$this->pathParts = pathinfo(basename($this->imagePath));
         $this->pathParts = pathinfo($this->imagePath);
-        $this->relativeImagePath = $this->removeMediaPath($imagePath);
+        $this->relativeImagePath = $this->removeMediaPrefix($imagePath);
     }
 
     protected function removeMediaPrefix($imagePath) {
