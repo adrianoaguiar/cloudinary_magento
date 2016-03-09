@@ -10,7 +10,7 @@ class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
         Mage::helper('made_cloudinary/autoloader')->register();
     }
 
-    public function migrateImages()
+    public function exportImages()
     {
         $exportTask = Mage::getModel('made_cloudinary/export')
             ->load(Made_Cloudinary_Model_Export::CLOUDINARY_MIGRATION_ID);

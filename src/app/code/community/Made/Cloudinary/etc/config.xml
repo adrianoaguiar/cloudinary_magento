@@ -150,14 +150,14 @@
     </default>
     <crontab>
         <jobs>
-            <cloudinary_migrate>
+            <cloudinary_export>
                 <schedule>
                     <cron_expr>* * * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>made_cloudinary/cron::migrateImages</model>
+                    <model>made_cloudinary/cron::exportImages</model>
                 </run>
-            </cloudinary_migrate>
+            </cloudinary_export>
         </jobs>
     </crontab>
     <adminhtml>
