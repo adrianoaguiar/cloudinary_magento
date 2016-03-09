@@ -12,19 +12,22 @@ class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements
 
     public function getFilename()
     {
+        Mage::log(__METHOD__ . ' is totally useless');
         return $this->getData('filename');
     }
 
     public function setValue($fileName)
     {
-        $this->setData('basename', basename($fileName));
+        //$this->setData('basename', basename($fileName));
+        $this->setData('pathname', $fileName);
 
         return $this;
     }
 
     public function tagAsSynced()
     {
-        $this->setData('image_name', $this->getData('basename'));
+        $this->setData('image_name', $this->getData('pathname'));
+//        $this->setData('image_name', $this->getData('basename'));
         $this->setData('media_gallery_id', null);
         $this->setData('id', null);
 
