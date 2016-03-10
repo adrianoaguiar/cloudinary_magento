@@ -93,7 +93,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
      */
     protected function _imageShouldComeFromCloudinary($file)
     {
-        return $this->_isEnabled && $this->_isImageInCloudinary(basename($file));
+        return $this->_isEnabled && $this->_isImageInCloudinary($file);
     }
 
     protected function _isImageInCloudinary($imageName)

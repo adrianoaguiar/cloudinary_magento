@@ -5,6 +5,8 @@ use CloudinaryExtension\Image\Syncable;
 class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syncable
 {
 
+    // we could use a trait here for the remove media path stuff
+
     protected function _construct()
     {
         $this->_init('made_cloudinary/sync');
@@ -22,6 +24,7 @@ class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syn
 
     public function isImageInCloudinary($imageName)
     {
+        Mage::log($imageName);
         $this->load($imageName, 'image_name');
         return !is_null($this->getId());
     }
@@ -31,11 +34,9 @@ class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syn
         if (!$this->getValue()) {
             return null;
         }
-        return Mage::getBaseDir('media') . $this->getValue();
-        //return $this->_baseMediaPath() . $this->getValue();
+        return $this->_baseMediaPath() . $this->getValue();
     }
 
-    // NOT USED ANY MORE
     protected function _baseMediaPath()
     {
         return Mage::getModel('catalog/product_media_config')->getBaseMediaPath();

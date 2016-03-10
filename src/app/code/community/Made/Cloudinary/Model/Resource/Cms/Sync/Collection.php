@@ -16,7 +16,8 @@ class Made_Cloudinary_Model_Resource_Cms_Sync_Collection extends Mage_Cms_Model_
         $this->addTargetDir(Mage::helper('cms/wysiwyg_images')->getStorageRoot());
         $this->setItemObjectClass('made_cloudinary/cms_sync');
         $this->setFilesFilter(
-            sprintf('#^[a-z0-9\.\-\_]+\.(?:%s)$#i', implode('|', $this->allowedImgExtensions))
+//            sprintf('#^[a-z0-9\.\-\_]+\.(?:%s)$#i', implode('|', $this->allowedImgExtensions))
+            sprintf('#\.(?:%s)$#i', implode('|', $this->allowedImgExtensions))
         );
     }
 
@@ -36,11 +37,27 @@ class Made_Cloudinary_Model_Resource_Cms_Sync_Collection extends Mage_Cms_Model_
 
     public function findUnsyncedImages()
     {
-        $this->addFieldToFilter('basename', array('nin' => $this->_getSyncedImageNames()));
-
-        return $this->getItems();
+        //$this->addFieldToFilter('basename', array('nin' => $this->_getSyncedImageNames()));
+        return $this->_filterImagesByAlreadySynced($this->getItems());
     }
 
+    protected function _filterImagesByAlreadySynced($items)
+    {
+        $read  = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $table = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/sync');
+        $out   = [];
+
+        foreach($items as $item) {
+            $num = $read->fetchOne('select count(image_name) from ' . $table . ' where image_name = ?', $item->getData('image_name'));
+            if(!$num) {
+                $out[] = $item;
+            }
+        }
+        return $out;
+    }
+
+
+    // we don't use any of this stuff any more
     protected function _getSyncedImageNames()
     {
         return array_map(

@@ -17,10 +17,11 @@ class Image
     }
 
     protected function removeMediaPrefix($imagePath) {
-        if(0 === strpos($imagePath, Mage::getBaseDir('media'))) {
-            return substr($imagePath, strlen(Mage::getBaseDir('media')));
+        if(0 === strpos($imagePath, \Mage::getBaseDir('media') . DS)) {
+            return substr($imagePath, strlen(\Mage::getBaseDir('media') . DS));
         }
-        throw new Made_Cloudinary_Model_Exception_BadFilePathException("Recieved imagePath without Magento Media Prefix:" . $imagePath);
+        return $imagePath;
+        //throw new Made_Cloudinary_Model_Exception_BadFilePathException("Recieved imagePath without Magento Media Prefix:" . $imagePath);
     }
 
     public static function fromPath($anImagePath)
