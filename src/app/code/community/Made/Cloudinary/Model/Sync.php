@@ -14,18 +14,15 @@ class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syn
 
     public function tagAsSynced()
     {
-        $this->setData('image_name', $this['value']);
-//        $this->setData('image_name', basename($this['value']));
-        $this->setData('media_gallery_id', $this['value_id']);
+        $this->setData('media_path', $this->getRelativePath());
+        $this->setData('media_gallery_id', $this['value_id']);  // Made_Cloudinary_Model_Image::upload
         $this->unsetData('value_id');
-
         $this->save();
     }
 
     public function isImageInCloudinary($imageName)
     {
-        Mage::log($imageName);
-        $this->load($imageName, 'image_name');
+        $this->load($imageName, 'media_path');
         return !is_null($this->getId());
     }
 
@@ -34,11 +31,14 @@ class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syn
         if (!$this->getValue()) {
             return null;
         }
-        return $this->_baseMediaPath() . $this->getValue();
+        return Mage::getModel('catalog/product_media_config')->getBaseMediaPath() . $this->getValue();
     }
 
-    protected function _baseMediaPath()
+    public function getRelativePath()
     {
-        return Mage::getModel('catalog/product_media_config')->getBaseMediaPath();
+        if (!$this->getValue()) {
+            return null;
+        }
+        return Mage::getModel('catalog/product_media_config')->getBaseMediaUrlAddition() . $this->getValue();
     }
 }

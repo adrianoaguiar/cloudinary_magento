@@ -8,6 +8,7 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
 {
     use Made_Cloudinary_Model_PreConditionsValidator;
 
+    // THIS METHOD IS ONLY USED FOR CATALOG/PRODUCT IMAGES
     public function upload(array $imageDetails)
     {
         $imageManager = $this->_getImageProvider();
@@ -32,6 +33,7 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
         return $imageDetails[$key];
     }
 
+    // THIS IS BASICALLY catalog/product because this whole class pertains to product images (not that you would know it from the class name)
     protected function _getMediaBasePath()
     {
         return Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
@@ -44,8 +46,7 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
 
     public function getUrl($imagePath)
     {
-        $imageProvider = $this->_getImageProvider();
-        return (string)$imageProvider->transformImage(Image::fromPath($imagePath));
+        return (string)$this->_getImageProvider()->transformImage(Image::fromPath($imagePath));
     }
 
     protected function _getImageProvider()

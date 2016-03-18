@@ -18,6 +18,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     protected $_isEnabled;
     protected $_syncCollection;
     protected $_syncResults;
+    protected $_catalogProductPath;
 
     public function __construct()
     {
@@ -30,6 +31,8 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
         // remember helpers are singletons so this only ever happens once
         $this->_readHandle = Mage::getSingleton('core/resource')->getConnection('core_read');
         $this->_syncTable = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/sync');
+
+        $this->_catalogProductPath = Mage::getModel('catalog/product_media_config')->getBaseMediaPath();
     }
 
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
@@ -52,7 +55,8 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     protected function _getRequestedImageFile()
     {
-        return $this->getImageFile() ?: $this->getProduct()->getData($this->_attributeName);
+        $file = $this->getImageFile() ?: $this->getProduct()->getData($this->_attributeName);
+        return $this->_catalogProductPath . $file;
     }
 
     public function __toString()
@@ -74,22 +78,19 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     public function setProductCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $resource = Mage::getSingleton('core/resource');
-
         $galleryTable = $resource->getTableName('made_cloudinary/catalog_media_gallery');
-        $syncTable = $resource->getTableName('made_cloudinary/sync');
-        $read = $resource->getConnection('core_read');
-        $select = $read->select();
+        $select = $this->_readHandle->select();
 
-        $select->from(['a' => $syncTable], 'image_name')
+        $select->from(['a' => $this->_syncTable], 'media_path')
             ->join(['b' => $galleryTable], 'b.value_id = a.media_gallery_id', 'entity_id')
             ->where('a.id is not null')
             ->where('b.entity_id IN (?)', $collection->getAllIds());
 
-        $this->_syncCollection = $read->fetchPairs($select);
+        $this->_syncCollection = $this->_readHandle->fetchPairs($select);
     }
 
     /**
-     * Overridding trait behaviour here as image helpers are called often
+     * Overriding trait behaviour here as image helpers are called *often*, and these implementations improve speed
      */
     protected function _imageShouldComeFromCloudinary($file)
     {
@@ -114,7 +115,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     protected function _findImageInSyncTable($imageName)
     {
         return (bool) $this->_readHandle->fetchOne(
-            'SELECT id from ' . $this->_syncTable . ' WHERE image_name = ?', [$imageName]
+            'SELECT id from ' . $this->_syncTable . ' WHERE media_path = ?', [$imageName]
         );
     }
 

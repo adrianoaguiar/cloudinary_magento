@@ -10,8 +10,9 @@ class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Mo
 
     public function getMediaUrl($file)
     {
-        if ($this->_imageShouldComeFromCloudinary($file)) {
-            return $this->_getUrlForImage($file);
+        $cloudinaryFile = $this->getBaseMediaUrlAddition() . $file;
+        if ($this->_imageShouldComeFromCloudinary($cloudinaryFile)) {
+            return $this->_getUrlForImage($cloudinaryFile);
         }
 
         return parent::getMediaUrl($file);
@@ -19,8 +20,9 @@ class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Mo
 
     public function getTmpMediaUrl($file)
     {
-        if ($this->_imageShouldComeFromCloudinary($file)) {
-            return $this->_getUrlForImage($file);
+        $cloudinaryFile = $this->getBaseMediaUrlAddition() . $file;
+        if ($this->_imageShouldComeFromCloudinary($cloudinaryFile)) {
+            return $this->_getUrlForImage($cloudinaryFile);
         }
 
         return parent::getTmpMediaUrl($file);

@@ -15,10 +15,7 @@ class Made_Cloudinary_Model_Resource_Cms_Sync_Collection extends Mage_Cms_Model_
     {
         $this->addTargetDir(Mage::helper('cms/wysiwyg_images')->getStorageRoot());
         $this->setItemObjectClass('made_cloudinary/cms_sync');
-        $this->setFilesFilter(
-//            sprintf('#^[a-z0-9\.\-\_]+\.(?:%s)$#i', implode('|', $this->allowedImgExtensions))
-            sprintf('#\.(?:%s)$#i', implode('|', $this->allowedImgExtensions))
-        );
+        $this->setFilesFilter(sprintf('#\.(?:%s)$#i', implode('|', $this->allowedImgExtensions)));
     }
 
     public function addTargetDir($value)
@@ -37,7 +34,6 @@ class Made_Cloudinary_Model_Resource_Cms_Sync_Collection extends Mage_Cms_Model_
 
     public function findUnsyncedImages()
     {
-        //$this->addFieldToFilter('basename', array('nin' => $this->_getSyncedImageNames()));
         return $this->_filterImagesByAlreadySynced($this->getItems());
     }
 
@@ -48,33 +44,11 @@ class Made_Cloudinary_Model_Resource_Cms_Sync_Collection extends Mage_Cms_Model_
         $out   = [];
 
         foreach($items as $item) {
-            $num = $read->fetchOne('select count(image_name) from ' . $table . ' where image_name = ?', $item->getData('image_name'));
+            $num = $read->fetchOne('select count(media_path) from ' . $table . ' where media_path = ?', $item->getData('media_path'));
             if(!$num) {
                 $out[] = $item;
             }
         }
         return $out;
     }
-
-
-    // we don't use any of this stuff any more
-    protected function _getSyncedImageNames()
-    {
-        return array_map(
-            function ($itemData) {
-                return $itemData['image_name'];
-            },
-            $this->_getSyncedImageData()
-        );
-    }
-
-    protected function _getSyncedImageData()
-    {
-        return Mage::getResourceModel('made_cloudinary/sync_collection')
-            ->addFieldToSelect('image_name')
-            ->addFieldToFilter('media_gallery_id', array('null' => true))
-            ->distinct(true)
-            ->getData();
-    }
-
 }

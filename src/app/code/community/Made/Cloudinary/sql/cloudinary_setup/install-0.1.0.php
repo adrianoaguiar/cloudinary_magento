@@ -16,10 +16,10 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => true,
         'default' => null,
-    ), 'Media Gallery ID')
-    ->addColumn('image_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255)
+    ), 'Product Media Gallery ID')
+    ->addColumn('media_path', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255)
     ->addForeignKey(
-        'FK_MEDIA_GALLERY_ID_CLOUDINARY_VALUE_ID',
+        'FK_MEDIA_GALLERY_ID_VALUE_ID',
         'media_gallery_id',
         $installer->getTable('catalog_product_entity_media_gallery'),
         'value_id',

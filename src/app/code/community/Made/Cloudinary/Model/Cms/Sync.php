@@ -11,37 +11,37 @@ class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements
         $this->_init('made_cloudinary/sync');
     }
 
-    // only needed because this implements Syncable
-    public function getFilename()
-    {
-        return $this->getData('filename');
-    }
-
     public function setValue($fileName)
     {
-        Mage::log(__METHOD__ . ' ' . $fileName . ' GRANT XXXX THIS IS USEFUL OTHERWISE KILL ME NOW');
-        //$this->setData('basename', basename($fileName));
-        $this->setData('pathname', $this->removeMediaPrefix($fileName));
+        $this->setData('media_path', $this->removeMediaPrefix($fileName));
         return $this;
     }
 
     public function tagAsSynced()
     {
-//        $this->setData('image_name', $this->getData('pathname') ?: $this->removeMediaPrefix($this->getData('filename')));
-//        $this->setData('image_name', $this->getData('basename'));
+        if(!$this->getData('media_path')) {
+            Mage::log(__METHOD__ . ': did not have media path when trying doing tagAsSync');
+            $this->setData('media_path', $this->removeMediaPrefix($this->getData('filename')));
+        }
         $this->setData('media_gallery_id', null);
         $this->setData('id', null);
         $this->save();
     }
 
+    // this is the full filesystem path to the resource
+    // this is needed by the sync process
+    // this is set by the varien_data_collection_filesystem
+    public function getFilename()
+    {
+        return $this->getData('filename');
+    }
 
+    // we need this because of how a Varien_Data_Collection_Filesystem populates the data of the individual item records within it
     public function addData(array $arr)
     {
         parent::addData($arr);
-        $this->setData('image_name', $this->getData('pathname') ?: $this->removeMediaPrefix($this->getData('filename')));
-
-        Mage::log($this->getData('image_name'));
-
+        Mage::log(__METHOD__ . ' XXX FILENAME ' . $this->getData('filename'));
+        $this->setData('media_path', $this->getData('path') ?: $this->removeMediaPrefix($this->getData('filename')));
         return $this;
     }
 
@@ -51,6 +51,5 @@ class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements
         }
         return $imagePath;
     }
-
 
 }

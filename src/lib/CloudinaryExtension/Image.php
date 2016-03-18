@@ -11,17 +11,16 @@ class Image
     protected function __construct($imagePath)
     {
         $this->imagePath = $imagePath;
-        //$this->pathParts = pathinfo(basename($this->imagePath));
-        $this->pathParts = pathinfo($this->imagePath);
         $this->relativeImagePath = $this->removeMediaPrefix($imagePath);
+        $this->pathParts = pathinfo($this->relativeImagePath);
     }
 
+    // OK this method, unlike the rest of the lib/extension, is still a bit Magento-specific.  GRANT TODO improve me
     protected function removeMediaPrefix($imagePath) {
         if(0 === strpos($imagePath, \Mage::getBaseDir('media') . DS)) {
             return substr($imagePath, strlen(\Mage::getBaseDir('media') . DS));
         }
         return $imagePath;
-        //throw new Made_Cloudinary_Model_Exception_BadFilePathException("Recieved imagePath without Magento Media Prefix:" . $imagePath);
     }
 
     public static function fromPath($anImagePath)
@@ -36,8 +35,7 @@ class Image
 
     public function getId()
     {
-        //return $this->pathParts['filename'];
-        return $this->relativeImagePath;
+        return $this->pathParts['dirname'] . '/' . $this->pathParts['filename'];
     }
 
     public function getExtension()

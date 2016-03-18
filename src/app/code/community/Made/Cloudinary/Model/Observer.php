@@ -48,6 +48,10 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         $cloudinaryImage = Mage::getModel('made_cloudinary/image');
 
         foreach ($this->_getImagesToDelete($event->getProduct()) as $image) {
+
+            Mage::log(__METHOD__ . ' supposedly should be deleting ' . $image['file']);
+            Mage::log($image);
+
             $cloudinaryImage->deleteImage($image['file']);
         }
     }
