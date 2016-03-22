@@ -2,13 +2,11 @@
 
 class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
 {
-
     const CLOUDINARY_CONFIG_SECTION = 'cloudinary';
 
     public function loadCustomAutoloaders(Varien_Event_Observer $event)
     {
         Mage::helper('made_cloudinary/autoloader')->register();
-
         return $event;
     }
 
@@ -16,7 +14,6 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
     {
         if (Mage::helper('made_cloudinary/config')->isEnabled()) {
             $cloudinaryImage = Mage::getModel('made_cloudinary/image');
-
             foreach ($this->_getImagesToUpload($event->getProduct()) as $image) {
                 $cloudinaryImage->upload($image);
             }
@@ -46,12 +43,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
     public function deleteImagesFromCloudinary(Varien_Event_Observer $event)
     {
         $cloudinaryImage = Mage::getModel('made_cloudinary/image');
-
         foreach ($this->_getImagesToDelete($event->getProduct()) as $image) {
-
-            Mage::log(__METHOD__ . ' supposedly should be deleting ' . $image['file']);
-            Mage::log($image);
-
             $cloudinaryImage->deleteImage($image['file']);
         }
     }

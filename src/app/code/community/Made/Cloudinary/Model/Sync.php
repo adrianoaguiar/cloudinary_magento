@@ -15,7 +15,7 @@ class Made_Cloudinary_Model_Sync extends Mage_Core_Model_Abstract implements Syn
     public function tagAsSynced()
     {
         $this->setData('media_path', $this->getRelativePath());
-        $this->setData('media_gallery_id', $this['value_id']);  // Made_Cloudinary_Model_Image::upload
+        $this->setData('media_gallery_id', $this->getData('value_id'));  // Made_Cloudinary_Model_Image::upload
         $this->unsetData('value_id');
         $this->save();
     }
