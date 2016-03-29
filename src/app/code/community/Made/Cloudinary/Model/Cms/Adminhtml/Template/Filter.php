@@ -2,8 +2,7 @@
 
 use CloudinaryExtension\Image;
 
-class Made_Cloudinary_Model_Cms_Adminhtml_Template_Filter
-    extends Mage_Cms_Model_Adminhtml_Template_Filter
+class Made_Cloudinary_Model_Cms_Adminhtml_Template_Filter extends Mage_Cms_Model_Adminhtml_Template_Filter
 {
     use Made_Cloudinary_Model_PreConditionsValidator;
 
@@ -22,7 +21,7 @@ class Made_Cloudinary_Model_Cms_Adminhtml_Template_Filter
 
             $imagePath = $params['url'];
 
-            if ($this->_imageShouldComeFromCloudinary($imagePath)) {
+            if ($this->_serveFromCloud($imagePath)) {
                 return Mage::getModel('made_cloudinary/image')->getUrl($imagePath);
             }
         }

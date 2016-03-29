@@ -8,35 +8,39 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
 {
     use Made_Cloudinary_Model_PreConditionsValidator;
 
-    // THIS METHOD IS ONLY USED FOR CATALOG/PRODUCT IMAGES
-    // THIS WHOLE CLASS BASICALLY PERTAINS TO PRODUCT IMAGES ONLY, WHICH IS A BIT STUPID REALLY
-    public function upload(array $imageDetails)
+    public function uploadProductImage($imageDetails)
     {
-        $imageManager = $this->_getImageProvider();
-        $imageManager->upload(Image::fromPath($this->_getMediaPath() . $this->_getImageDetailFromKey($imageDetails, 'file')));
+        $this->_getImageProvider()->upload(
+            $this->_getImage(Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath() . $imageDetails['file'])
+        );
+
         Mage::getModel('made_cloudinary/sync')
             ->setValueId($imageDetails['value_id'])
             ->setValue($imageDetails['file'])
             ->tagAsSynced();
     }
 
-    public function deleteImage($imageName)
-    {
-        $this->_getImageProvider()->deleteImage(Image::fromPath($this->_getMediaPath() . $imageName));
-    }
-
-    public function getUrl($imagePath)
-    {
-        return (string)$this->_getImageProvider()->transformImage(Image::fromPath($this->_getMediaPath() . $imagePath));
-    }
-
     /**
-     * @return string
-     * This is a bit silly because it makes the "base class" of cloudinary syncable objects as product images
+     * @param $imageName
+     * This expects a path and filename relative to the media storage root e.g. wysiwyg/homepage/best-seller.jpg
      */
-    protected function _getMediaPath()
+    public function upload($image)
     {
-        return Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+        $this->_getImageProvider()->upload($this->_getImage($image));
+
+        Mage::getModel('made_cloudinary/sync')
+            ->setValue($imageName)
+            ->tagAsSynced();
+    }
+
+    public function deleteImage($image)
+    {
+        $this->_getImageProvider()->deleteImage($this->_getImage($image));
+    }
+
+    public function getUrl($image)
+    {
+        return (string)$this->_getImageProvider()->transformImage($this->_getImage($image));
     }
 
     protected function _getImageProvider()
@@ -44,11 +48,4 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
         return CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
     }
 
-    protected function _getImageDetailFromKey(array $imageDetails, $key)
-    {
-        if (!array_key_exists($key, $imageDetails)) {
-            throw new Made_Cloudinary_Model_Exception_BadFilePathException("Invalid image data structure. Missing " . $key);
-        }
-        return $imageDetails[$key];
-    }
 }

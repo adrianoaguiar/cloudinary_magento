@@ -12,8 +12,8 @@ class Made_Cloudinary_Model_Cms_Uploader extends Mage_Core_Model_File_Uploader
         parent::_afterSave($result);
 
         if (!empty($result['path']) && !empty($result['file'])) {
-            $imageProvider = CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
-            $imageProvider->upload(Image::fromPath($result['path'] . DS . $result['file']));
+            CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig())
+                ->upload($this->_getImage($result['path'] . DS . $result['file']));
             $this->_trackSync($result['path'] . DS . $result['file']);
         }
         return $this;

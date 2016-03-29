@@ -11,14 +11,13 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
 
     public function getThumbnailUrl($filePath, $checkFile = false)
     {
-        if ($this->_imageShouldComeFromCloudinary($filePath)) {
+        if ($this->_serveFromCloud($filePath)) {
             $imageProvider = $this->_buildImageProvider();
             $imageDimensions = $this->_buildImageDimensions();
-            $defaultTransformation = $this->_getConfigHelper()->buildConfig()->getDefaultTransformation();
+            $defaultTransformation = $this->_getConfigHelper()->buildConfig()->getDefaultTransform();
 
             return (string)$imageProvider->transformImage(
-                Image::fromPath($filePath),
-                $defaultTransformation->withDimensions($imageDimensions)
+                $this->_getImage($filePath), $defaultTransformation->withDimensions($imageDimensions)
             );
         }
         return parent::getThumbnailUrl($filePath, $checkFile);

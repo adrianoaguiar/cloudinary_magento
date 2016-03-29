@@ -31,7 +31,7 @@ class CloudinaryImageProvider implements ImageProvider
     public function transformImage(Image $image, Transformation $transformation = null)
     {
         if ($transformation === null) {
-            $transformation = $this->config->getDefaultTransformation();
+            $transformation = $this->config->getDefaultTransform();
         }
         return Image::fromPath(\cloudinary_url($image->getId(), $transformation->build()));
     }

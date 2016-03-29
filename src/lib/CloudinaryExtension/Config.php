@@ -11,7 +11,7 @@ class Config
 
     protected $cloud;
 
-    protected $defaultTransformation;
+    protected $defaultTransform;
 
     protected $cdnSubdomain = true;
 
@@ -22,7 +22,7 @@ class Config
         $this->cdnSubdomain = false;
         $this->credentials = $credentials;
         $this->cloud = $cloud;
-        $this->defaultTransformation = Transformation::builder();
+        $this->defaultTransform = Transformation::builder();
     }
 
     public static function fromCloudAndCredentials(Cloud $cloud, Credentials $credentials)
@@ -45,9 +45,9 @@ class Config
         return $this->credentials;
     }
 
-    public function getDefaultTransformation()
+    public function getDefaultTransform()
     {
-        return $this->defaultTransformation;
+        return $this->defaultTransform;
     }
 
     public function build()
@@ -56,7 +56,6 @@ class Config
         if($this->cdnSubdomain) {
             $config['cdn_subdomain'] = true;
         }
-
         return $config;
     }
 

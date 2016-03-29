@@ -11,7 +11,7 @@ class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Mo
     public function getMediaUrl($file)
     {
         $cloudinaryFile = $this->getBaseMediaUrlAddition() . $file;
-        if ($this->_imageShouldComeFromCloudinary($cloudinaryFile)) {
+        if ($this->_serveFromCloud($cloudinaryFile)) {
             return $this->_getUrlForImage($cloudinaryFile);
         }
 
@@ -21,7 +21,7 @@ class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Mo
     public function getTmpMediaUrl($file)
     {
         $cloudinaryFile = $this->getBaseMediaUrlAddition() . $file;
-        if ($this->_imageShouldComeFromCloudinary($cloudinaryFile)) {
+        if ($this->_serveFromCloud($cloudinaryFile)) {
             return $this->_getUrlForImage($cloudinaryFile);
         }
 
@@ -30,8 +30,7 @@ class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Mo
 
     protected function _getUrlForImage($file)
     {
-        $imageProvider = CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
-
-        return (string)$imageProvider->transformImage(Image::fromPath($file));
+        return (string)CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig())
+            ->transformImage($this->_getImage($file));
     }
 }

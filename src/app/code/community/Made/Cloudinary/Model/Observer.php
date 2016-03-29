@@ -15,7 +15,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         if (Mage::helper('made_cloudinary/config')->isEnabled()) {
             $cloudinaryImage = Mage::getModel('made_cloudinary/image');
             foreach ($this->_getImagesToUpload($event->getProduct()) as $image) {
-                $cloudinaryImage->upload($image);
+                $cloudinaryImage->uploadProductImage($image['file']);
             }
         }
     }
@@ -43,8 +43,9 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
     public function deleteImagesFromCloudinary(Varien_Event_Observer $event)
     {
         $cloudinaryImage = Mage::getModel('made_cloudinary/image');
+        $mediaPath = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
         foreach ($this->_getImagesToDelete($event->getProduct()) as $image) {
-            $cloudinaryImage->deleteImage($image['file']);
+            $cloudinaryImage->deleteImage($mediaPath . $image['file']);
         }
     }
 

@@ -11,7 +11,7 @@ class Made_Cloudinary_Model_Cms_Template_Filter extends Mage_Widget_Model_Templa
         if ($this->_isEnabled()) {
             $imagePath = $this->_getImagePath($construction[2]);
 
-            if ($this->_imageShouldComeFromCloudinary($imagePath)) {
+            if ($this->_serveFromCloud($imagePath)) {
                 return Mage::getModel('made_cloudinary/image')->getUrl($imagePath);
             }
         }

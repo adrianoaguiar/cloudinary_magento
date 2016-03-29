@@ -8,24 +8,34 @@ class Image
     protected $pathParts;
     protected $relativeImagePath;
 
-    protected function __construct($imagePath)
+    protected function __construct($imagePath, $pathPrefix = null)
     {
-        $this->imagePath = $imagePath;
-        $this->relativeImagePath = $this->removeMediaPrefix($imagePath);
+        $this->relativeImagePath = $this->imagePath = $imagePath;
+        if($pathPrefix) {
+            $this->relativeImagePath = $this->removePathPrefix($imagePath, $pathPrefix);
+        }
         $this->pathParts = pathinfo($this->relativeImagePath);
     }
 
-    // OK this method, unlike the rest of the lib/extension, is still a bit Magento-specific.  GRANT TODO improve me
-    protected function removeMediaPrefix($imagePath) {
-        if(0 === strpos($imagePath, \Mage::getBaseDir('media') . DS)) {
-            return substr($imagePath, strlen(\Mage::getBaseDir('media') . DS));
+    protected function removePathPrefix($imagePath, $pathPrefix) {
+
+        if(substr($pathPrefix, -1) != DIRECTORY_SEPARATOR) {
+            $pathPrefix = $pathPrefix . DIRECTORY_SEPARATOR;
+        }
+
+        if(0 === strpos($imagePath, $pathPrefix)) {
+            return substr($imagePath, strlen($pathPrefix));
         }
         return $imagePath;
     }
 
-    public static function fromPath($anImagePath)
+    public static function fromPath($imagePath, $pathPrefix = null)
     {
-        return new Image($anImagePath);
+        // TEMPORARY COMPATIBILITY SHIM GRANT TODO GRANT REMOVE ME
+        if(is_null($pathPrefix)) {
+            $pathPrefix = \Mage::getBaseDir('media');
+        }
+        return new Image($imagePath, $pathPrefix);
     }
 
     public function __toString()
@@ -41,6 +51,11 @@ class Image
     public function getExtension()
     {
         return $this->pathParts['extension'];
+    }
+
+    public function getRelativePath()
+    {
+        return $this->relativeImagePath;
     }
 
 

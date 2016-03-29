@@ -1,4 +1,7 @@
 <?php
+
+use CloudinaryExtension\Image;
+
 trait  Made_Cloudinary_Model_PreConditionsValidator
 {
     protected function _isEnabled()
@@ -6,7 +9,7 @@ trait  Made_Cloudinary_Model_PreConditionsValidator
         return $this->_getConfigHelper()->isEnabled();
     }
 
-    protected function _isImageInCloudinary($imageName)
+    protected function _isImageInCloud($imageName)
     {
         return Mage::getModel('made_cloudinary/sync')->isImageInCloudinary($imageName);
     }
@@ -16,9 +19,14 @@ trait  Made_Cloudinary_Model_PreConditionsValidator
         return Mage::helper('made_cloudinary/config');
     }
 
-    protected function _imageShouldComeFromCloudinary($file)
+    protected function _serveFromCloud($file)
     {
-        return $this->_isEnabled() && $this->_isImageInCloudinary($file);
+        return $this->_isEnabled() && $this->_isImageInCloud($file);
+    }
+
+    protected function _getImage($imagePath)
+    {
+        return Image::fromPath($imagePath, Mage::getBaseDir('media'));
     }
 }
  

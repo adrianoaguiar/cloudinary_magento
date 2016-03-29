@@ -102,7 +102,7 @@ class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
             $config->enableCdnSubdomain();
         }
 
-        $config->getDefaultTransformation()
+        $config->getDefaultTransform()
             ->withGravity(Gravity::fromString($this->getDefaultGravity()))
             ->withFetchFormat(FetchFormat::fromString($this->getFetchFormat()))
             ->withQuality(Quality::fromString($this->getImageQuality()))

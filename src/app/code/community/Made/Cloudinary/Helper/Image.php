@@ -33,6 +33,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
         $this->_syncTable = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/sync');
 
         $this->_catalogProductPath = Mage::getModel('catalog/product_media_config')->getBaseMediaPath();
+        $this->_mediaPath = Mage::getBaseDir('media');
     }
 
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
@@ -46,14 +47,14 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     public function resize($width, $height = null)
     {
-        if ($this->_imageShouldComeFromCloudinary($this->_getRequestedImageFile())) {
+        if ($this->_serveFromCloud($this->_getRequestedFile())) {
             $this->_dimensions = Dimensions::fromWidthAndHeight($width, $height ?: $width);
             return $this;
         }
         return parent::resize($width, $height);
     }
 
-    protected function _getRequestedImageFile()
+    protected function _getRequestedFile()
     {
         $file = $this->getImageFile() ?: $this->getProduct()->getData($this->_attributeName);
         return $this->_catalogProductPath . $file;
@@ -61,12 +62,12 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     public function __toString()
     {
-        $imageFile = $this->_getRequestedImageFile();
-
-        if ($this->_imageShouldComeFromCloudinary($imageFile)) {
-            $image = Image::fromPath($imageFile);
-            $transformation = $this->_config->getDefaultTransformation()->withDimensions($this->_dimensions);
-            return (string)$this->_imageProvider->transformImage($image, $transformation);
+        $image = Image::fromPath($this->_getRequestedFile(), $this->_mediaPath);
+        if ($this->_serveFromCloud($image->getRelativePath())) {
+            return (string)$this->_imageProvider->transformImage(
+                $image,
+                $this->_config->getDefaultTransform()->withDimensions($this->_dimensions)
+            );
         }
         return parent::__toString();
     }
@@ -77,8 +78,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
      */
     public function setProductCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
-        $resource = Mage::getSingleton('core/resource');
-        $galleryTable = $resource->getTableName('made_cloudinary/catalog_media_gallery');
+        $galleryTable = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/catalog_media_gallery');
         $select = $this->_readHandle->select();
 
         $select->from(['a' => $this->_syncTable], 'media_path')
@@ -92,12 +92,12 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     /**
      * Overriding trait behaviour here as image helpers are called *often*, and these implementations improve speed
      */
-    protected function _imageShouldComeFromCloudinary($file)
+    protected function _serveFromCloud($file)
     {
-        return $this->_isEnabled && $this->_isImageInCloudinary($file);
+        return $this->_isEnabled && $this->_isImageInCloud($file);
     }
 
-    protected function _isImageInCloudinary($imageName)
+    protected function _isImageInCloud($imageName)
     {
         // have we already looked up the images from the sync table using a product collection?
         if(!is_null($this->_syncCollection)) {
@@ -107,12 +107,12 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
         // if we've already had a result for this product image name, use it instead of looking it up again
         // the trait looks this up via model, but this is slow if called multiple times, so using db handle (below)
         if(!isset($this->_syncResults[$imageName])) {
-            $this->_syncResults[$imageName] = $this->_findImageInSyncTable($imageName);
+            $this->_syncResults[$imageName] = $this->_findInSyncTable($imageName);
         }
         return $this->_syncResults[$imageName];
     }
 
-    protected function _findImageInSyncTable($imageName)
+    protected function _findInSyncTable($imageName)
     {
         return (bool) $this->_readHandle->fetchOne(
             'SELECT id from ' . $this->_syncTable . ' WHERE media_path = ?', [$imageName]
