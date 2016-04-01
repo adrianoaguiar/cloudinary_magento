@@ -9,12 +9,12 @@ The following example of what to add to a `composer.json` file, in order to inst
 ```JSON
 {
     "require": {
-        "inviqa/cloudinary": "dev-master"
+        "made/cloudinary": "dev-master"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:inviqa/cloudinary.git"
+            "url": "git@github.com:madedotcom/cloudinary_magento.git"
         },
         {
             "type": "vcs",
