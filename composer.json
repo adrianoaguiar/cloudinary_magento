@@ -13,7 +13,7 @@
         "phpspec/prophecy": "1.2.*",
         "magetest/magento-behat-extension": "dev-feature/Behat3",
         "magetest/manager": "dev-master",
-        "sensiolabs/behat-page-object-extension": "*@dev",
+        "sensiolabs/behat-page-object-extension": "v2.0.0-rc1",
         "behat/mink-selenium2-driver": "*",
         "behat/mink-goutte-driver": "^1.0",
         "squizlabs/php_codesniffer": "1.*",
@@ -26,7 +26,7 @@
         "phpunit/phpunit": "3.7.*",
         "covex-nn/phpcb": "1.0.*@dev",
         "bossa/phpspec2-expect": "dev-master",
-        "ocramius/proxy-manager": "~0.5",
+        "ocramius/proxy-manager": "1.0.0",
         "symfony/dependency-injection": "2.6.4"
     },
     "config": {
@@ -48,7 +48,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "http://packages.firegento.com"
+            "url": "https://packages.firegento.com"
         }
     ],
     "extra": {
