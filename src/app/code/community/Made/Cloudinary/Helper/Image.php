@@ -89,6 +89,25 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
         $this->_syncCollection = $this->_readHandle->fetchPairs($select);
     }
 
+    /** 
+     * Set a lookup array of image names from product gallery IDS 
+     * This is so that we can avoid going to the database once per product (or 3x as per the default helper) 
+     */
+     public function setMediaGalleryCollection(Varien_Data_Collection $collection)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $galleryTable = $resource->getTableName('cloudinary_cloudinary/catalog_media_gallery');
+        $syncTable = $resource->getTableName('cloudinary_cloudinary/synchronisation'); 
+        $read = $resource->getConnection('core_read');
+        $select = $read->select(); 
+        $select->from(['a' => $syncTable], 'image_name')
+            ->join(['b' => $galleryTable], 'b.value_id = a.media_gallery_id', 'entity_id')
+            ->where('a.cloudinary_synchronisation_id is not null') 
+            ->where('b.value_id IN (?)', $collection->getAllIds());
+
+        $this->_syncCollection = $read->fetchPairs($select); 
+    }
+
     /**
      * Overriding trait behaviour here as image helpers are called *often*, and these implementations improve speed
      */
