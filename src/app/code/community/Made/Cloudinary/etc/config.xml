@@ -73,35 +73,34 @@
             </catalog>
             <made_cloudinary>
                 <class>Made_Cloudinary_Helper</class>
-
             </made_cloudinary>
         </helpers>
         <events>
             <catalog_product_save_after>
                 <observers>
-                    <upload_images_to_cloudinary>
+                    <made_upload_images_to_cloudinary>
                         <type>singleton</type>
                         <class>made_cloudinary/observer</class>
                         <method>uploadImagesToCloudinary</method>
-                    </upload_images_to_cloudinary>
+                    </made_upload_images_to_cloudinary>
                 </observers>
             </catalog_product_save_after>
             <catalog_product_save_before>
                 <observers>
-                    <delete_images_from_cloudinary>
+                    <made_delete_images_from_cloudinary>
                         <type>singleton</type>
                         <class>made_cloudinary/observer</class>
                         <method>deleteProductImagesFromCloudinary</method>
-                    </delete_images_from_cloudinary>
+                    </made_delete_images_from_cloudinary>
                 </observers>
             </catalog_product_save_before>
             <controller_front_init_before>
                 <observers>
-                    <load_custom_autoloaders>
+                    <made_load_custom_autoloaders>
                         <type>singleton</type>
                         <class>made_cloudinary/observer</class>
                         <method>loadCustomAutoloaders</method>
-                    </load_custom_autoloaders>
+                    </made_load_custom_autoloaders>
                 </observers>
             </controller_front_init_before>
         </events>
@@ -117,10 +116,10 @@
         <events>
             <model_config_data_save_before>
                 <observers>
-                    <validate_cloudinary_credentials>
+                    <made_validate_cloudinary_credentials>
                         <class>made_cloudinary/observer</class>
                         <method>validateCloudinaryCredentials</method>
-                    </validate_cloudinary_credentials>
+                    </made_validate_cloudinary_credentials>
                 </observers>
             </model_config_data_save_before>
         </events>
@@ -138,34 +137,34 @@
     </admin>
     <default>
         <cloudinary>
-            <transformations>
-                <cloudinary_fetch_format>1</cloudinary_fetch_format>
-                <cloudinary_image_quality>80</cloudinary_image_quality>
-                <cloudinary_image_dpr>1.0</cloudinary_image_dpr>
-            </transformations>
+            <transforms>
+                <fetch_format>1</fetch_format>
+                <image_quality>80</image_quality>
+                <image_dpr>1.0</image_dpr>
+            </transforms>
             <config>
-                <cloudinary_cdn_subdomain>1</cloudinary_cdn_subdomain>
+                <cdn_subdomain>1</cdn_subdomain>
             </config>
         </cloudinary>
     </default>
     <crontab>
         <jobs>
-            <cloudinary_export>
+            <made_cloudinary_export>
                 <schedule>
                     <cron_expr>* * * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>made_cloudinary/cron::exportImages</model>
                 </run>
-            </cloudinary_export>
+            </made_cloudinary_export>
         </jobs>
     </crontab>
     <adminhtml>
         <layout>
             <updates>
-                <adminhtml_cloudinary>
-                    <file>cloudinary/cloudinary.xml</file>
-                </adminhtml_cloudinary>
+                <adminhtml_made_cloudinary>
+                    <file>made/cloudinary.xml</file>
+                </adminhtml_made_cloudinary>
             </updates>
         </layout>
     </adminhtml>

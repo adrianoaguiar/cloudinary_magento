@@ -14,6 +14,10 @@ class Made_Cloudinary_Helper_Autoloader
 
     public function register()
     {
+        if(Mage::helper('core')->isModuleEnabled('Cloudinary_Cloudinary')) {
+            return; // we want these modules to live happily side-by-side, the respective autoloaders do the same thing
+        }
+
         if(!is_null($this->_registerHasRun)) {
             return;
         }
