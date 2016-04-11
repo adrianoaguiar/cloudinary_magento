@@ -4,9 +4,10 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 {
     protected $_exportTask;
     protected $_cloudinaryConfig;
-    protected $_totalProductImageCount; // no point getting this more than once
-    protected $_totalCmsImageCount;     // ditto
-    protected $_syncedImageCount;       // ditto
+    protected $_productImageCount;      // don't load from db more than once
+    protected $_cmsImageCount;          // ditto
+    protected $_syncedProductImageCount;// ditto
+    protected $_syncedCmsImageCount;    // ditto
 
     public function __construct()
     {
@@ -29,10 +30,6 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 
     public function getPercentComplete()
     {
-        Mage::log($this->getTotalImageCount());
-        Mage::log($this->getSyncedImageCount() * 100);
-        Mage::log($this->getTotalImageCount());
-
         try {
             if ($this->getTotalImageCount() != 0) {
                 return $this->getSyncedImageCount() * 100 / $this->getTotalImageCount();
@@ -44,39 +41,62 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 
     public function getSyncedImageCount()
     {
-        if(is_null($this->_syncedImageCount)) {
-            $this->_syncedImageCount = Mage::getResourceModel('made_cloudinary/sync_collection')->getSize();
+        return $this->getSyncedProductImageCount() + $this->getSyncedCmsImageCount();
+    }
+
+    public function getSyncedProductImageCount()
+    {
+        if(is_null($this->_syncedProductImageCount)) {
+            try {
+                $this->_syncedProductImageCount = Mage::getResourceModel('made_cloudinary/sync_collection')
+                    ->addFieldToFilter('media_gallery_id', ['notnull' => true])->getSize();
+            } catch (Exception $e) {
+                $this->_syncedProductImageCount = 'Unknown';
+            }
         }
-        return $this->_syncedImageCount;
+        return $this->_syncedProductImageCount;
+    }
+
+    public function getSyncedCmsImageCount()
+    {
+        if(is_null($this->_syncedCmsImageCount)) {
+            try {
+                $this->_syncedCmsImageCount = Mage::getResourceModel('made_cloudinary/sync_collection')
+                    ->addFieldToFilter('media_gallery_id', ['null' => true])->getSize();
+            } catch (Exception $e) {
+                $this->_syncedCmsImageCount = 'Unknown';
+            }
+        }
+        return $this->_syncedCmsImageCount;
     }
 
     public function getTotalImageCount()
     {
-        return $this->getTotalProductImageCount() + $this->getTotalCmsImageCount();
+        return $this->getProductImageCount() + $this->getCmsImageCount();
     }
 
-    public function getTotalProductImageCount()
+    public function getProductImageCount()
     {
-        if(is_null($this->_totalProductImageCount)) {
+        if(is_null($this->_productImageCount)) {
             try {
-                $this->_totalProductImageCount = Mage::getResourceModel('made_cloudinary/media_collection')->getSize();
+                $this->_productImageCount = Mage::getResourceModel('made_cloudinary/media_collection')->getSize();
             } catch (Exception $e) {
-                $this->_totalProductImageCount = 'Unknown';
+                $this->_productImageCount = 'Unknown';
             }
         }
-        return $this->_totalProductImageCount;
+        return $this->_productImageCount;
     }
 
-    public function getTotalCmsImageCount()
+    public function getCmsImageCount()
     {
-        if(is_null($this->_totalCmsImageCount)) {
+        if(is_null($this->_cmsImageCount)) {
             try {
-                $this->_totalCmsImageCount = Mage::getResourceModel('made_cloudinary/cms_sync_collection')->getSize();
+                $this->_cmsImageCount = Mage::getResourceModel('made_cloudinary/cms_sync_collection')->getSize();
             } catch (Exception $e) {
-                $this->_totalCmsImageCount = 'Unknown';
+                $this->_cmsImageCount = 'Unknown';
             }
         }
-        return $this->_totalCmsImageCount;
+        return $this->_cmsImageCount;
     }
 
     public function isExtensionEnabled()

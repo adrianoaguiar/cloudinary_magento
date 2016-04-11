@@ -10,25 +10,6 @@ class Made_Cloudinary_Model_Resource_Sync_Collection extends Mage_Core_Model_Res
         $this->_init('made_cloudinary/sync');
     }
 
-    protected function _getResource()
-    {
-        return parent::getResource();
-    }
-
-    protected function _getConnection()
-    {
-        $resource = $this->_getResource();
-
-        return $resource->getReadConnection();
-    }
-
-    protected function _getMainTable()
-    {
-        $resource = $this->_getResource();
-
-        return $resource->getMainTable();
-    }
-
     public function findUnsyncedImages($limit=200)
     {
         $tableName = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/catalog_media_gallery');
@@ -36,8 +17,7 @@ class Made_Cloudinary_Model_Resource_Sync_Collection extends Mage_Core_Model_Res
         $this->getSelect()
              ->joinRight($tableName, 'value_id=media_gallery_id', '*')
              ->where('id is null')
-             ->limit($limit)
-        ;
+             ->limit($limit);
 
         return $this->getItems();
     }
