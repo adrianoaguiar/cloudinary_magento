@@ -40,7 +40,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         return Mage::getModel('made_cloudinary/catalog_product_media')->newImagesForProduct($product);
     }
 
-    public function deleteImagesFromCloudinary(Varien_Event_Observer $event)
+    public function deleteProductImagesFromCloudinary(Varien_Event_Observer $event)
     {
         $cloudinaryImage = Mage::getModel('made_cloudinary/image');
         $mediaPath = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
@@ -51,8 +51,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
 
     protected function _getImagesToDelete(Mage_Catalog_Model_Product $product)
     {
-        $productMedia = Mage::getModel('made_cloudinary/catalog_product_media');
-        return $productMedia->removedImagesForProduct($product);
+        return Mage::getModel('made_cloudinary/catalog_product_media')->removedImagesForProduct($product);
     }
 
     protected function _flattenConfigData(Mage_Adminhtml_Model_Config_Data $configObject)
