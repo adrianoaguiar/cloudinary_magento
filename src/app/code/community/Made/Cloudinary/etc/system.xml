@@ -25,7 +25,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <cloudinary_env_var translate="label comment">
+                        <environment_variable translate="label comment">
                             <label>Cloudinary Account Credentials (CLOUDINARY_URL)</label>
                             <comment>Set the credentials of your Cloudinary account. Copy the credentials string from the dashboard of Cloudinary's Management Console. It is available as the Environment variable of CLOUDINARY_URL.</comment>
                             <frontend_type>password</frontend_type>
@@ -34,7 +34,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </cloudinary_env_var>
+                        </environment_variable>
                     </fields>
                 </setup>
                 <config translate="label">

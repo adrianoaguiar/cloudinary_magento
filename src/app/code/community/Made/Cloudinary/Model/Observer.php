@@ -81,7 +81,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         $cloudinaryConfig = Mage::helper('made_cloudinary/config_validation');
 
         $cloudinaryConfig->validateEnvVar(
-            $configData['cloudinary_environment_variable']
+            $configData['environment_variable']
         );
     }
 

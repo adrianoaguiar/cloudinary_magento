@@ -11,7 +11,7 @@ use CloudinaryExtension\Security\CloudinaryEnvVar;
 class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
 {
     const CONFIG_PATH_ENABLED               = 'cloudinary/cloud/enabled';
-    const CONFIG_PATH_ENVIRONMENT_VARIABLE  = 'cloudinary/setup/env_var';
+    const CONFIG_PATH_ENVIRONMENT_VARIABLE  = 'cloudinary/setup/environment_variable';
     const CONFIG_DEFAULT_GRAVITY            = 'cloudinary/transforms/gravity';
     const CONFIG_DEFAULT_QUALITY            = 'cloudinary/transforms/image_quality';
     const CONFIG_DEFAULT_DPR                = 'cloudinary/transforms/image_dpr';
