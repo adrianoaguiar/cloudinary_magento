@@ -4,8 +4,9 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 {
     protected $_exportTask;
     protected $_cloudinaryConfig;
-    protected $_totalImageCount; // no point calculating this more than once
-    protected $_syncedImageCount; // no point calculating this more than once
+    protected $_totalProductImageCount; // no point getting this more than once
+    protected $_totalCmsImageCount;     // ditto
+    protected $_syncedImageCount;       // ditto
 
     public function __construct()
     {
@@ -17,8 +18,21 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
         parent::__construct();
     }
 
+    public function allImagesSynced()
+    {
+        try {
+            return $this->getSyncedImageCount() === $this->getTotalImageCount();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public function getPercentComplete()
     {
+        Mage::log($this->getTotalImageCount());
+        Mage::log($this->getSyncedImageCount() * 100);
+        Mage::log($this->getTotalImageCount());
+
         try {
             if ($this->getTotalImageCount() != 0) {
                 return $this->getSyncedImageCount() * 100 / $this->getTotalImageCount();
@@ -38,32 +52,36 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 
     public function getTotalImageCount()
     {
-        if(is_null($this->_totalImageCount)) {
-            try {
-                $collectionCounter = Mage::getModel('made_cloudinary/collectionCounter')
-                    ->addCollection(Mage::getResourceModel('made_cloudinary/media_collection'))
-                    ->addCollection(Mage::getResourceModel('made_cloudinary/cms_sync_collection'));
+        return $this->getTotalProductImageCount() + $this->getTotalCmsImageCount();
+    }
 
-                $this->_totalImageCount = $collectionCounter->count();
+    public function getTotalProductImageCount()
+    {
+        if(is_null($this->_totalProductImageCount)) {
+            try {
+                $this->_totalProductImageCount = Mage::getResourceModel('made_cloudinary/media_collection')->getSize();
             } catch (Exception $e) {
-                $this->_totalImageCount = 'Unknown';
+                $this->_totalProductImageCount = 'Unknown';
             }
         }
-        return $this->_totalImageCount;
+        return $this->_totalProductImageCount;
+    }
+
+    public function getTotalCmsImageCount()
+    {
+        if(is_null($this->_totalCmsImageCount)) {
+            try {
+                $this->_totalCmsImageCount = Mage::getResourceModel('made_cloudinary/cms_sync_collection')->getSize();
+            } catch (Exception $e) {
+                $this->_totalCmsImageCount = 'Unknown';
+            }
+        }
+        return $this->_totalCmsImageCount;
     }
 
     public function isExtensionEnabled()
     {
         return $this->_cloudinaryConfig->isEnabled();
-    }
-
-    public function allImagesSynced()
-    {
-        try {
-            return $this->getSyncedImageCount() === $this->getTotalImageCount();
-        } catch (Exception $e) {
-            return false;
-        }
     }
 
     public function getEnableButton()

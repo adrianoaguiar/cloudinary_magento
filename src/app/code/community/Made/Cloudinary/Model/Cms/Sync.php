@@ -4,8 +4,6 @@ use CloudinaryExtension\Image\Syncable;
 
 class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements Syncable
 {
-    // we could use a trait here for the remove media path stuff
-
     protected function _construct()
     {
         $this->_init('made_cloudinary/sync');

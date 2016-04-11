@@ -20,8 +20,9 @@
             </ul>
         </div>
     <?php else: ?>
-        <p><?= $this->__('Image export progress: %s%', floor($this->getPercentComplete())) ?></p>
+        <p><?= $this->__('Image export progress: %s%%', floor($this->getPercentComplete())) ?></p>
         <p><?= $this->__('%s of %s images exported to Cloudinary.', $this->getSyncedImageCount(), $this->getTotalImageCount())?></p>
+
     <?php endif; ?>
 </p>
 
