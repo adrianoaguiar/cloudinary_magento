@@ -3,23 +3,17 @@
 class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     protected $_exportTask;
-
     protected $_cloudinaryConfig;
+    protected $_totalImageCount; // no point calculating this more than once
+    protected $_syncedImageCount; // no point calculating this more than once
 
     public function __construct()
     {
         $this->_blockGroup = 'made_cloudinary';
-
         $this->_controller = 'adminhtml_manage';
-
-        $this->_headerText = Mage::helper('made_cloudinary')
-            ->__('Manage Cloudinary');
-
-        $this->_exportTask = Mage::getModel('made_cloudinary/export')
-            ->load(Made_Cloudinary_Model_Export::CLOUDINARY_MIGRATION_ID);
-
+        $this->_headerText = Mage::helper('made_cloudinary')->__('Manage Cloudinary');
+        $this->_exportTask = Mage::getModel('made_cloudinary/export')->load(Made_Cloudinary_Model_Export::CLOUDINARY_MIGRATION_ID);
         $this->_cloudinaryConfig = Mage::helper('made_cloudinary/config');
-
         parent::__construct();
     }
 
@@ -36,20 +30,26 @@ class Made_Cloudinary_Block_Adminhtml_Manage extends Mage_Adminhtml_Block_Widget
 
     public function getSyncedImageCount()
     {
-        return Mage::getResourceModel('made_cloudinary/sync_collection')->getSize();
+        if(is_null($this->_syncedImageCount)) {
+            $this->_syncedImageCount = Mage::getResourceModel('made_cloudinary/sync_collection')->getSize();
+        }
+        return $this->_syncedImageCount;
     }
 
     public function getTotalImageCount()
     {
-        try {
-            $collectionCounter = Mage::getModel('made_cloudinary/collectionCounter')
-                ->addCollection(Mage::getResourceModel('made_cloudinary/media_collection'))
-                ->addCollection(Mage::getResourceModel('made_cloudinary/cms_sync_collection'));
+        if(is_null($this->_totalImageCount)) {
+            try {
+                $collectionCounter = Mage::getModel('made_cloudinary/collectionCounter')
+                    ->addCollection(Mage::getResourceModel('made_cloudinary/media_collection'))
+                    ->addCollection(Mage::getResourceModel('made_cloudinary/cms_sync_collection'));
 
-            return $collectionCounter->count();
-        } catch (Exception $e) {
-            return 'Unknown';
+                $this->_totalImageCount = $collectionCounter->count();
+            } catch (Exception $e) {
+                $this->_totalImageCount = 'Unknown';
+            }
         }
+        return $this->_totalImageCount;
     }
 
     public function isExtensionEnabled()

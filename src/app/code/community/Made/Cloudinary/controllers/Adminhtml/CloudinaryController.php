@@ -60,7 +60,7 @@ class Made_Cloudinary_Adminhtml_CloudinaryController extends Mage_Adminhtml_Cont
 
     protected function _buildMetaRefreshBlock()
     {
-        return $this->getLayout()->createBlock('core/text')->setText('<meta http-equiv="refresh" content="5">');
+        return $this->getLayout()->createBlock('core/text')->setText('<meta http-equiv="refresh" content="10">');
     }
 
 }

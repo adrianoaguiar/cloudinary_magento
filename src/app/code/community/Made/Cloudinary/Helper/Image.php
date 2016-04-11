@@ -19,6 +19,10 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     protected $_syncCollection;
     protected $_syncResults;
     protected $_catalogProductPath;
+    protected $_readHandle;
+    protected $_syncTable;
+    protected $_mediaPath;
+
 
     public function __construct()
     {
@@ -91,22 +95,20 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     /** 
      * Set a lookup array of image names from product gallery IDS 
-     * This is so that we can avoid going to the database once per product (or 3x as per the default helper) 
+     * This is so that we can avoid going to the database once per image 
      */
-     public function setMediaGalleryCollection(Varien_Data_Collection $collection)
+    public function setMediaGalleryCollection(Varien_Data_Collection $collection)
     {
-        $resource = Mage::getSingleton('core/resource');
-        $galleryTable = $resource->getTableName('cloudinary_cloudinary/catalog_media_gallery');
-        $syncTable = $resource->getTableName('cloudinary_cloudinary/synchronisation'); 
-        $read = $resource->getConnection('core_read');
-        $select = $read->select(); 
-        $select->from(['a' => $syncTable], 'image_name')
-            ->join(['b' => $galleryTable], 'b.value_id = a.media_gallery_id', 'entity_id')
-            ->where('a.cloudinary_synchronisation_id is not null') 
+        $galleryTable = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/catalog_media_gallery');
+        $select = $this->_readHandle->select();
+
+        $select->from(['a' => $this->_syncTable], 'image_name')
+			->join(['b' => $galleryTable], 'b.value_id = a.media_gallery_id', 'entity_id')
+            ->where('a.cloudinary_synchronisation_id is not null')
             ->where('b.value_id IN (?)', $collection->getAllIds());
 
-        $this->_syncCollection = $read->fetchPairs($select); 
-    }
+        $this->_syncCollection = $this->_readHandle->fetchPairs($select);
+	}
 
     /**
      * Overriding trait behaviour here as image helpers are called *often*, and these implementations improve speed
