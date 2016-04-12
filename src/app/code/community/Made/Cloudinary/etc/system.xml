@@ -2,7 +2,7 @@
 <config>
     <sections>
         <cloudinary translate="label">
-            <label>Cloudinary</label>
+            <label>NEW Cloudinary</label>
             <tab>service</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
