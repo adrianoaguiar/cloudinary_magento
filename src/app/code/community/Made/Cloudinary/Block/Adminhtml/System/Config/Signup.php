@@ -6,7 +6,7 @@ class Made_Cloudinary_Block_Adminhtml_System_Config_Signup extends Mage_Adminhtm
 
     protected function _construct()
     {
-        $this->setTemplate('cloudinary/system/config/signup.phtml');
+        $this->setTemplate('made_cloudinary/system/config/signup.phtml');
         parent::_construct();
     }
 

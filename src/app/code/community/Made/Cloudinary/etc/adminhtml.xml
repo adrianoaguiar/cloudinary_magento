@@ -2,11 +2,11 @@
 <config>
     <menu>
         <made_cloudinary module="made_cloudinary">
-            <title>Cloudinary</title>
+            <title>NEW Cloudinary</title>
             <sort_order>75</sort_order>
             <children>
                 <cloudinary module="made_cloudinary">
-                    <title>Manage (new made.com version)</title>
+                    <title>Manage (NEW VERSION)</title>
                     <action>adminhtml/cloudinary</action>
                 </cloudinary>
                 <console module="made_cloudinary">
@@ -38,7 +38,7 @@
                             <config>
                                 <children>
                                     <cloudinary translate="title">
-                                        <title>Cloudinary (new made.com version)</title>
+                                        <title>Cloudinary (NEW VERSION)</title>
                                         <sort_order>110</sort_order>
                                     </cloudinary>
                                 </children>
