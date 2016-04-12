@@ -16,7 +16,7 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
             $imageDimensions = $this->_buildImageDimensions();
             $defaultTransformation = $this->_getConfigHelper()->buildConfig()->getDefaultTransform();
 
-            return (string)$imageProvider->transformImage(
+            return (string)$imageProvider->getTransformedImageUrl(
                 $this->_getImage($filePath), $defaultTransformation->withDimensions($imageDimensions)
             );
         }

@@ -31,6 +31,6 @@ class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Mo
     protected function _getUrlForImage($file)
     {
         return (string)CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig())
-            ->transformImage($this->_getImage($file));
+            ->getTransformedImageUrl($this->_getImage($file));
     }
 }

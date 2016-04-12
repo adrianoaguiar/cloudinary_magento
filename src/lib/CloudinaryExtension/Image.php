@@ -31,9 +31,8 @@ class Image
 
     public static function fromPath($imagePath, $pathPrefix = null)
     {
-        // TEMPORARY COMPATIBILITY SHIM GRANT TODO GRANT REMOVE ME
         if(is_null($pathPrefix)) {
-            $pathPrefix = \Mage::getBaseDir('media');
+            Mage::log(__METHOD__ . ': 2nd arg $pathPrefix must not be null (you are probably seeing a broken image)');
         }
         return new Image($imagePath, $pathPrefix);
     }

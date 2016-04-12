@@ -15,7 +15,7 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         if (Mage::helper('made_cloudinary/config')->isEnabled()) {
             $cloudinaryImage = Mage::getModel('made_cloudinary/image');
             foreach ($this->_getImagesToUpload($event->getProduct()) as $image) {
-                $cloudinaryImage->uploadProductImage($image['file']);
+                $cloudinaryImage->uploadProductImage($image);
             }
         }
     }

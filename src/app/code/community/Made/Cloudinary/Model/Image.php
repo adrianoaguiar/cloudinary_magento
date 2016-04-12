@@ -40,7 +40,7 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
 
     public function getUrl($image)
     {
-        return (string)$this->_getImageProvider()->transformImage($this->_getImage($image));
+        return (string)$this->_getImageProvider()->getTransformedImageUrl($this->_getImage($image));
     }
 
     protected function _getImageProvider()

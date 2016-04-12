@@ -28,12 +28,12 @@ class CloudinaryImageProvider implements ImageProvider
         Uploader::upload((string)$image, array("public_id" => $image->getId()));
     }
 
-    public function transformImage(Image $image, Transformation $transformation = null)
+    public function getTransformedImageUrl(Image $image, Transformation $transformation = null)
     {
         if ($transformation === null) {
             $transformation = $this->config->getDefaultTransform();
         }
-        return Image::fromPath(\cloudinary_url($image->getId(), $transformation->build()));
+        return \cloudinary_url($image->getId(), $transformation->build());
     }
 
     public function validateCredentials()
