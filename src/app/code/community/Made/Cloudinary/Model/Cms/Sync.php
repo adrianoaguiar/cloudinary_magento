@@ -18,7 +18,6 @@ class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements
     public function tagAsSynced()
     {
         if(!$this->getData('media_path')) {
-            Mage::log(__METHOD__ . ': did not have media path when trying doing tagAsSync for ' . $this->getData('filename'));
             $this->setData('media_path', $this->removeMediaPrefix($this->getData('filename')));
         }
         $this->setData('media_gallery_id', null);
@@ -42,7 +41,7 @@ class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements
         return $this;
     }
 
-    protected function removeMediaPrefix($imagePath) {
+    public function removeMediaPrefix($imagePath) {
         if(0 === strpos($imagePath, \Mage::getBaseDir('media') . DS)) {
             return substr($imagePath, strlen(\Mage::getBaseDir('media') . DS));
         }

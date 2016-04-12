@@ -71,7 +71,7 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
 
     /**
      * Delete file (and its thumbnail if exists) from storage as per stock parent method
-     * Also remove wysiwyg image from Cloudinary
+     * Also remove wysiwyg image from Cloudinary, and remove sync table record
      *
      * @param string $target File path to be deleted
      * @return $this
@@ -79,7 +79,11 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
     public function deleteFile($target)
     {
         parent::deleteFile($target);
+        // delete from cloudinary
         Mage::getModel('made_cloudinary/image')->deleteImage($target);
+        // delete sync record
+        $sync = Mage::getModel('made_cloudinary/cms_sync');
+        $sync->load($sync->removeMediaPrefix($target), 'media_path')->delete();
         return $this;
     }
 
