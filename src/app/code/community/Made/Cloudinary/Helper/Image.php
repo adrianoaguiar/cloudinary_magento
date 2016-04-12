@@ -43,12 +43,12 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
+        parent::init($product, $attributeName, $imageFile);
         if ($this->_isEnabled) {
             $this->_dimensions = Dimensions::null();
             $this->_attributeName = $attributeName;
+            $this->_image = Image::fromPath($this->_getRequestedFile(), $this->_mediaPath);
         }
-        parent::init($product, $attributeName, $imageFile);
-        $this->_image = Image::fromPath($this->_getRequestedFile(), $this->_mediaPath);
         return $this;
     }
 
@@ -121,7 +121,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
      */
     protected function _serveFromCloud($file)
     {
-        return $this->_isEnabled && $this->_isImageInCloud($file);
+        return $this->_isEnabled and $this->_isImageInCloud($file); // NB short-circuit and operator
     }
 
     /*
