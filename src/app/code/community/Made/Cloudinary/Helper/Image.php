@@ -101,16 +101,16 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     /** 
      * Set a lookup array of image names from product gallery IDS 
-     * This is so that we can avoid going to the database once per image 
+     * This is so that we can avoid going to the database per image 
      */
     public function setMediaGalleryCollection(Varien_Data_Collection $collection)
     {
         $galleryTable = Mage::getSingleton('core/resource')->getTableName('made_cloudinary/catalog_media_gallery');
         $select = $this->_readHandle->select();
 
-        $select->from(['a' => $this->_syncTable], 'image_name')
+        $select->from(['a' => $this->_syncTable], 'media_path')
 			->join(['b' => $galleryTable], 'b.value_id = a.media_gallery_id', 'entity_id')
-            ->where('a.cloudinary_synchronisation_id is not null')
+            ->where('a.id is not null')
             ->where('b.value_id IN (?)', $collection->getAllIds());
 
         $this->_syncCollection = $this->_readHandle->fetchPairs($select);
