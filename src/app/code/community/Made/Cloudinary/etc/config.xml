@@ -105,11 +105,11 @@
             </controller_front_init_before>
         </events>
         <resources>
-            <cloudinary_setup>
+            <made_cloudinary_setup>
                 <setup>
                     <module>Made_Cloudinary</module>
                 </setup>
-            </cloudinary_setup>
+            </made_cloudinary_setup>
         </resources>
     </global>
     <adminhtml>
