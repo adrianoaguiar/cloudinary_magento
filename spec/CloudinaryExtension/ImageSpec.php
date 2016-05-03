@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\CloudinaryExtension;
+namespace spec\CloudinaryAdapter;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

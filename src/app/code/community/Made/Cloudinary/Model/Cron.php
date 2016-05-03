@@ -1,7 +1,7 @@
 <?php
 
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Export\BatchUploader;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Export\BatchUploader;
 
 class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
 {
@@ -29,7 +29,7 @@ class Made_Cloudinary_Model_Cron extends Mage_Core_Model_Abstract
             )
         );
 
-        $exportQueue = new \CloudinaryExtension\Export\Queue(
+        $exportQueue = new \CloudinaryAdapter\Export\Queue(
             $exportTask,
             $combinedMediaRepo,
             $batchUploader,

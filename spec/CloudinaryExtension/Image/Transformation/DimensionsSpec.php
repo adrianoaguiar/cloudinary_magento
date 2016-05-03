@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\CloudinaryExtension\Image\Transformation;
+namespace spec\CloudinaryAdapter\Image\Transformation;
 
-use CloudinaryExtension\Image\Transformation\Dimensions;
+use CloudinaryAdapter\Image\Transformation\Dimensions;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

@@ -1,12 +1,12 @@
 <?php
 
-use CloudinaryExtension\Config;
-use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Image\Transformation\Dpr;
-use CloudinaryExtension\Image\Transformation\FetchFormat;
-use CloudinaryExtension\Image\Transformation\Gravity;
-use CloudinaryExtension\Image\Transformation\Quality;
-use CloudinaryExtension\Security\CloudinaryEnvVar;
+use CloudinaryAdapter\Config;
+use CloudinaryAdapter\Image\Transformation;
+use CloudinaryAdapter\Image\Transformation\Dpr;
+use CloudinaryAdapter\Image\Transformation\FetchFormat;
+use CloudinaryAdapter\Image\Transformation\Gravity;
+use CloudinaryAdapter\Image\Transformation\Quality;
+use CloudinaryAdapter\Security\CloudinaryEnvVar;
 
 class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
 {

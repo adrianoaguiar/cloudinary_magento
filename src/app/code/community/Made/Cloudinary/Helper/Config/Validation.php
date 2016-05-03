@@ -1,9 +1,9 @@
 <?php
 
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Config;
-use CloudinaryExtension\Exception\InvalidCredentials;
-use CloudinaryExtension\Security\CloudinaryEnvVar;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Config;
+use CloudinaryAdapter\Exception\InvalidCredentials;
+use CloudinaryAdapter\Security\CloudinaryEnvVar;
 
 class Made_Cloudinary_Helper_Config_Validation extends Mage_Core_Helper_Abstract
 {

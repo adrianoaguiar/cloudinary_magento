@@ -2,10 +2,10 @@
 
 namespace ImageProviders;
 
-use CloudinaryExtension\Config;
-use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\ImageProvider;
+use CloudinaryAdapter\Config;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\Image\Transformation;
+use CloudinaryAdapter\ImageProvider;
 
 class ConfigImageProvider implements ImageProvider
 {

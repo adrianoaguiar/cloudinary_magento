@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\CloudinaryExtension\Image;
+namespace spec\CloudinaryAdapter\Image;
 
-use CloudinaryExtension\Image\Transformation\Dimensions;
-use CloudinaryExtension\Image\Transformation\Gravity;
-use CloudinaryExtension\Image\Transformation\FetchFormat;
-use CloudinaryExtension\Image\Transformation\Format;
-use CloudinaryExtension\Image\Transformation\Quality;
+use CloudinaryAdapter\Image\Transformation\Dimensions;
+use CloudinaryAdapter\Image\Transformation\Gravity;
+use CloudinaryAdapter\Image\Transformation\FetchFormat;
+use CloudinaryAdapter\Image\Transformation\Format;
+use CloudinaryAdapter\Image\Transformation\Quality;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -14,7 +14,7 @@ class TransformationSpec extends ObjectBehavior
 {
     function it_creates_new_transformation_builders()
     {
-        self::builder()->shouldBeAnInstanceOf('CloudinaryExtension\Image\Transformation');
+        self::builder()->shouldBeAnInstanceOf('CloudinaryAdapter\Image\Transformation');
     }
 
     function it_overrides_fetch_format_if_provided()

@@ -1,6 +1,6 @@
 <?php
 
-class Made_Cloudinary_Model_Logger extends Mage_Core_Model_Abstract implements \CloudinaryExtension\Export\Logger
+class Made_Cloudinary_Model_Logger extends Mage_Core_Model_Abstract implements \CloudinaryAdapter\Export\Logger
 {
     public function warning($message, array $context = array())
     {

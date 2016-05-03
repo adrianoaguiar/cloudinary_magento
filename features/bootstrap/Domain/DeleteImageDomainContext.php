@@ -3,9 +3,9 @@
 namespace Domain;
 
 use Behat\Behat\Context\Context;
-use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Security\CloudinaryEnvVar;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\Image\Transformation;
+use CloudinaryAdapter\Security\CloudinaryEnvVar;
 use ImageProviders\FakeImageProvider;
 
 require_once 'PHPUnit/Framework/Assert/Functions.php';

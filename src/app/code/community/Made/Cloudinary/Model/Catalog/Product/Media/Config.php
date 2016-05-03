@@ -1,8 +1,8 @@
 <?php
 
-use CloudinaryExtension\Cloud;
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Image;
+use CloudinaryAdapter\Cloud;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Image;
 
 class Made_Cloudinary_Model_Catalog_Product_Media_Config extends Mage_Catalog_Model_Product_Media_Config
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\CloudinaryExtension;
+namespace spec\CloudinaryAdapter;
 
-use CloudinaryExtension\Cloud;
-use CloudinaryExtension\Config;
-use CloudinaryExtension\Credentials;
-use CloudinaryExtension\Image\Gravity;
-use CloudinaryExtension\Image\Transformation;
+use CloudinaryAdapter\Cloud;
+use CloudinaryAdapter\Config;
+use CloudinaryAdapter\Credentials;
+use CloudinaryAdapter\Image\Gravity;
+use CloudinaryAdapter\Image\Transformation;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -24,7 +24,7 @@ class ConfigSpec extends ObjectBehavior
     {
         $transformation = $this->getDefaultTransformation();
 
-        $transformation->shouldBeAnInstanceOf('CloudinaryExtension\Image\Transformation');
+        $transformation->shouldBeAnInstanceOf('CloudinaryAdapter\Image\Transformation');
     }
 
     function it_sets_the_cdn_subdomain_flag()

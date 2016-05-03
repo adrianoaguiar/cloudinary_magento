@@ -1,6 +1,6 @@
 <?php
 
-use CloudinaryExtension\Image;
+use CloudinaryAdapter\Image;
 
 trait  Made_Cloudinary_Model_PreConditionsValidator
 {

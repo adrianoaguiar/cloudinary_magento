@@ -1,7 +1,7 @@
 <?php
 
-use CloudinaryExtension\Security\ConsoleUrl;
-use CloudinaryExtension\Security\SignedConsoleUrl;
+use CloudinaryAdapter\Security\ConsoleUrl;
+use CloudinaryAdapter\Security\SignedConsoleUrl;
 
 class Made_Cloudinary_Helper_Console extends Mage_Core_Helper_Abstract
 {

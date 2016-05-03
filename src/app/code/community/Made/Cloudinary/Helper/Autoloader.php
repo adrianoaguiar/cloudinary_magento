@@ -3,7 +3,7 @@
 
 class Made_Cloudinary_Helper_Autoloader
 {
-    const CLOUDINARY_EXTENSION_LIB_PATH = 'CloudinaryExtension';
+    const CLOUDINARY_EXTENSION_LIB_PATH = 'CloudinaryAdapter';
     const CLOUDINARY_LIB_PATH = 'Cloudinary';
     const CONVERT_CLASS_TO_PATH_REGEX = '#\\\|_(?!.*\\\)#';
 
@@ -24,13 +24,13 @@ class Made_Cloudinary_Helper_Autoloader
 
         $this->_deregisterVarienAutoloaders();
         $this->_registerCloudinaryAutoloader();
-        $this->_registerCloudinaryExtensionAutoloader();
+        $this->_registerCloudinaryAdapterAutoloader();
         $this->_reregisterVarienAutoloaders();
 
         $this->_registerHasRun = true;
     }
 
-    protected function _registerCloudinaryExtensionAutoloader()
+    protected function _registerCloudinaryAdapterAutoloader()
     {
         spl_autoload_register(
             function ($className) {

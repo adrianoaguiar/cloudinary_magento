@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\CloudinaryExtension;
+namespace spec\CloudinaryAdapter;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -15,6 +15,6 @@ class CloudSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('CloudinaryExtension\Cloud');
+        $this->shouldHaveType('CloudinaryAdapter\Cloud');
     }
 }

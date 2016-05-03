@@ -1,14 +1,14 @@
 <?php
 
-namespace spec\CloudinaryExtension\Export;
+namespace spec\CloudinaryAdapter\Export;
 
-use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Syncable;
-use CloudinaryExtension\ImageProvider;
-use CloudinaryExtension\Export\BatchUploader;
-use CloudinaryExtension\Export\Logger;
-use CloudinaryExtension\Export\MediaResolver;
-use CloudinaryExtension\Export\Task;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\Image\Syncable;
+use CloudinaryAdapter\ImageProvider;
+use CloudinaryAdapter\Export\BatchUploader;
+use CloudinaryAdapter\Export\Logger;
+use CloudinaryAdapter\Export\MediaResolver;
+use CloudinaryAdapter\Export\Task;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

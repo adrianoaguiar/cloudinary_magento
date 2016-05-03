@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\CloudinaryExtension\Export;
+namespace spec\CloudinaryAdapter\Export;
 
-use CloudinaryExtension\Export\BatchUploader;
-use CloudinaryExtension\Export\Logger;
-use CloudinaryExtension\Export\Queue;
-use CloudinaryExtension\Export\SyncedMediaRepo;
-use CloudinaryExtension\Export\Task;
+use CloudinaryAdapter\Export\BatchUploader;
+use CloudinaryAdapter\Export\Logger;
+use CloudinaryAdapter\Export\Queue;
+use CloudinaryAdapter\Export\SyncedMediaRepo;
+use CloudinaryAdapter\Export\Task;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

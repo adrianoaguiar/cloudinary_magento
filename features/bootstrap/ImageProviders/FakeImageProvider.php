@@ -2,12 +2,12 @@
 
 namespace ImageProviders;
 
-use CloudinaryExtension\Cloud;
-use CloudinaryExtension\Security\EnvVar;
-use CloudinaryExtension\Security\Key;
-use CloudinaryExtension\Security\Secret;
-use CloudinaryExtension\Image;
-use CloudinaryExtension\ImageProvider;
+use CloudinaryAdapter\Cloud;
+use CloudinaryAdapter\Security\EnvVar;
+use CloudinaryAdapter\Security\Key;
+use CloudinaryAdapter\Security\Secret;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\ImageProvider;
 
 class FakeImageProvider implements ImageProvider {
 
@@ -65,7 +65,7 @@ class FakeImageProvider implements ImageProvider {
         return (string)$this->mockCloud == (string)$this->cloud;
     }
 
-    public function transformImage(Image $image, \CloudinaryExtension\Image\Transformation $transformation)
+    public function transformImage(Image $image, \CloudinaryAdapter\Image\Transformation $transformation)
     {
         $imageName = (string)$image;
         if($this->areCredentialsCorrect() && $this->isCloudCorrect()) {

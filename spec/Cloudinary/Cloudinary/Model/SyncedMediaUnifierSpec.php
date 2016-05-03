@@ -2,8 +2,8 @@
 
 namespace spec;
 
-use CloudinaryExtension\Image\Syncable;
-use CloudinaryExtension\Export\SyncedMediaRepo;
+use CloudinaryAdapter\Image\Syncable;
+use CloudinaryAdapter\Export\SyncedMediaRepo;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -20,7 +20,7 @@ class Made_Cloudinary_Model_SyncedMediaUnifierSpec extends ObjectBehavior
 
     function it_should_be_a_repository_of_synchronised_media()
     {
-        $this->shouldHaveType('CloudinaryExtension\Export\SyncedMediaRepo');
+        $this->shouldHaveType('CloudinaryAdapter\Export\SyncedMediaRepo');
     }
 
     function it_should_combine_multiple_synchronised_media_repositories(

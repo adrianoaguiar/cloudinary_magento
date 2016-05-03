@@ -1,9 +1,9 @@
 <?php
 
-use CloudinaryExtension\Cloud;
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Transformation\Dimensions;
+use CloudinaryAdapter\Cloud;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\Image\Transformation\Dimensions;
 
 class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 {

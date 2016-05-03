@@ -3,12 +3,12 @@
 namespace Ui;
 
 use Behat\Behat\Context\Context;
-use CloudinaryExtension\Cloud;
-use CloudinaryExtension\Credentials;
-use CloudinaryExtension\Security\CloudinaryEnvVar;
-use CloudinaryExtension\Security\Key;
-use CloudinaryExtension\Security\Secret;
-use CloudinaryExtension\Image;
+use CloudinaryAdapter\Cloud;
+use CloudinaryAdapter\Credentials;
+use CloudinaryAdapter\Security\CloudinaryEnvVar;
+use CloudinaryAdapter\Security\Key;
+use CloudinaryAdapter\Security\Secret;
+use CloudinaryAdapter\Image;
 use ImageProviders\FakeImageProvider;
 use MageTest\MagentoExtension\Context\RawMagentoContext;
 use MageTest\Manager\FixtureManager;

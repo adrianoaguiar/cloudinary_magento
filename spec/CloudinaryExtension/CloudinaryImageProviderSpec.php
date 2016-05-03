@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\CloudinaryExtension;
+namespace spec\CloudinaryAdapter;
 
 use Cloudinary;
-use CloudinaryExtension\Config;
+use CloudinaryAdapter\Config;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,7 +17,7 @@ class CloudinaryImageProviderSpec extends ObjectBehavior
 
     function it_is_an_image_provider()
     {
-        $this->shouldBeAnInstanceOf('CloudinaryExtension\ImageProvider');
+        $this->shouldBeAnInstanceOf('CloudinaryAdapter\ImageProvider');
     }
 
     function it_sets_user_agent_string(Config $config)

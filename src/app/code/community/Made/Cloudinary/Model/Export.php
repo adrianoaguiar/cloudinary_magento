@@ -1,6 +1,6 @@
 <?php
 
-use CloudinaryExtension\Export\Task;
+use CloudinaryAdapter\Export\Task;
 
 class Made_Cloudinary_Model_Export extends Mage_Core_Model_Abstract implements Task
 {

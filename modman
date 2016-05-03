@@ -1,6 +1,6 @@
 src/app/code/community/Made/Cloudinary app/code/community/Made/Cloudinary
 src/app/etc/modules/Made_Cloudinary.xml app/etc/modules/Made_Cloudinary.xml
-src/lib/CloudinaryExtension lib/CloudinaryExtension
+src/lib/CloudinaryAdapter lib/CloudinaryAdapter
 ../../cloudinary/cloudinary_php/src/ lib/Cloudinary
 src/app/design/adminhtml/default/default/layout/made app/design/adminhtml/default/default/layout/made
 src/app/design/adminhtml/default/default/template/made_cloudinary app/design/adminhtml/default/default/template/made_cloudinary

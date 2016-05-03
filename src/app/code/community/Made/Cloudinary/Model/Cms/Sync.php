@@ -1,6 +1,6 @@
 <?php
 
-use CloudinaryExtension\Image\Syncable;
+use CloudinaryAdapter\Image\Syncable;
 
 class Made_Cloudinary_Model_Cms_Sync extends Mage_Core_Model_Abstract implements Syncable
 {

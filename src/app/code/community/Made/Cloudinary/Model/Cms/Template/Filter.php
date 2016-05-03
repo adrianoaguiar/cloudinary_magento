@@ -1,6 +1,6 @@
 <?php
 
-use CloudinaryExtension\Image;
+use CloudinaryAdapter\Image;
 
 class Made_Cloudinary_Model_Cms_Template_Filter extends Mage_Widget_Model_Template_Filter
 {

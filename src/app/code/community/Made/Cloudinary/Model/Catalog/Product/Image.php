@@ -1,7 +1,7 @@
 <?php
 
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Image;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Image;
 
 class Made_Cloudinary_Model_Catalog_Product_Image extends Mage_Catalog_Model_Product_Image
 {

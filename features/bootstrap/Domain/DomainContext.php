@@ -5,13 +5,13 @@ namespace Domain;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use CloudinaryExtension\Credentials;
-use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Security\CloudinaryEnvVar;
-use CloudinaryExtension\Security\Key;
-use CloudinaryExtension\Security\Secret;
-use CloudinaryExtension\Image;
-use CloudinaryExtension\Cloud;
+use CloudinaryAdapter\Credentials;
+use CloudinaryAdapter\Image\Transformation;
+use CloudinaryAdapter\Security\CloudinaryEnvVar;
+use CloudinaryAdapter\Security\Key;
+use CloudinaryAdapter\Security\Secret;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\Cloud;
 use ImageProviders\FakeImageProvider;
 
 require_once 'PHPUnit/Framework/Assert/Functions.php';

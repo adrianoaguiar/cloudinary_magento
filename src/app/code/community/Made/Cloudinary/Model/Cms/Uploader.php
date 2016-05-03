@@ -1,7 +1,7 @@
 <?php
 
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Image;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Image;
 
 class Made_Cloudinary_Model_Cms_Uploader extends Mage_Core_Model_File_Uploader
 {

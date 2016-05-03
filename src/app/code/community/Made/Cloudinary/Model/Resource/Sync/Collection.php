@@ -1,6 +1,6 @@
 <?php
 
-use CloudinaryExtension\Export\SyncedMediaRepo;
+use CloudinaryAdapter\Export\SyncedMediaRepo;
 
 class Made_Cloudinary_Model_Resource_Sync_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract implements SyncedMediaRepo
 {

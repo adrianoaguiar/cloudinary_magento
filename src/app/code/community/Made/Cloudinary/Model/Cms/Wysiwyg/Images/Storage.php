@@ -1,9 +1,9 @@
 <?php
 
-use CloudinaryExtension\CloudinaryImageProvider;
-use CloudinaryExtension\Image;
-use CloudinaryExtension\Image\Transformation;
-use CloudinaryExtension\Image\Transformation\Dimensions;
+use CloudinaryAdapter\CloudinaryImageProvider;
+use CloudinaryAdapter\Image;
+use CloudinaryAdapter\Image\Transformation;
+use CloudinaryAdapter\Image\Transformation\Dimensions;
 
 class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wysiwyg_Images_Storage
 {
