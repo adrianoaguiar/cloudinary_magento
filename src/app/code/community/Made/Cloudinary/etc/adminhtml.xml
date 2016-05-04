@@ -6,7 +6,7 @@
             <sort_order>75</sort_order>
             <children>
                 <cloudinary module="made_cloudinary">
-                    <title>Manage (NEW VERSION)</title>
+                    <title>Manage</title>
                     <action>adminhtml/cloudinary</action>
                 </cloudinary>
                 <console module="made_cloudinary">
@@ -38,7 +38,7 @@
                             <config>
                                 <children>
                                     <cloudinary translate="title">
-                                        <title>Cloudinary (NEW VERSION)</title>
+                                        <title>Cloudinary</title>
                                         <sort_order>110</sort_order>
                                     </cloudinary>
                                 </children>
