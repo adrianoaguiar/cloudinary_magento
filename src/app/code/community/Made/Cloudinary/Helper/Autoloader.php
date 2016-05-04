@@ -3,7 +3,7 @@
 
 class Made_Cloudinary_Helper_Autoloader
 {
-    const CLOUDINARY_EXTENSION_LIB_PATH = 'CloudinaryAdapter';
+    const CLOUDINARY_ADAPTER_LIB_PATH = 'CloudinaryAdapter';
     const CLOUDINARY_LIB_PATH = 'Cloudinary';
     const CONVERT_CLASS_TO_PATH_REGEX = '#\\\|_(?!.*\\\)#';
 
@@ -14,10 +14,6 @@ class Made_Cloudinary_Helper_Autoloader
 
     public function register()
     {
-        if(Mage::helper('core')->isModuleEnabled('Cloudinary_Cloudinary')) {
-            return; // we want these modules to live happily side-by-side, the respective autoloaders do the same thing
-        }
-
         if(!is_null($this->_registerHasRun)) {
             return;
         }
@@ -35,7 +31,7 @@ class Made_Cloudinary_Helper_Autoloader
         spl_autoload_register(
             function ($className) {
                 if(
-                    strpos($className, Made_Cloudinary_Helper_Autoloader::CLOUDINARY_EXTENSION_LIB_PATH . '\\') === 0 ||
+                    strpos($className, Made_Cloudinary_Helper_Autoloader::CLOUDINARY_ADAPTER_LIB_PATH . '\\') === 0 ||
                     strpos($className, Made_Cloudinary_Helper_Autoloader::CLOUDINARY_LIB_PATH . '\\') === 0
                 ) {
                     include_once preg_replace(Made_Cloudinary_Helper_Autoloader::CONVERT_CLASS_TO_PATH_REGEX, '/', $className) . '.php';
