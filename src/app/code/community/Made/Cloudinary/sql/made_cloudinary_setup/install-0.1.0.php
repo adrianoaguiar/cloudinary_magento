@@ -20,7 +20,7 @@ $table = $installer->getConnection()
     ->addColumn('media_path', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255)
     ->addIndex($installer->getIdxName('made_cloudinary/sync', array('media_path')), array('media_path'))
     ->addForeignKey(
-        'FK_MEDIA_GALLERY_ID_VALUE_ID',
+        'FK_CLOUD_MEDIA_GALLERY_ID_VALUE_ID',
         'media_gallery_id',
         $installer->getTable('catalog_product_entity_media_gallery'),
         'value_id',
