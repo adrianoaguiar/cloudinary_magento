@@ -55,7 +55,7 @@ class BatchUploader
     protected function uploadImage(Syncable $image)
     {
         try {
-            $this->imageProvider->upload(Image::fromPath($this->getAbsolutePath($image)));
+            $this->imageProvider->upload(Image::fromPath($this->getAbsolutePath($image), \Mage::getBaseDir('media')));
             $image->tagAsSynced();
             $this->countExported++;
             $this->logger->notice(sprintf(self::MESSAGE_UPLOADED, $image->getFilename()));

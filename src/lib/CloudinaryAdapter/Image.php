@@ -32,7 +32,7 @@ class Image
     public static function fromPath($imagePath, $pathPrefix = null)
     {
         if(is_null($pathPrefix)) {
-            Mage::log(__METHOD__ . ': 2nd arg $pathPrefix must not be null (you are probably seeing a broken image)');
+            \Mage::log(__METHOD__ . ': 2nd arg $pathPrefix must not be null (you are probably seeing a broken image)');
         }
         return new Image($imagePath, $pathPrefix);
     }
