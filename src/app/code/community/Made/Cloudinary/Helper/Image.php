@@ -123,7 +123,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     protected function _serveFromCloud()
     {
         // NB short-circuit "and" operators (as opposed to ||, thanks PHP)
-        return $isEnabled and $isImage and $this->_isImageInCloud($this->_image->getRelativePath());
+        return $this->_isEnabled and !is_null($this->_image) and $this->_isImageInCloud($this->_image->getRelativePath());
     }
 
     /*
