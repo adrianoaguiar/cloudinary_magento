@@ -44,6 +44,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
         parent::init($product, $attributeName, $imageFile);
+        $this->_image = null;
         if ($this->_isEnabled) {
             $this->_dimensions = Dimensions::null();
             $this->_attributeName = $attributeName;
@@ -54,7 +55,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     public function resize($width, $height = null)
     {
-        if ($this->_serveFromCloud($this->_image->getRelativePath())) {
+        if ($this->_serveFromCloud()) {
             $this->_dimensions = Dimensions::fromWidthAndHeight($width, $height ?: $width);
             return $this;
         }
@@ -73,7 +74,7 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
 
     public function __toString()
     {
-        if ($this->_serveFromCloud($this->_image->getRelativePath())) {
+        if ($this->_serveFromCloud()) {
             return (string)$this->_imageProvider->getTransformedImageUrl(
                 $this->_image,
                 $this->_config->getDefaultTransform()->withDimensions($this->_dimensions)
@@ -119,9 +120,10 @@ class Made_Cloudinary_Helper_Image extends Mage_Catalog_Helper_Image
     /**
      * Overriding trait behaviour here as image helpers are called *often*, and these implementations improve speed
      */
-    protected function _serveFromCloud($file)
+    protected function _serveFromCloud()
     {
-        return $this->_isEnabled and $this->_isImageInCloud($file); // NB short-circuit and operator
+        // NB short-circuit "and" operators (as opposed to ||, thanks PHP)
+        return $isEnabled and $isImage and $this->_isImageInCloud($this->_image->getRelativePath());
     }
 
     /*
