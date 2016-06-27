@@ -8,6 +8,7 @@ use CloudinaryAdapter\Image\Transformation\FetchFormat;
 use CloudinaryAdapter\Image\Transformation\Format;
 use CloudinaryAdapter\Image\Transformation\Gravity;
 use CloudinaryAdapter\Image\Transformation\Quality;
+use CloudinaryAdapter\Image\Transformation\Signature;
 
 class Transformation
 {
@@ -24,6 +25,8 @@ class Transformation
     protected $format;
 
     protected $dpr;
+
+    protected $signature;
 
     public function __construct()
     {
@@ -78,6 +81,13 @@ class Transformation
         return $this;
     }
 
+    public function withSignature(Signature $signature)
+    {
+        $this->signature = $signature;
+
+        return $this;
+    }
+
     public function withOptimisationDisabled()
     {
         $this->withFetchFormat(FetchFormat::fromString(''));
@@ -99,7 +109,8 @@ class Transformation
             'width' => $this->dimensions ? $this->dimensions->getWidth() : null,
             'height' => $this->dimensions ? $this->dimensions->getHeight() : null,
             'format' => (string) $this->format,
-            'dpr' => (string) $this->dpr
+            'dpr' => (string) $this->dpr,
+            'sign_url' => (string) $this->signature || $this->quality->isJpegMini()
         );
     }
 }

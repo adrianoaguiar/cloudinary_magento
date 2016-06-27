@@ -6,20 +6,22 @@ use CloudinaryAdapter\Image\Transformation\Dpr;
 use CloudinaryAdapter\Image\Transformation\FetchFormat;
 use CloudinaryAdapter\Image\Transformation\Gravity;
 use CloudinaryAdapter\Image\Transformation\Quality;
+use CloudinaryAdapter\Image\Transformation\Signature;
 use CloudinaryAdapter\Security\CloudinaryEnvVar;
 
 class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
 {
-    const CONFIG_PATH_ENABLED               = 'cloudinary/cloud/enabled';
-    const CONFIG_PATH_ENVIRONMENT_VARIABLE  = 'cloudinary/setup/environment_variable';
-    const CONFIG_DEFAULT_GRAVITY            = 'cloudinary/transforms/gravity';
-    const CONFIG_DEFAULT_QUALITY            = 'cloudinary/transforms/image_quality';
-    const CONFIG_DEFAULT_DPR                = 'cloudinary/transforms/image_dpr';
-    const CONFIG_DEFAULT_FETCH_FORMAT       = 'cloudinary/transforms/fetch_format';
-    const CONFIG_CDN_SUBDOMAIN              = 'cloudinary/config/cdn_subdomain';
-    const STATUS_ENABLED = 1;
-    const STATUS_DISABLED = 0;
-    const USER_PLATFORM_TEMPLATE = 'CloudinaryMagento/%s (Magento %s)';
+    const CONFIG_ENABLED                = 'cloudinary/config/enabled';
+    const CONFIG_ENVIRONMENT_VARIABLE   = 'cloudinary/config/environment_variable';
+    const CONFIG_CDN_SUBDOMAIN          = 'cloudinary/config/cdn_subdomain';
+    const CONFIG_GRAVITY                = 'cloudinary/transforms/gravity';
+    const CONFIG_QUALITY                = 'cloudinary/transforms/quality';
+    const CONFIG_DPR                    = 'cloudinary/transforms/dpr';
+    const CONFIG_SIGNATURE              = 'cloudinary/transforms/signature';
+    const CONFIG_FETCH_FORMAT           = 'cloudinary/transforms/fetch_format';
+    const STATUS_ENABLED                = 1;
+    const STATUS_DISABLED               = 0;
+    const USER_PLATFORM_TEMPLATE        = 'CloudinaryMagento/%s (Magento %s)';
 
     public function buildCredentials()
     {
@@ -29,27 +31,32 @@ class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
 
     public function getEnvVar()
     {
-        return Mage::helper('core')->decrypt(Mage::getStoreConfig(self::CONFIG_PATH_ENVIRONMENT_VARIABLE));
+        return Mage::helper('core')->decrypt(Mage::getStoreConfig(self::CONFIG_ENVIRONMENT_VARIABLE));
     }
 
-    public function getDefaultGravity()
+    public function getGravity()
     {
-        return (string)Mage::getStoreConfig(self::CONFIG_DEFAULT_GRAVITY);
+        return (string)Mage::getStoreConfig(self::CONFIG_GRAVITY);
     }
 
     public function getFetchFormat()
     {
-        return Mage::getStoreConfig(self::CONFIG_DEFAULT_FETCH_FORMAT) === "1" ? FetchFormat::FETCH_FORMAT_AUTO : null;
+        return Mage::getStoreConfig(self::CONFIG_FETCH_FORMAT) === "1" ? FetchFormat::FETCH_FORMAT_AUTO : null;
     }
 
-    public function getImageQuality()
+    public function getQuality()
     {
-        return (string)Mage::getStoreConfig(self::CONFIG_DEFAULT_QUALITY);
+        return (string)Mage::getStoreConfig(self::CONFIG_QUALITY);
     }
 
-    public function getImageDpr()
+    public function getDpr()
     {
-        return (string)Mage::getStoreConfig(self::CONFIG_DEFAULT_DPR);
+        return (string)Mage::getStoreConfig(self::CONFIG_DPR);
+    }
+
+    public function getSignature()
+    {
+        return (string)Mage::getStoreConfig(self::CONFIG_SIGNATURE);
     }
 
     public function getCdnSubdomainFlag()
@@ -59,17 +66,17 @@ class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
 
     public function isEnabled()
     {
-        return (boolean)Mage::getStoreConfig(self::CONFIG_PATH_ENABLED);
+        return (boolean)Mage::getStoreConfig(self::CONFIG_ENABLED);
     }
 
     public function enable()
     {
-        $this->_setStoreConfig(self::CONFIG_PATH_ENABLED, self::STATUS_ENABLED);
+        $this->_setStoreConfig(self::CONFIG_ENABLED, self::STATUS_ENABLED);
     }
 
     public function disable()
     {
-        $this->_setStoreConfig(self::CONFIG_PATH_ENABLED, self::STATUS_DISABLED);
+        $this->_setStoreConfig(self::CONFIG_ENABLED, self::STATUS_DISABLED);
     }
 
     public function getUserPlatform()
@@ -94,10 +101,11 @@ class Made_Cloudinary_Helper_Config extends Mage_Core_Helper_Abstract
         }
 
         $config->getDefaultTransform()
-            ->withGravity(Gravity::fromString($this->getDefaultGravity()))
+            ->withGravity(Gravity::fromString($this->getGravity()))
             ->withFetchFormat(FetchFormat::fromString($this->getFetchFormat()))
-            ->withQuality(Quality::fromString($this->getImageQuality()))
-            ->withDpr(Dpr::fromString($this->getImageDpr()))
+            ->withQuality(Quality::fromString($this->getQuality()))
+            ->withDpr(Dpr::fromString($this->getDpr()))
+            ->withSignature(Signature::fromString($this->getSignature()))
         ;
 
         return $config;

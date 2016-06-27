@@ -59,12 +59,12 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         $configData = array();
         $groups = $configObject->getGroups();
 
-        if ($this->_containsSetup($groups)) {
+        if ($this->_containsConfig($groups)) {
             $configData = array_map(
                 function($field) {
                     return $field['value'];
                 },
-                $groups['setup']['fields']
+                $groups['config']['fields']
             );
         }
         return $configData;
@@ -95,8 +95,8 @@ class Made_Cloudinary_Model_Observer extends Mage_Core_Model_Abstract
         Mage::logException($e);
     }
 
-    protected function _containsSetup($groups)
+    protected function _containsConfig($groups)
     {
-        return array_key_exists('setup', $groups);
+        return array_key_exists('config', $groups);
     }
 }

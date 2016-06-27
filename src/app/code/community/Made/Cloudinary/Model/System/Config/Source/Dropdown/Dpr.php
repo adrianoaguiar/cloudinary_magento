@@ -10,6 +10,10 @@ class Made_Cloudinary_Model_System_Config_Source_Dropdown_Dpr
                 'label' => '1.0',
             ),
             array(
+                'value' => '1.5',
+                'label' => '1.5',
+            ),
+            array(
                 'value' => '2.0',
                 'label' => '2.0',
             ),

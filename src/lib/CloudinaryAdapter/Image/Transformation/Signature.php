@@ -2,7 +2,7 @@
 
 namespace CloudinaryAdapter\Image\Transformation;
 
-class Quality
+class Signature
 {
     protected $value;
 
@@ -13,16 +13,11 @@ class Quality
 
     public static function fromString($value)
     {
-        return new Quality($value);
+        return new Signature($value);
     }
 
     public function __toString()
     {
         return $this->value;
-    }
-
-    public function isJpegMini()
-    {
-        return $this->value == 'jpegmini';
     }
 }

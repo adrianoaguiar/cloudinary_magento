@@ -139,8 +139,9 @@
         <cloudinary>
             <transforms>
                 <fetch_format>1</fetch_format>
-                <image_quality>80</image_quality>
-                <image_dpr>1.0</image_dpr>
+                <quality>80</quality>
+                <dpr>1.0</dpr>
+                <signature>0</signature>
             </transforms>
             <config>
                 <cdn_subdomain>1</cdn_subdomain>
