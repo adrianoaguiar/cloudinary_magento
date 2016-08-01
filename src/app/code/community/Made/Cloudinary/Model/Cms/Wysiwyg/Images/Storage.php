@@ -36,7 +36,7 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
         );
     }
 
-    public function uploadFile($targetPath, $type = null)
+    public function uploadFile($targetPath, $type = null, $newFilename = null)
     {
 
         if(!$this->_getConfigHelper()->isEnabled()) {
@@ -49,7 +49,7 @@ class Made_Cloudinary_Model_Cms_Wysiwyg_Images_Storage extends Mage_Cms_Model_Wy
         }
         $uploader->setAllowRenameFiles(true);
         $uploader->setFilesDispersion(false);
-        $result = $uploader->save($targetPath);
+        $result = $uploader->save($targetPath, $newFilename);
 
         if (!$result) {
             Mage::throwException( Mage::helper('cms')->__('Cannot upload file.') );

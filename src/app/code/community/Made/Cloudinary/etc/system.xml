@@ -65,7 +65,7 @@
                         </fetch_format>
                         <quality>
                             <label>Image Quality</label>
-                            <comment>Adjust quality of generated images to balance between visual quality and file size minimization. The quality is relevant for JPEG and WebP compression levels.  You will need to enable the JPEGmini plugin in your Cloudinary account if you wish to use JPEGmini.</comment>
+                            <comment>Adjust quality of generated images to balance between visual quality and file size minimization. The quality is relevant for JPEG, WebP, JPEG-XR compression levels.  "Auto" is STRONGLY recommended.  You will need to enable the JPEGmini plugin in your Cloudinary account if you wish to use JPEGmini.</comment>
                             <frontend_type>select</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>

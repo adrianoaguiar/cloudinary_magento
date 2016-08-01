@@ -8,6 +8,8 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
 {
     use Made_Cloudinary_Model_PreConditionsValidator;
 
+    protected $_config;
+
     public function uploadProductImage($imageDetails)
     {
         $this->_getImageProvider()->upload(
@@ -38,14 +40,28 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
         $this->_getImageProvider()->deleteImage($this->_getImage($image));
     }
 
-    public function getUrl($image)
+    public function getUrl($image, Image\Transformation\Dimensions $dimensions = null)
     {
+        if(!is_null($dimensions)) {
+            return (string)$this->_getImageProvider()->getTransformedImageUrl(
+                $this->_getImage($image),
+                $this->_getConfig()->getDefaultTransform()->withDimensions($dimensions)
+            );
+        }
         return (string)$this->_getImageProvider()->getTransformedImageUrl($this->_getImage($image));
     }
 
     protected function _getImageProvider()
     {
-        return CloudinaryImageProvider::fromConfig($this->_getConfigHelper()->buildConfig());
+        return CloudinaryImageProvider::fromConfig($this->_getConfig());
+    }
+
+    protected function _getConfig()
+    {
+        if(is_null($this->_config)) {
+            $this->_config = $this->_getConfigHelper()->buildConfig();
+        }
+        return $this->_config;
     }
 
 }
