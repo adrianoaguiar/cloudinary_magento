@@ -23,32 +23,32 @@ class Made_Cloudinary_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param $imageName
-     * This expects a path and filename relative to the media storage root e.g. wysiwyg/homepage/best-seller.jpg
+     * @param $imagePath path and filename relative to the media storage root e.g. catalog/product/p/r/product.jpg
      */
-    public function upload($image)
+    public function upload($imagePath)
     {
-        $this->_getImageProvider()->upload($this->_getImage($image));
+        $this->_getImageProvider()->upload($this->_getImage($imagePath));
 
         Mage::getModel('made_cloudinary/sync')
-            ->setValue($imageName)
+            ->setValue($imagePath)
             ->tagAsSynced();
     }
 
-    public function deleteImage($image)
+    /**
+     * @param $imagePath path and filename relative to the media storage root e.g. wysiwyg/homepage/best-seller.jpg
+     */
+    public function deleteImage($imagePath)
     {
-        $this->_getImageProvider()->deleteImage($this->_getImage($image));
+        $this->_getImageProvider()->deleteImage($this->_getImage($imagePath));
     }
 
-    public function getUrl($image, Image\Transformation\Dimensions $dimensions = null)
+    /**
+     * @param $imagePath path and filename relative to the media storage root e.g. catalog/product/p/r/product.jpg
+     * @param $transform optional instance of CloudinaryAdapter\Image\Transformation
+     */
+    public function getUrl($imagePath, Image\Transformation $transform = null)
     {
-        if(!is_null($dimensions)) {
-            return (string)$this->_getImageProvider()->getTransformedImageUrl(
-                $this->_getImage($image),
-                $this->_getConfig()->getDefaultTransform()->withDimensions($dimensions)
-            );
-        }
-        return (string)$this->_getImageProvider()->getTransformedImageUrl($this->_getImage($image));
+        return (string)$this->_getImageProvider()->getTransformedImageUrl($this->_getImage($imagePath), $transform);
     }
 
     protected function _getImageProvider()
