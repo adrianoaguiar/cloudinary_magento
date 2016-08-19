@@ -42,8 +42,16 @@ class Made_Cloudinary_Model_System_Config_Source_Dropdown_Quality
                 'label' => '100%',
             ),
             array(
-                'value' => 'auto',
-                'label' => 'Auto (best choice for most usages)',
+                'value' => 'auto:eco',
+                'label' => 'Auto (eco - smaller file sizes)',
+            ),
+            array(
+                'value' => 'auto:good',
+                'label' => 'Auto (standard)',
+            ),
+            array(
+                'value' => 'auto:best',
+                'label' => 'Auto (best quality)',
             ),
             array(
                 'value' => 'jpegmini',
